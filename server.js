@@ -59,7 +59,7 @@ client.end();
 
 //metodo que pinta todo en el angular
 app.get("/partidas", urlencodedParser, (req, res) => {
-  res.json({ status: "success", message: process.env });
+  res.json({ status: "success", message: process.env.DATABASE_URL });
 });
 
 
