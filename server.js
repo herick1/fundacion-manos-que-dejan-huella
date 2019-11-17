@@ -46,22 +46,17 @@ app.use(bodyParser.json());
 
 
 app.get("/jugador", urlencodedParser, (req, res) => {
-  console.log(" GET /jugador:");
+  console.log(" GET /prueba:");
   client.connect();
 
-client.query('SELECT table_schema,table_name FROM information_schema.tables;'
-  , (err, res) => {
+client.query('SELECT * FROM PRUEBA;'
+  , (err, response) => {
   if (err) throw err;
-  res.json(res.rows)
-});
-client.end();
-});
-
-//metodo que pinta todo en el angular
-app.get("/partidas", urlencodedParser, (req, res) => {
-  res.json({ status: "success", message: process.env.DATABASE_URL });
+  res.json(response.rows)
+ // client.end();
 });
 
+});
 
 
 
