@@ -52,30 +52,14 @@ app.get("/jugador", urlencodedParser, (req, res) => {
 client.query('SELECT table_schema,table_name FROM information_schema.tables;'
   , (err, res) => {
   if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-    res.json({ status: "success", message: JSON.stringify(row) });
-  }
-  client.end();
+  res.json(res.rows)
 });
+client.end();
 });
 
 //metodo que pinta todo en el angular
 app.get("/partidas", urlencodedParser, (req, res) => {
-  res.json({ status: "success", message: process.env.DATABASE_URL });
-});
-
-app.get("/tablas", urlencodedParser, (req, res) => {
-  console.log(" GET /jugador:");
-  client.connect();
-
-client.query('SELECT table_schema,table_name FROM information_schema.tables;'
-  , (err, res) => {
-  if (err) throw err;
-    console.log(JSON.stringify(res));
-    res.json({ status: "success", message: JSON.stringify(row) });
-  client.end();
-});
+  res.json({ status: "success", message: process.env });
 });
 
 
