@@ -9,6 +9,14 @@ const ip = require("ip");
 var app = express();
 
 const path = require('path');
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+
+
 /*
 app.use(express.static(__dirname+'/dist/photo-rc1'));
 app.get('/',function(req,res){
@@ -39,12 +47,21 @@ app.use(bodyParser.json());
 
 app.get("/jugador", urlencodedParser, (req, res) => {
   console.log(" GET /jugador:");
-  res.json({ status: "success", message: YO });
+  client.connect();
+
+client.query('SELECT * FROM prueba;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
+  res.json({ status: "success", message: res.rows });
 });
 
 //metodo que pinta todo en el angular
 app.get("/partidas", urlencodedParser, (req, res) => {
-  res.json({ status: "success", message: partidas });
+  res.json({ status: "success", message: process.env.DATABASE_URL });
 });
 
 
