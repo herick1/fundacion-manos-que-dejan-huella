@@ -1,6 +1,8 @@
-# Ionic v4 Tutorial: Photo Gallery app
+# WEB FUNDACION MANOS QUE DEJAN HUELLA
+# basado en Ionic v4 Tutorial: Photo Gallery app
 
-A tutorial app that walks the user through creating a Photo Gallery app. We begin with the Ionic "tabs" starter app, incrementally converting the About tab to a Photo Gallery experience.
+
+Aplicacion web para la fundacion manos que dejan huella.
 
 ## Structure
 The complete source code is contained within. Please follow along with the [complete guide here](https://ionicframework.com/docs/angular/your-first-app).
