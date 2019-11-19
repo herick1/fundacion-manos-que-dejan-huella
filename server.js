@@ -62,21 +62,7 @@ client.query('SELECT * FROM PRUEBA;'
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-   if (fs.existsSync? fs.existsSync(`/`, {root: 'www'}) : path.existsSync(`/`, {root: 'www'})) 
-  {
     res.sendFile(`/`, {root: 'www'});
-  }
-  else
-  {
-       res.statusCode = 404;
-       res.write('404 sorry not found');
-       res.end();
-  }
-});
-
-
-app.get("/*", (req, res) => {
-  res.status(404).send();
 });
 
 app.post("/*", (req, res) => {
