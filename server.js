@@ -63,12 +63,12 @@ client.query('SELECT * FROM PRUEBA;'
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-  fs.access(`/`, {root: 'www'}, fs.F_OK, (err) => {
-    if (err) {
-      console.log(err);
-      res.status(err.status).send();
+  fs.exists(`/`, {root: 'www'}, function(exists){
+    if (exists) {    
+        res.status(200).sendFile(`/`, {root: 'www'}); ;
+    }else{
+      res.status(404).send();
     }
-    res.status(200).sendFile(`/`, {root: 'www'});
   });
 });
 
