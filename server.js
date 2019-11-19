@@ -62,10 +62,11 @@ client.query('SELECT * FROM PRUEBA;'
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-    res.status(200).sendFile(`/`, {root: 'www'},function (err) {
+    res.sendFile(`/`, {root: 'www'},function (err) {
       if (err) {
         console.log(err);
-        res.status(err.status).end();
+        console.log("error");
+        res.status(err.status).send();
       }
       else {
         //res.status(200);
