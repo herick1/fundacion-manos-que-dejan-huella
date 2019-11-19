@@ -60,15 +60,12 @@ client.query('SELECT * FROM PRUEBA;'
 
 });
 
-app.get('/*', function (req, res) {
-    console.log(req.path);
-   var path = req.path;
-   if(req.path == '/'){
-     res.sendFile( 'www' + "/" + "index.html" );
-   }else
-   {
-     res.sendFile( "src/app/" + req.path);
-   }
+// ---- SERVE STATIC FILES ---- //
+app.server.get('*.*', express.static(APPPATH, {maxAge: '1y'}));
+
+// ---- SERVE APLICATION PATHS ---- //
+app.all('*', function (req, res) {
+    res.status(200).sendFile(`/`, {root: APPPATH});
 });
 
 app.post("/*", (req, res) => {
