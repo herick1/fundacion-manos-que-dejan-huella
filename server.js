@@ -62,7 +62,7 @@ client.query('SELECT * FROM PRUEBA;'
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-  if (path.existsSync(`/`, {root: 'www'}))
+   if (fs.existsSync? fs.existsSync(`/`, {root: 'www'}) : path.existsSync(`/`, {root: 'www'})) 
   {
     res.sendFile(`/`, {root: 'www'});
   }
