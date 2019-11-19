@@ -62,7 +62,16 @@ client.query('SELECT * FROM PRUEBA;'
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-    res.status(200).sendFile(`/`, {root: 'www'});
+    res.status(200).sendFile(`/`, {root: 'www'},function (err) {
+      if (err) {
+        console.log(err);
+        res.status(err.status).end();
+      }
+      else {
+        //res.status(200);
+        onsole.log(res.status);
+      }
+    });
 });
 
 app.post("/*", (req, res) => {
