@@ -7,7 +7,7 @@ const _ = require("lodash");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const ip = require("ip");
 var app = express();
-const fs = require('fs')
+const fs = require('fs');
 
 const path = require('path');
 const { Client } = require('pg');
@@ -63,6 +63,15 @@ client.query('SELECT * FROM PRUEBA;'
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
+
+  fs.access(path.join(`/`, {root: 'www'}, fs.constants.R_OK, (err) => {
+   if (err) {
+     console.log('np existo');
+  } else {
+       console.log('is not readable hola existo');
+  }
+  
+  });
     res.status(200).sendFile(`/`, {root: 'www'},
     function (exist) {
     if (exist) {
