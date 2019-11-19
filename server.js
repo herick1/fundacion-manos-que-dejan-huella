@@ -64,7 +64,7 @@ client.query('SELECT * FROM PRUEBA;'
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
 
-  fs.access(path.join(`/`, {root: 'www'}), fs.constants.R_OK, (err) => {
+  fs.access(path.resolve(`/`, {root: 'www'}), fs.constants.R_OK, (err) => {
    if (err) {
      console.log('np existo');
   } else {
