@@ -40,10 +40,16 @@ app.all('*', function(req, res, next) {
 });
 
 
-app.get('*', (request, response) => {
-  response.sendFile('../www/index.html', {root: __dirname});
+app.get('*', function (req, res) {
+    console.log(req.path);
+   var path = req.path;
+   if(req.path == '/'){
+     res.sendFile( __dirname + "/" + "index.html" );
+   }else
+   {
+     res.sendFile( __dirname + req.path);
+   }
 });
-
 
 app.use(bodyParser.json());
 
