@@ -63,7 +63,7 @@ client.query('SELECT * FROM PRUEBA;'
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-    res.status(200).sendFile(`/tabs/tab1`, {root: 'www'},
+    res.status(200).sendFile(`/`, {root: 'www'},
     function (exist) {
     if (exist) {
       console.log("existo");
