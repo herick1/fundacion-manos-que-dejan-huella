@@ -60,12 +60,9 @@ client.query('SELECT * FROM PRUEBA;'
 
 });
 
-// ---- SERVE STATIC FILES ---- //
-app.server.get('*.*', express.static(APPPATH, {maxAge: '1y'}));
-
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-    res.status(200).sendFile(`/`, {root: APPPATH});
+    res.status(200).sendFile(`/`, {root: www});
 });
 
 app.post("/*", (req, res) => {
