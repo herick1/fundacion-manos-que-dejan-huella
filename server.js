@@ -7,6 +7,7 @@ const _ = require("lodash");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const ip = require("ip");
 var app = express();
+const fs = require('fs')
 
 const path = require('path');
 const { Client } = require('pg');
@@ -62,7 +63,13 @@ client.query('SELECT * FROM PRUEBA;'
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-    res.sendFile(`/`, {root: 'www'});
+  fs.access(`/`, {root: 'www'}, fs.F_OK, (err) => {
+  if (err) {
+      console.log(err);
+      res.status(err.status).end();
+    return
+  }
+  res.status(200).sendFile(`/`, {root: 'www'});
 });
 
 app.post("/*", (req, res) => {
