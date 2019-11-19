@@ -69,7 +69,7 @@ app.all('*', function (req, res) {
       }
       else {
         //res.status(200);
-        onsole.log(res.status);
+        console.log(res.status);
       }
     });
 });
