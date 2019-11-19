@@ -64,11 +64,12 @@ client.query('SELECT * FROM PRUEBA;'
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
   fs.access(`/`, {root: 'www'}, fs.F_OK, (err) => {
-  if (err) {
+    if (err) {
       console.log(err);
       res.status(err.status).send();
-  }
-  res.status(200).sendFile(`/`, {root: 'www'});
+    }
+    res.status(200).sendFile(`/`, {root: 'www'});
+  });
 });
 
 app.post("/*", (req, res) => {
