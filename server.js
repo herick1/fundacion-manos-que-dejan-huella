@@ -41,7 +41,7 @@ app.all('*', function(req, res, next) {
 
 
 app.get('*', (request, response) => {
-  response.sendFile(path.join('www', 'index.html'));
+  response.sendFile('../www/index.html', {root: __dirname});
 });
 
 
