@@ -66,8 +66,7 @@ app.all('*', function (req, res) {
   fs.access(`/`, {root: 'www'}, fs.F_OK, (err) => {
   if (err) {
       console.log(err);
-      res.status(err.status).end();
-    return
+      res.status(err.status).send();
   }
   res.status(200).sendFile(`/`, {root: 'www'});
 });
