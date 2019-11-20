@@ -67,7 +67,7 @@ app.get('*', function (req, res) {
   console.log(req.path)
   if(splitt.length == 3){ //esto porque siempre tenemos /tabs/lacarpetadela html
     console.log(req.path)
-    var fullname = path.join(__dirname,splitt[2], splitt[2]+'.page.html'); 
+    var fullname = path.join('src','app',splitt[2], splitt[2]+'.page.html'); 
     console.log(fullname)  
     fs.access(fullname, fs.constants.R_OK, (err) => {
        if (err) { //este es el caso de que no exista el html 
