@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
+  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },  { path: 'quienes-somos', loadChildren: './quienes-somos/quienes-somos.module#QuienesSomosPageModule' },
+
   //{ path: 'layout', loadChildren: './layout/layout.module#LayoutPageModule' }
 
 ];
