@@ -36,6 +36,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'quienes-somos',
+        children: [
+          {
+            path: '',
+            loadChildren: '../quienes-somos/quienes-somos.module#QuienesSomosPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

@@ -62,26 +62,24 @@ client.query('SELECT * FROM PRUEBA;'
 });
 
 // ---- SERVE APLICATION PATHS ---- //
-app.all('*', function (req, res) {
-
-  fs.access(path.resolve(`/`, {root: 'www'}), fs.constants.R_OK, (err) => {
-   if (err) {
-     console.log('np existo');
-  } else {
-       console.log('is not readable hola existo');
+app.get('*', function (req, res) {
+  var splitt = req.path.split("/");
+  console.log(req.path)
+  if(splitt.length == 3){ //esto porque siempre tenemos /tabs/lacarpetadela html
+    console.log(req.path)
+    var fullname = path.join(__dirname,'src','app',splitt[2], splitt[2]+'.page.html'); 
+    console.log(fullname)  
+    fs.access(fullname, fs.constants.R_OK, (err) => {
+       if (err) { //este es el caso de que no exista el html 
+          res.status(404).send("no hay una pagina con esta direccion disculpe")
+       } else { // este es el caso de que si exista un html asi y por eso lo imprime
+         res.status(200).sendFile(`/`, {root: 'www'})
+       }
+    });
+  }else{
+    if (req.path == '/cordova.js')res.status(200).sendFile(`/`, {root: 'www'})
+    else res.status(404).send("no hay una pagina con esta direccion disculpe")
   }
-  
-  });
-    res.status(200).sendFile(`/`, {root: 'www'},
-    function (exist) {
-    if (exist) {
-      console.log("existo");
-    }
-    else {
-      //res.status(200);
-      console.log("no existo");
-    }
-  });
 });
 
 app.post("/*", (req, res) => {
