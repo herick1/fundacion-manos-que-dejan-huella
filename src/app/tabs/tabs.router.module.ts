@@ -45,6 +45,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'no-found',
+        children: [
+          {
+            path: '',
+            loadChildren: '../no-found/no-found.module#NoFoundPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

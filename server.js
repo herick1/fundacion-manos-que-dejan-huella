@@ -70,17 +70,22 @@ app.get('*', function (req, res) {
     var fullname = path.join(__dirname,'src','app',splitt[2], splitt[2]+'.page.html'); 
     console.log(fullname)  
     fs.access(fullname, fs.constants.R_OK, (err) => {
-       if (err) { //este es el caso de que no exista el html 
-          res.status(404).send("no hay una pagina con esta direccion disculpe")
-       } else { // este es el caso de que si exista un html asi y por eso lo imprime
+       if (err)  //este es el caso de que no exista el html 
+          res.redirect('/tabs/no-found');
+        else  // este es el caso de que si exista un html asi y por eso lo imprime
          res.status(200).sendFile(`/`, {root: 'www'})
-       }
     });
   }else{
-    if (req.path == '/cordova.js')res.status(200).sendFile(`/`, {root: 'www'})
-    else res.status(404).send("no hay una pagina con esta direccion disculpe")
+    if (req.path == '/cordova.js')
+       res.status(200).sendFile(`/`, {root: 'www'})
+    else res.redirect('/tabs/no-found');
   }
 });
+
+app.get("/tabs/no-found", (req, res) => {
+    res.status(404).sendFile(`/`, {root: 'www'})
+});
+
 
 app.post("/*", (req, res) => {
   res.status(404).send();
