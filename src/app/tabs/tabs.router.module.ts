@@ -54,6 +54,24 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'home',
+        children: [
+          {
+            path: '',
+            loadChildren: '../home/home.module#HomePageModule'
+          }
+        ]
+      },
+      {
+        path: 'layout',
+        children: [
+          {
+            path: '',
+            loadChildren: '../layout/layout.module#LayoutPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

@@ -37,6 +37,18 @@
               },
               {
                 "input": "src/global.scss"
+              },
+              {
+                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              },
+              {
+                "input": "src/assets/sass/paper-kit.scss"
+              },
+              {
+                "input": "src/assets/css/demo.css"
+              },
+              {
+                "input": "src/assets/css/nucleo-icons.css"
               }
             ],
             "scripts": []

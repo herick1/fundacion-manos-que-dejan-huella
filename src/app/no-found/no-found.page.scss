@@ -19,6 +19,10 @@ html, body {
 	box-sizing: content-box;
 	transform: translate3d(0, 0, 0);
 }
+.welcome-card ion-img {
+  max-height: 35vh;
+  overflow: hidden;
+}
 
 .face {
 	width: 300px;

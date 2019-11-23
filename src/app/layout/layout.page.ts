@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.page.scss'],
 })
 export class LayoutPage implements OnInit {
+  focus: any;
+  focus1: any;
 
   constructor() { }
 
