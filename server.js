@@ -74,11 +74,10 @@ client.query('SELECT * FROM EVENTO;'
 });
 
 app.post("/evento", urlencodedParser, (req, res) => {
-  //let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
- // YO.name = body.name;
-  //YO.url = body.url;
+  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
   client.connect();
-  client.query("INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('PRUEBA','12-12-2019','12-12-2019','ESTA ES MI DESCRIPCION','LA QUINTA');"
+  client.query(`INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) 
+  values(${body.nombre},${body.fechaini},${body.fechafin},${body.descripcion},${body.direccion});`
     , (err, response) => {
     if (err) throw err;
     res.json(response.rows)
