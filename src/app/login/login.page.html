@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="wrapper">
+    <div class="page-header" style="background-image: url('./assets/img/login-image.jpg');">
+        <div class="filter"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
+                      <div class="card card-register ">
+                          <h3 class="title">Bienvenido</h3>
+                          <form class="register-form">
+                              <label>Correo electronico</label>
+                              <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                      <i class="nc-icon nc-email-85"></i>
+                                  </span>
+                                </div>
+
+                                  <input type="text" class="form-control" placeholder="Correo electronico" (focus)="focus=true" (blur)="focus=false" >
+                              </div>
+
+                              <label>Contraseña</label>
+                              <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                      <i class="nc-icon nc-key-25"></i>
+                                  </span>
+                                </div>
+                                  <input type="text" class="form-control" placeholder="Contraseña"(focus)="focus1=true" (blur)="focus1=false" >
+                              </div>
+                              <button class="btn btn-danger btn-block btn-round">Iniciar sesión</button>
+                          </form>
+                          <div class="forgot">
+                              <a href="#" class="btn btn-link btn-danger">Recuperar contraseña?</a>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              
+            </div>
+    </div>
+</div>
+
+</ion-content>
