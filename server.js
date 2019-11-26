@@ -79,7 +79,7 @@ app.post("/evento", urlencodedParser, (req, res) => {
   let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
   client.query(query
     , (err, response) => {
-    res.json(query)
+    res.json(response)
   });
    // client.end();
 });
