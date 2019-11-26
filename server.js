@@ -78,7 +78,7 @@ app.post("/evento", urlencodedParser, (req, res) => {
   client.connect();
   client.query('INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('+body.nombre+','+body.fechaini+','+body.fechafin+','+body.descripcion+','+body.direccion+');'
     , (err, response) => {
-    res.json(err)
+    res.json(body)
   });
    // client.end();
 });
