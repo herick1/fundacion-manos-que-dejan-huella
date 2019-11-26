@@ -61,6 +61,30 @@ client.query('SELECT * FROM PRUEBA;'
 
 });
 
+// MANEJO DE EVENTOS
+app.get("/evento", urlencodedParser, (req, res) => {
+  client.connect();
+client.query('SELECT * FROM EVENTO;'
+  , (err, response) => {
+  if (err) throw err;
+  res.json(response.rows)
+ // client.end();
+});
+
+});
+
+app.post("/evento", urlencodedParser, (req, res) => {
+  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
+  client.connect();
+  let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
+  client.query(query
+    , (err, response) => {
+    res.json(response)
+  });
+   // client.end();
+});
+
+
 // ---- SERVE APLICATION PATHS ---- //
 app.get('*', function (req, res) {
   var splitt = req.path.split("/");
@@ -87,9 +111,6 @@ app.get("/tabs/no-found", (req, res) => {
 });
 
 
-app.post("/*", (req, res) => {
-  res.status(404).send();
-});
 
 app.put("/*", (req, res) => {
   res.status(404).send();
