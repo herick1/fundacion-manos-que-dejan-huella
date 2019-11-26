@@ -76,7 +76,7 @@ client.query('SELECT * FROM EVENTO;'
 app.post("/evento", urlencodedParser, (req, res) => {
   let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
   client.connect();
-  let query= 'INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('+body.nombre+','+body.fechaini+','+body.fechafin+','+body.descripcion+','+body.direccion+');'
+  let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
   client.query(query
     , (err, response) => {
     res.json(query)
