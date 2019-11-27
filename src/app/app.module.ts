@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { Camera } from '@ionic-native/camera/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import {HttpClientModule} from '@angular/common/http'
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
