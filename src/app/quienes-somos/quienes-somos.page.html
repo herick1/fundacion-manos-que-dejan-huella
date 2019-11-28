@@ -2,7 +2,7 @@
                 <nav class="navbar navbar-expand-lg bg-primary">
                     <div class="container">
                         <a class="navbar-brand" href="#">Menu</a>
-                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler navbar-toggler-right" type="button" >
                             <span class="navbar-toggler-icon"></span>
                             <span class="navbar-toggler-icon"></span>
                             <span class="navbar-toggler-icon"></span>
@@ -13,11 +13,11 @@
                                     <a class="nav-link" href="#pk">Link</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#pk">Link</a>
+                                    <a class="nav-link" href="tabs/quienes-somos#quienes-somos">Link</a>
                                 </li>
                                 <li class="nav-item">
                                     <div ngbDropdown class="d-inline-block dropdown">
-                                        <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle>Dropdown</a>
+                                        <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle href="tabs/quienes-somos#quienes-somos">Dropdown</a>
                                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-primary">
                                             <a class="dropdown-item">Action - 1</a>
                                             <a class="dropdown-item">Another Action</a>
@@ -118,7 +118,7 @@
     </ion-slides>
 
         <!--================Home Banner Area =================-->
-        <section class="home_banner_area">
+        <section class="home_banner_area" id="quienes-somos">
             <div class="banner_inner">
                 <div class="container">
                     <div class="row">
@@ -169,13 +169,38 @@
                 <div class="made_life_inner">
                     <div class="row made_life_text">
                         <div class="col-lg-6">
+                            <div class="left_side_text tim-title">
+                                <h2>Mision</h2>
+                                <h3>We’ve made a life <br />that will change you</h3>
+                                <h6>We are here to listen from you deliver exellence</h6>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+                                <a class="main_btn" href="#">Get Started Now</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="chart_img">
+                                <img class="img-fluid" src="assets/img/chart.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!--================Made Life Area =================-->
+        <section class="made_life_area made_white p_120">
+            <div class="container">
+                <div class="made_life_inner">
+                    <div class="row made_life_text">
+                        <div class="col-lg-6">
                             <div class="chart_img">
                                 <img class="img-fluid" src="assets/img/banner/home-left-1.png" alt="">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="left_side_text tim-title">
-                                <h2>Mision</h2>
+                                <h2>Valores</h2>
                                 <h3>We’ve made a life <br />that will change you</h3>
                                 <h6>We are here to listen from you deliver exellence</h6>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
@@ -191,21 +216,71 @@
     <!--================Impress Area =================-->
         <section class="impress_area p_120">
             <div class="container">
-                <div class="impress_inner">
+
+                <div class="made_life_inner">
+                    <div class="row made_life_text">
+
+                <div class="impress_inner col-lg-6">
                     <h2>Historia</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
                 </div>
+                <div class="impress_inner col-lg-6">
+                    <p>sigue la historia Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                </div>
+            </div>
+        </div>
             </div>
         </section>
-        <!--================End Impress Area =================-->   
-            <!--================Impress Area =================-->
-        <section class="impress_area p_120 home_banner_area_pick">
+        <!--================End Impress Area =================--> 
+
+
+
+    <!--================seccion prueba TODO =================-->
+        <section class="made_life_area p_120">
             <div class="container">
-                <div class="impress_inner">
-                    <h2>otra cosas mira mi css que me lo hice en rosado jajaja</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                <div class="made_life_inner">
+                    <div class="row made_life_text">
+                        <div class="col-lg-6">
+                            <div class="chart_img">
+                                <img class="img-fluid" src="assets/icon/favicon.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="left_side_text tim-title">
+                                <h2>objetivo general</h2>
+                                <h3>We’ve made a life <br />that will change you</h3>
+                                <h6>We are here to listen from you deliver exellence</h6>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+                                <a class="main_btn" href="#">Get Started Now</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        <!--================End Impress Area =================-->  
+
+    <!--================seccion prueba TODO =================-->
+        <section class="made_life_area p_120 home_banner_area_pick">
+            <div class="container">
+                <div class="made_life_inner">
+                    <div class="row made_life_text">
+                        <div class="col-lg-6">
+                            <div class="chart_img">
+                                <img class="img-fluid" src="assets/icon/favicon.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="left_side_text tim-title">
+                                <h2>objetivos especificos</h2>
+                                <h3>We’ve made a life <br />that will change you</h3>
+                                <h6>We are here to listen from you deliver exellence</h6>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+                                <a class="main_btn" href="#">Get Started Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 </ion-content>

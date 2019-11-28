@@ -1,9 +1,49 @@
-<ion-tabs>
 
+
+  <ion-menu contentId="content" side="start">
+    <ion-header>
+      <ion-toolbar>
+        <ion-menu-toggle>
+        <ion-button>
+          <ion-icon name="menu"></ion-icon>
+        </ion-button>
+        </ion-menu-toggle>
+        <ion-title>Categorie</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+          <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+            <ion-icon slot="start" [name]="p.icon"></ion-icon>
+            <ion-label>
+              {{p.title}}
+            </ion-label>
+          </ion-item>
+          <ion-list>
+            <ion-menu-toggle auto-hide="false" *ngFor="let s of p.subPages">
+              <ion-item [routerDirection]="'root'" [routerLink]="[s.url]">
+                <ion-label>
+                  {{s.title}}
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+        </ion-menu-toggle>
+      </ion-list>
+
+    </ion-content>
+
+  </ion-menu>
+  <ion-router-outlet id="content" main></ion-router-outlet>
+
+  <ion-tabs>
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="tab1">
       <ion-icon name="flash"></ion-icon>
       <ion-label>Tab One</ion-label>
+      <ion-button (click)="toggleMenu()">Toggle Menu</ion-button>
     </ion-tab-button>
 
     <ion-tab-button tab="tab2">
@@ -36,5 +76,5 @@
       <ion-label>login ??</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
-
 </ion-tabs>
+
