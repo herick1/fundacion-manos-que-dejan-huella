@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-quienes-somos',
@@ -7,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuienesSomosPage implements OnInit {
 
-  constructor() { }
+  constructor( public menuCtrl: MenuController) 
+  {
+  }
 
+toggleMenu() {
+    this.menuCtrl.toggle(); //Add this method to your button click function
+  }
   ngOnInit() {
   }
 
