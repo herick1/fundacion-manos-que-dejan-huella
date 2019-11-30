@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-tabs',
-  templateUrl: 'tabs.page.html',
-  styleUrls: ['tabs.page.scss']
+  selector: 'app-es',
+  templateUrl: 'es.page.html',
+  styleUrls: ['es.page.scss']
 })
-export class TabsPage {
+export class EsPage {
 	public appPages = [
 	    {
 	      title: '¿Quienes somos?',
-	      url: '/tabs/quienes-somos',
+	      url: '/es/quienes-somos',
 	      icon: 'people',
 	      subPages: [
 	      	{ title: 'Mision', url: '' },
@@ -23,27 +23,27 @@ export class TabsPage {
 	    },
 	    {
 	      title: 'Eventos',
-	      url: '/tabs/eventos',
+	      url: '/es/eventos',
 	      icon: 'calendar'
 	  	},
 	    {
 	      title: 'Contactanos',
-	      url: '/tabs/contactanos',
+	      url: '/es/contactanos',
 	      icon: 'phone-portrait'
 	  	},
 	    {
 	      title: 'Usuario',
-	      url: '/tabs/usuario',
+	      url: '/es/usuario',
 	      icon: 'person'
 	    },
 	    {
 	      title: 'Gestionar evento(s)',
-	      url: '/tabs/eventos',
+	      url: '/es/eventos',
 	      icon: 'calendar'
 	  	},
 	    {
 	      title: 'Entrar',
-	      url: '/tabs/login',
+	      url: '/es/login',
 	      icon: 'log-in'
 	  	}
 	  ];
