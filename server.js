@@ -16,8 +16,24 @@ const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
+// Firebase App (the core Firebase SDK) is always required and
+// must be listed before other Firebase SDKs
+var firebase = require("firebase/app");
 
+// Add the Firebase products that you want to use
+require("firebase/auth");
+require("firebase/firestore");
+require("firebase/database");
+// TODO: Replace the following with your app's Firebase project configuration
+var firebaseConfig = {
+  // ...
+};
 
+// Initialize Firebase
+firebase.initializeApp({
+  serviceAccount:"manosquedejanhuellas-1df96-8a1897eaf672.json",
+  databaseURL:"https://manosquedejanhuellas-1df96.firebaseio.com/"
+});
 /*
 app.use(express.static(__dirname+'/dist/photo-rc1'));
 app.get('/',function(req,res){
@@ -84,7 +100,18 @@ app.post("/evento", urlencodedParser, (req, res) => {
    // client.end();
 });
 
+app.post("/notificacion", urlencodedParser, (req, res) => {
+  let body = _.pick(req.body, ["token"]);
 
+ var db= firebase.database();
+  var pathtok=db.ref("token-device").push();
+  pathtok.set({
+    token:body.token
+  })
+
+  res.json({ status: "success", message: body.token });
+  
+});
 // ---- SERVE APLICATION PATHS ---- //
 app.get('*', function (req, res) {
   var splitt = req.path.split("/");
