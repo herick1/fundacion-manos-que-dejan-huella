@@ -9,23 +9,43 @@ import { MenuController } from '@ionic/angular';
 export class TabsPage {
 	public appPages = [
 	    {
-	      title: 'Card',
-	      url: '/home',
-	      icon: 'paper'
+	      title: '¿Quienes somos?',
+	      url: '/tabs/quienes-somos',
+	      icon: 'people',
+	      subPages: [
+	      	{ title: 'Mision', url: '' },
+	      	{ title: 'Vision', url: '' },
+	      	{ title: 'Valores', url: '' },
+	      	{ title: 'Historia', url: '' },
+	      	{ title: 'Objetivo General', url: '' },
+	      	{ title: 'Objetivos Especificos', url: '' }
+	      ]
 	    },
 	    {
-	      title: 'Category',
-	      url: '/list',
-	      icon: 'walk',
-	      subPages: [{ title: 'subtest1', url: '' },
-	      { title: 'subtest2', url: '' },
-	      { title: 'subtest3', url: '' },
-	      { title: 'subtest4', url: '' },
-	      { title: 'subtest5', url: '' },
-	      { title: 'subtest6', url: '' },
-	      { title: 'subtest7', url: '' },
-	      { title: 'subtest8', url: '' }]
-	    }   
+	      title: 'Eventos',
+	      url: '/tabs/eventos',
+	      icon: 'calendar'
+	  	},
+	    {
+	      title: 'Contactanos',
+	      url: '/tabs/contactanos',
+	      icon: 'phone-portrait'
+	  	},
+	    {
+	      title: 'Usuario',
+	      url: '/tabs/usuario',
+	      icon: 'person'
+	    },
+	    {
+	      title: 'Gestionar evento(s)',
+	      url: '/tabs/eventos',
+	      icon: 'calendar'
+	  	},
+	    {
+	      title: 'Entrar',
+	      url: '/tabs/login',
+	      icon: 'log-in'
+	  	}
 	  ];
 
   constructor( public menuCtrl: MenuController) 
