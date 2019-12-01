@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "manosquedejanhuellas-1df96",
+  "private_key_id": "8a1897eaf672d3371fcefe865e9a501fc013742b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDfzLn8wKVs2Nqe\noUcYNK2zjPJ8cX879BIHWeJRbuDNJiwHPyiTcvJrUBlqHHnS/7IVyNg1ysxYhTpC\nt3fdd/tyc99zaSDWgQkvrQVlbD4JjrJGqyFW9CEiQmR03C4ksziaitKHQZCIUKCN\nzIkLO3JmN0kXZwPBddTmP8pFc3G0xMU74fVFtlKr7mjYYcHnP+xNKdrAuOeFYkEX\nBZ5rR6DAzPjnF4VuxwsZCMtysjUcn8g93hxhV5gg4O3tIrMEHVFrrow++5wzOFCw\nte+X603pa06sCGxg27BNkpl2/ctreCtJ8hNjASSN3KnSayLeOqg8T2/7IqT+DodP\nAdNARcZtAgMBAAECggEAFzG9wYW/v0usQLjV8vAcDoSYPwXORMrosW1YiM21K7Mo\nk1RcOAfiOvVRZPoa4B99opyvAnLdrHuboagnxUK27dI3gYZkOlxONOw5fRzzmFml\n0rAlY5XSofJ/5yKd/6dkFumLTyxK4UMl7fxEOcSeoxxYuBMGRHRvV7Dwct6M6snb\nm3gg0TliO9hlA1QAcVtCNGArBAF8CEavFd/s+tUf3ZMOoWQpBkvKRNBweerfOTSE\nHfOuAplbG6XacI5e8IIOcPN7WtX+Pyg/9hiaD/8nAN/RFjJecWUoVSvo9O5BpfGR\nDHPVV15asJIfD4ayH8g9YdAWxuT+hyr1tylppYkk2wKBgQD1t6wFhaFRdW2rk8IV\nG60/VoaBDS8FwiS0gujNreaIyjVgfcDkx42TPx38slma9R+FbJo0shPTAnE4sj9J\n20yIbN4Y/pI3p+6fPSy9CY+akJi+S1dgx4XruXyJtJF75A5csxyes4kcuj3UlJNf\n+9PMrA+GBm3BucUcAvSq5HxWPwKBgQDpKkDkxoAt368vhLJtqAxh1cBtKXJspgWs\nBDjzVg848PKioKaY7Aqt5TxAiB+40AZjp0Ea042ap3Yn7o2r4Er/mJTs54yv0AXa\nJNxn4mf5oEpaIMbH+oQhktbrPLOpe3hLATad971A0uFJ9QcYR34mhYWDIwsIQpdX\noXDMtbYwUwKBgF5OVS51YDnEaQgeGLJDQhX6HntvVOnP3oiNac5u/PjpKt1SxnLI\nCBVIdzjiNrPbenKaAQFSi3tEB7Jr7xBoo5IEvqU3J2VHBbWGJCKVhdEbyBPZFLsn\nOMYFFcBAVkoHeF+pusVKQMiOzmZFc9615085hme5FezxYK5kkAT61qG/AoGAbLbr\nzP+Usk7yYsiPXTuWkmNUtlE17dy3Fk5ds2+z50vJBfS72N9t10jj//64M7ai1AIf\nBAARrUNZfyLmYXZR4bzl61PHMA5hPCYlsjZJXoXTRRS1Onbe9rx9gu8poeNU4jvt\nmFfzoO7yZkZeCX8EHbfx2YQUV8Scxhoa+wfaq8sCgYEA5KPYHki1DrV+V9HfOOfE\nLQTJfW0L7M8VDSHaDpz/Lfcc9SAuGlnJF5oqJ5/2eI7MUJ7l7htf0pfIimPrZLSB\n8d54rAh4tMNjD4xlgm3sX4A8p00WlhL6ennsiigKoCeHCgrZzcw9vl5MH6esTGdS\niV6h2tXqOuqndmz+ENDI/pI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "servicionotificaciones@manosquedejanhuellas-1df96.iam.gserviceaccount.com",
+  "client_id": "117739370100683762425",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/servicionotificaciones%40manosquedejanhuellas-1df96.iam.gserviceaccount.com"
+}

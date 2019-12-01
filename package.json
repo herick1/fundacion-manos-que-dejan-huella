@@ -40,10 +40,12 @@
     "@ionic/angular-toolkit": "^2.0.0",
     "@ionic/app-scripts": "^3.2.0",
     "@ionic/storage": "^2.2.0",
+    "@ng-bootstrap/ng-bootstrap": "4.1.0",
     "@types/jasmine": "^3.4.4",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^12.11.1",
     "body-parser": "^1.19.0",
+    "bootstrap": "4.3.1",
     "codelyzer": "~5.1.2",
     "cordova-android": "8.1.0",
     "cordova-ios": "5.0.1",
@@ -58,6 +60,7 @@
     "core-js": "^3.3.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "firebase": "^7.5.0",
     "ip": "^1.1.5",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -76,8 +79,6 @@
     "tslib": "^1.10.0",
     "tslint": "~5.20.0",
     "typescript": "~3.4.3",
-    "@ng-bootstrap/ng-bootstrap": "4.1.0",
-    "bootstrap": "4.3.1",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
@@ -119,7 +120,8 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "phonegap-plugin-push": {}
     },
     "platforms": [
       "android",
