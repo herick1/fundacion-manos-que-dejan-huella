@@ -161,6 +161,10 @@ License - nucleoapp.com/license/
 /*------------------------
 	font icons
 -------------------------*/
+.yourclass {
+        font-family: "Ionicons";
+        content: "\f3d1";
+}
 
 .nc-air-baloon::before {
     content: "\ea01";
