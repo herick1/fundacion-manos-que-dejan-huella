@@ -129,11 +129,11 @@ app.get('*', function (req, res) {
   }else{
     if (req.path == '/cordova.js')
        res.status(200).sendFile(`/`, {root: 'www'})
-    else res.redirect('/tabs/no-found');
+    else res.redirect('/es/no-found');
   }
 });
 
-app.get("/tabs/no-found", (req, res) => {
+app.get("/es/no-found", (req, res) => {
     res.status(404).sendFile(`/`, {root: 'www'})
 });
 
