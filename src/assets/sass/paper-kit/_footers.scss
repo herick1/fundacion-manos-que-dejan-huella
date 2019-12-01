@@ -235,7 +235,7 @@
 }
 
 .impress_area{
-    background: #3bacf0;
+    background: #d916e3;
     .impress_inner{
         text-align: center;
         max-width: 780px;
@@ -274,8 +274,11 @@ $hee: 'Heebo', sans-serif;
     background: -ms-linear-gradient(left, rgba(0,193,252,1) 0%, rgba(73,223,250,1) 21%, rgba(154,234,237,1) 41%, rgba(235,246,250,1) 59%, rgba(255,255,255,1) 100%);
     background: linear-gradient(to right, rgba(0,193,252,1) 0%, rgba(73,223,250,1) 21%, rgba(154,234,237,1) 41%, rgba(235,246,250,1) 59%, rgba(255,255,255,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00c1fc', endColorstr='#ffffff', GradientType=1 );
+    }
+
     .banner_inner{
         width: 100%;
+    }
         .home_left_img{
             padding-top: 230px;
             padding-bottom: 230px;
@@ -309,9 +312,8 @@ $hee: 'Heebo', sans-serif;
             .banner_btn2{
                 margin-right: 10px;
             }
-        }
+        
     }   
-}
 
 .made_life_area{
     background: #edf6ff;
@@ -329,6 +331,16 @@ $hee: 'Heebo', sans-serif;
     background: -ms-linear-gradient(-45deg, rgba(219,33,107,1) 0%, rgba(219,33,107,1) 1%, rgba(193,70,161,1) 30%, rgba(235,132,207,1) 51%, rgba(255,127,127,1) 100%);
     background: linear-gradient(135deg, rgba(219,33,107,1) 0%, rgba(219,33,107,1) 1%, rgba(193,70,161,1) 30%, rgba(235,132,207,1) 51%, rgba(255,127,127,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#db216b', endColorstr='#ff7f7f', GradientType=1 );
+}
+.home_banner_area_violet{
+    background: rgba(217,22,227,1);
+    background: -moz-linear-gradient(left, rgba(217,22,227,1) 0%, rgba(193,120,193,1) 25%, rgba(199,151,199,1) 57%, rgba(235,226,230,1) 84%, rgba(235,226,230,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(217,22,227,1)), color-stop(25%, rgba(193,120,193,1)), color-stop(57%, rgba(199,151,199,1)), color-stop(84%, rgba(235,226,230,1)), color-stop(100%, rgba(235,226,230,1)));
+    background: -webkit-linear-gradient(left, rgba(217,22,227,1) 0%, rgba(193,120,193,1) 25%, rgba(199,151,199,1) 57%, rgba(235,226,230,1) 84%, rgba(235,226,230,1) 100%);
+    background: -o-linear-gradient(left, rgba(217,22,227,1) 0%, rgba(193,120,193,1) 25%, rgba(199,151,199,1) 57%, rgba(235,226,230,1) 84%, rgba(235,226,230,1) 100%);
+    background: -ms-linear-gradient(left, rgba(217,22,227,1) 0%, rgba(193,120,193,1) 25%, rgba(199,151,199,1) 57%, rgba(235,226,230,1) 84%, rgba(235,226,230,1) 100%);
+    background: linear-gradient(to right, rgba(217,22,227,1) 0%, rgba(193,120,193,1) 25%, rgba(199,151,199,1) 57%, rgba(235,226,230,1) 84%, rgba(235,226,230,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d916e3', endColorstr='#ebe2e6', GradientType=1 );
 }
 /* End Impress Area css
 ============================================================================================ */
