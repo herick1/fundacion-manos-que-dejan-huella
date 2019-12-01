@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor( public menuCtrl: MenuController) 
+  {
   }
 
+toggleMenu() {
+    this.menuCtrl.toggle(); //Add this method to your button click function
+  }
+  ngOnInit() {
+  }
 }
