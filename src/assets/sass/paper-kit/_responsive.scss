@@ -165,9 +165,7 @@
     .dropdown-menu {
         display: none;
     }
-    .navbar-fixed-top {
-        -webkit-backface-visibility: hidden;
-    }
+
 
     .social-line .btn{
         margin: $margin-bottom;
@@ -436,7 +434,7 @@
         display: none;
     }
 
-    .fixed-top .navbar-collapse{
+    .navbar-collapse{
         background-color: #FF8F5E;
         // width: 100%;
         float: left;
