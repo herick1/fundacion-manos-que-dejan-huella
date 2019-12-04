@@ -13,7 +13,7 @@
     }
 }
 .carousel-control-prev-icon{
-    background-image: none !important;
+    //background-image: none !important;
     margin-top: -5px;
     &:before{
         color: $white-color;
@@ -25,7 +25,7 @@
     }
 }
 .carousel-control-next-icon{
-    background-image: none !important;
+    //background-image: none !important;
     margin-top: -5px;
     &:before{
         color: $white-color;
@@ -65,7 +65,7 @@
     padding-left: 3px;
 }
 .carousel-control-prev, .carousel-control-next {
-    background-image: none;
+    //background-image: none;
 }
 
  .page-carousel{
