@@ -69,91 +69,44 @@
                             
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div class="panel-title-box">
-                                        <h3>Sales</h3>
-                                        <span>Sales activity by period you selected</span>
-                                    </div>                                     
-                                    <ul class="panel-controls panel-controls-title">                                        
-                                        <li>
-                                            <div id="reportrange" class="dtrange">                                            
-                                                <span></span><b class="caret"></b>
-                                            </div>                                     
-                                        </li>                                
-                                        <li><a href="#" class="panel-fullscreen rounded"><span class="fa fa-expand"></span></a></li>
-                                    </ul>                                            
-                                </div>
                                 <div class="panel-body">                                    
-                                    <div class="row stacked">
-                                        <div class="col-md-4">                                            
-                                            <div class="progress-list">                                               
-                                                <div class="pull-left"><strong>In Queue</strong></div>
-                                                <div class="pull-right">75%</div>                                                
-                                                <div class="progress progress-small progress-striped active">
-                                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">75%</div>
-                                                </div>
-                                            </div>
-                                            <div class="progress-list">                                               
-                                                <div class="pull-left"><strong>Shipped Products</strong></div>
-                                                <div class="pull-right">450/500</div>                                                
-                                                <div class="progress progress-small progress-striped active">
-                                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">90%</div>
-                                                </div>
-                                            </div>
-                                            <div class="progress-list">                                               
-                                                <div class="pull-left"><strong class="text-danger">Returned Products</strong></div>
-                                                <div class="pull-right">25/500</div>                                                
-                                                <div class="progress progress-small progress-striped active">
-                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">5%</div>
-                                                </div>
-                                            </div>
-                                            <div class="progress-list">                                               
-                                                <div class="pull-left"><strong class="text-warning">Progress Today</strong></div>
-                                                <div class="pull-right">75/150</div>                                                
-                                                <div class="progress progress-small progress-striped active">
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
-                                                </div>
-                                            </div>
-                                            <p><span class="fa fa-warning"></span> Da</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div id="dashboard-map-seles" style="width: 100%; height: 200px"></div>
-                                        </div>
-                                    </div>                                    
+ <ion-grid>
+    <ion-row>
+      <ion-col size="0.1">
+  <div style="position: absolute;top: 50%;left: 16px;font-size: 25px;z-index: 2;" (click)="prevSlide(slider)">
+    <ion-icon class="icon-slider-forma" name="arrow-dropleft-circle"></ion-icon>
+  </div>
+      </ion-col>
+      <ion-col size="11">
+ 
+    <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
+        <ion-slide ngbSlide *ngFor="let slider of sliders">
+                    <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide" width="100%">
+                    <div class="carousel-caption">
+                        <h3>{{slider.label}}</h3>
+                        <p>{{slider.text}}</p>
+                    </div>
+        </ion-slide>
+    
+      </ion-slides>
+      </ion-col>
+      <ion-col size="0.1">
+   <div style="position: absolute;top: 50%;right: 16px;font-size: 25px;z-index: 2;" (click)="nextSlide(slider)">
+    <ion-icon class="icon-slider-forma" name="arrow-dropright-circle"></ion-icon>
+  </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>                                  
                                 </div>
                             </div>
                             <!-- END SALES BLOCK -->
-                            
                         </div>
-                        <div class="common-modal modal fade" id="common-Modal1" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-content">
-                                <ul class="list-inline item-details">
-                                    <li><a href="http://themifycloud.com/downloads/janux-premium-responsive-bootstrap-admin-dashboard-template/">Admin templates</a></li>
-                                    <li><a href="http://themescloud.org">Bootstrap themes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
                         <div class="col-md-4">
                             
                             <!-- START PROJECTS BLOCK -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <div class="panel-title-box">
-                                        <h3>Projects</h3>
-                                        <span>Projects activity</span>
-                                    </div>                                    
-                                    <ul class="panel-controls" style="margin-top: 2px;">
-                                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>                                        
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
-                                                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
-                                            </ul>                                        
-                                        </li>                                        
-                                    </ul>
+                                        <h3>Eventos</h3>                                 
                                 </div>
                                 <div class="panel-body panel-body-table">
                                     
@@ -169,21 +122,8 @@
                 </ng-template>
         </ngb-carousel>
 
-<div>
-    <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
-        <ion-slide ngbSlide *ngFor="let slider of sliders">
-                    <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide" width="100%">
-                    <div class="carousel-caption">
-                        <h3>{{slider.label}}</h3>
-                        <p>{{slider.text}}</p>
-                    </div>
-        </ion-slide>
-     
-      </ion-slides>
-    <button type="submit" float-left text-center ion-button color="primary" (click)="prevSlide(slider)">Prev</button>
-    <button type="submit" float-right ion-button color="primary"(click)="nextSlide(slider)">Next</button>
-</div>
-                                    
+ 
+                   
                                 </div>
                             </div>
                             <!-- END PROJECTS BLOCK -->
@@ -198,23 +138,25 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
-                                        <h3>Users Activity</h3>
-                                        <span>Users vs returning</span>
-                                    </div>                                    
-                                    <ul class="panel-controls" style="margin-top: 2px;">
-                                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>                                        
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
-                                                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
-                                            </ul>                                        
-                                        </li>                                        
-                                    </ul>                                    
+                                        <h3>¿Quienes somos?</h3>
+                                        <span>¿Te gustaria saber mas sobre nosotros?</span>
+                                    </div>                                      
                                 </div>                                
                                 <div class="panel-body padding-0">
-                                    <div class="chart-holder" id="dashboard-bar-1" style="height: 200px;"></div>
+                                    <div class="row stacked" style="background: white">
+                <div class="col-lg-5">
+                    <div class="banner_content">
+                        <p class="color-azul"><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laboretestimonials_area</p>
+                    </div>
+                </div>      
+                <div class="col-lg-6">
+                    <a class="home_left_img">
+                        <img class="img-fluid" src="assets/img/fundacion.png" alt="">
+                    </a>
+                </div>
+                                    </div>
+
+            
                                 </div>                                    
                             </div>
                             <!-- END USERS ACTIVITY BLOCK -->
@@ -226,23 +168,25 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
-                                        <h3>Visitors</h3>
-                                        <span>Visitors (last month)</span>
+                                        <h3>Redes Sociales</h3>
+                                        <span>Siguenos en todas nuestras redes sociales</span>
                                     </div>
-                                    <ul class="panel-controls" style="margin-top: 2px;">
-                                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>                                        
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
-                                                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
-                                            </ul>                                        
-                                        </li>                                        
-                                    </ul>
                                 </div>
                                 <div class="panel-body padding-0">
-                                    <div class="chart-holder" id="dashboard-donut-1" style="height: 200px;"></div>
+                                    <div class="row stacked" >
+                                        <div class="col-md-4">
+  <button class="social-button-circle-facebook"><ion-icon class="ion-icon-social" name="logo-facebook"></ion-icon> </button>
+  <button class="social-button-outline-facebook"> @dejatuhuella</button>
+                                        </div>
+                                        <div class="col-md-4">
+                                              <button class="social-button-circle-twitter"><ion-icon class="ion-icon-social" name="logo-twitter"></ion-icon> </button>
+                                               <button class="social-button-outline-twitter"> @dejatuhuella</button>
+                                        </div>
+                                        <div class="col-md-4">
+  <button class="social-button-circle-instagram"><ion-icon class="ion-icon-social" name="logo-instagram"></ion-icon> </button>
+  <button class="social-button-outline-instagram"> @dejatuhuella</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- END VISITORS BLOCK -->
@@ -251,30 +195,24 @@
                         
                         <div class="col-md-4">
                             
-                            <!-- START SALES & EVENTS BLOCK -->
+                            <!-- CONTACT ITEM -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
-                                        <h3>Sales & Event</h3>
-                                        <span>Event "Purchase Button"</span>
+                                        <h3>contactanos</h3>
                                     </div>
-                                    <ul class="panel-controls" style="margin-top: 2px;">
-                                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>                                        
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
-                                                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
-                                            </ul>                                        
-                                        </li>                                        
-                                    </ul>
-                                </div>
-                                <div class="panel-body padding-0">
-                                    <div class="chart-holder" id="dashboard-line-1" style="height: 200px;"></div>
-                                </div>
+                                </div>                                
+                                <div class="panel-body img-bg">                                    
+                                    <div class="contact-info">
+                                        <p><small></small><br/></p>  
+                                        <p><small></small><br/></p>  
+                                        <p><small>telefono</small><br/>(555) 555-55-55</p>
+                                        <p><small>Correo Electronico</small><br/>manosquedejanhuella@gmail.com</p>
+                                        <p><small></small><br/></p>                                   
+                                    </div>
+                                </div>                                
                             </div>
-                            <!-- END SALES & EVENTS BLOCK -->  
+                            <!-- END CONTACT ITEM --> 
                         </div>
                     </div>
                 </div>
@@ -282,481 +220,5 @@
             </div>            
             <!-- END PAGE CONTENT -->
 
-
-        <!--================Home Banner Area =================-->
-        <section class="home_banner_area">
-            <div class="banner_inner">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-5">
-							<div class="banner_content">
-								<h2>Mass People <br />Oriented Software</h2>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim. sed do eiusmod tempor incididunt.</p>
-								<a class="banner_btn"  href="index.html#screenshot">Get Started</a>
-								<a class="banner_btn2" href="#">Download</a>
-							</div>
-						</div>
-						<div class="col-lg-7">
-							<div class="home_left_img">
-								<img class="img-fluid" src="assets/img/banner/home-left-1.png" alt="">
-							</div>
-						</div>
-					</div>
-				</div>
-            </div>
-        </section>
-        <!--================End Home Banner Area =================-->
-        
-        <!--================Work Area =================-->
-        <section class="work_area p_120" id="screenshot">
-        	<div class="container">
-        		<div class="main_title">
-        			<h2>How It work for you</h2>
-        			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-        		</div>
-        		<div class="work_inner row">
-        			<div class="col-lg-4">
-        				<div class="work_item">
-        					<i class="lnr lnr-screen"></i>
-        					<a href="#"><h4>Stunning Visuals</h4></a>
-        					<p>Here, I focus on a range of items and features that we use in life without giving them a second thought such as Coca Cola.</p>
-        				</div>
-        			</div>
-        			<div class="col-lg-4">
-        				<div class="work_item">
-        					<i class="lnr lnr-code"></i>
-        					<a href="#"><h4>Stunning Visuals</h4></a>
-        					<p>Here, I focus on a range of items and features that we use in life without giving them a second thought such as Coca Cola.</p>
-        				</div>
-        			</div>
-        			<div class="col-lg-4">
-        				<div class="work_item">
-        					<i class="lnr lnr-clock"></i>
-        					<a href="#"><h4>Stunning Visuals</h4></a>
-        					<p>Here, I focus on a range of items and features that we use in life without giving them a second thought such as Coca Cola.</p>
-        				</div>
-        			</div>
-        		</div>
-        	</div>
-        </section>
-        <!--================End Work Area =================-->
-        
-        <!--================Made Life Area =================-->
-        <section class="made_life_area p_120">
-        	<div class="container">
-        		<div class="made_life_inner">
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item">
-						<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Easy to use</a>
-						</li>
-						<li class="nav-item">
-						<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Unlimited Colors</a>
-						</li>
-						<li class="nav-item">
-						<a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Unique Features</a>
-						</li>
-						<li class="nav-item">
-						<a class="nav-link" id="edge-tab" data-toggle="tab" href="#edge" role="tab" aria-controls="edge" aria-selected="false">Unique Features</a>
-						</li>
-					</ul>
-					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-							<div class="row made_life_text">
-								<div class="col-lg-6">
-									<div class="left_side_text">
-										<h3>We’ve made a life <br />that will change you</h3>
-										<h6>We are here to listen from you deliver exellence</h6>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-										<a class="main_btn" href="#">Get Started Now</a>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="chart_img">
-										<img class="img-fluid" src="assets/img/chart.jpg" alt="">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-							<div class="row made_life_text">
-								<div class="col-lg-6">
-									<div class="left_side_text">
-										<h3>We’ve made a life <br />that will change you</h3>
-										<h6>We are here to listen from you deliver exellence</h6>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-										<a class="main_btn" href="#">Get Started Now</a>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="chart_img">
-										<img class="img-fluid" src="assets/img/chart.jpg" alt="">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-							<div class="row made_life_text">
-								<div class="col-lg-6">
-									<div class="left_side_text">
-										<h3>We’ve made a life <br />that will change you</h3>
-										<h6>We are here to listen from you deliver exellence</h6>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-										<a class="main_btn" href="#">Get Started Now</a>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="chart_img">
-										<img class="img-fluid" src="assets/img/chart.jpg" alt="">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane fade" id="edge" role="tabpanel" aria-labelledby="edge-tab">
-							<div class="row made_life_text">
-								<div class="col-lg-6">
-									<div class="left_side_text">
-										<h3>We’ve made a life <br />that will change you</h3>
-										<h6>We are here to listen from you deliver exellence</h6>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-										<a class="main_btn" href="#">Get Started Now</a>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="chart_img">
-										<img class="img-fluid" src="assets/img/chart.jpg" alt="">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-        		</div>
-        	</div>
-        </section>
-        <!--================End Made Life Area =================-->
-        
-        <!--================Screen Area =================-->
-        <section class="screen_area text-center p_120">
-        	<div class="container">
-        		<div class="main_title">
-        			<h2>Unique Screens that work perfectly</h2>
-        			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-        		</div>
-        		<img class="img-fluid" src="assets/img/banner/home-left-1.png" alt="">
-        	</div>
-        </section>
-        <!--================End Screen Area =================-->
-        
-        <!--================Made Life Area =================-->
-        <section class="made_life_area p_120">
-        	<div class="container">
-        		<div class="made_life_inner">
-					<div class="row made_life_text">
-						<div class="col-lg-6">
-							<div class="left_side_text">
-								<h3>We’ve made a life <br />that will change you</h3>
-								<h6>We are here to listen from you deliver exellence</h6>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-								<a class="main_btn" href="#">Get Started Now</a>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="chart_img">
-								<img class="img-fluid" src="assets/img/browser.png" alt="">
-							</div>
-						</div>
-					</div>
-        		</div>
-        	</div>
-        </section>
-        <!--================End Made Life Area =================-->
-        
-        <!--================Price Area =================-->
-        <section class="price_area p_120">
-        	<div class="container">
-        		<div class="main_title">
-        			<h2>Choose Your Price Plan</h2>
-        			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-        		</div>
-        		<div class="price_inner row">
-        			<div class="col-lg-4">
-        				<div class="price_item">
-        					<div class="price_head">
-        						<h4>Real Basic</h4>
-        					</div>
-        					<div class="price_body">
-        						<ul class="list">
-        							<li><a href="#">2.5 GB Space</a></li>
-        							<li><a href="#">Secure Online Transfer</a></li>
-        							<li><a href="#">Unlimited Styles</a></li>
-        							<li><a href="#">Customer Service</a></li>
-        						</ul>
-        					</div>
-        					<div class="price_footer">
-        						<h3><span class="dlr">$</span> 39 <span class="month">Per <br />Month</span></h3>
-        						<a class="main_btn" href="#">Get Started</a>
-        					</div>
-        				</div>
-        			</div>
-        			<div class="col-lg-4">
-        				<div class="price_item">
-        					<div class="price_head">
-        						<h4>Real Standard</h4>
-        					</div>
-        					<div class="price_body">
-        						<ul class="list">
-        							<li><a href="#">10 GB Space</a></li>
-        							<li><a href="#">Secure Online Transfer</a></li>
-        							<li><a href="#">Unlimited Styles</a></li>
-        							<li><a href="#">Customer Service</a></li>
-        						</ul>
-        					</div>
-        					<div class="price_footer">
-        						<h3><span class="dlr">$</span> 69 <span class="month">Per <br />Month</span></h3>
-        						<a class="main_btn" href="#">Get Started</a>
-        					</div>
-        				</div>
-        			</div>
-        			<div class="col-lg-4">
-        				<div class="price_item">
-        					<div class="price_head">
-        						<h4>Real Ultimate</h4>
-        					</div>
-        					<div class="price_body">
-        						<ul class="list">
-        							<li><a href="#">Unlimited Space</a></li>
-        							<li><a href="#">Secure Online Transfer</a></li>
-        							<li><a href="#">Unlimited Styles</a></li>
-        							<li><a href="#">Customer Service</a></li>
-        						</ul>
-        					</div>
-        					<div class="price_footer">
-        						<h3><span class="dlr">$</span> 99 <span class="month">Per <br />Month</span></h3>
-        						<a class="main_btn" href="#">Get Started</a>
-        					</div>
-        				</div>
-        			</div>
-        		</div>
-        	</div>
-        </section>
-        <!--================End Price Area =================-->
-        
-        <!--================Testimonials Area =================-->
-        <section class="testimonials_area p_120">
-        	<div class="container">
-        		<div class="main_title">
-        			<h2>Feedback from Customers</h2>
-        			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-        		</div>
-        		<div class="testi_slider owl-carousel">
-        			<div class="item">
-        				<div class="testi_item">
-							<div class="media">
-								<div class="d-flex">
-									<img src="assets/img/testimonials/testi-1.png" alt="">
-								</div>
-								<div class="media-body">
-									<p>Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker, projector, hardware.</p>
-									<h4>Mark Alviro Wiens</h4>
-									<div class="rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-									</div>
-								</div>
-							</div>
-        				</div>
-        			</div>
-        			<div class="item">
-        				<div class="testi_item">
-							<div class="media">
-								<div class="d-flex">
-									<img src="assets/img/testimonials/testi-2.png" alt="">
-								</div>
-								<div class="media-body">
-									<p>Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker, projector, hardware.</p>
-									<h4>Mark Alviro Wiens</h4>
-									<div class="rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-									</div>
-								</div>
-							</div>
-        				</div>
-        			</div>
-        			<div class="item">
-        				<div class="testi_item">
-							<div class="media">
-								<div class="d-flex">
-									<img src="assets/img/testimonials/testi-1.png" alt="">
-								</div>
-								<div class="media-body">
-									<p>Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker, projector, hardware.</p>
-									<h4>Mark Alviro Wiens</h4>
-									<div class="rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-									</div>
-								</div>
-							</div>
-        				</div>
-        			</div>
-        			<div class="item">
-        				<div class="testi_item">
-							<div class="media">
-								<div class="d-flex">
-									<img src="assets/img/testimonials/testi-2.png" alt="">
-								</div>
-								<div class="media-body">
-									<p>Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker, projector, hardware.</p>
-									<h4>Mark Alviro Wiens</h4>
-									<div class="rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-									</div>
-								</div>
-							</div>
-        				</div>
-        			</div>
-        			<div class="item">
-        				<div class="testi_item">
-							<div class="media">
-								<div class="d-flex">
-									<img src="assets/img/testimonials/testi-1.png" alt="">
-								</div>
-								<div class="media-body">
-									<p>Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker, projector, hardware.</p>
-									<h4>Mark Alviro Wiens</h4>
-									<div class="rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-									</div>
-								</div>
-							</div>
-        				</div>
-        			</div>
-        			<div class="item">
-        				<div class="testi_item">
-							<div class="media">
-								<div class="d-flex">
-									<img src="assets/img/testimonials/testi-2.png" alt="">
-								</div>
-								<div class="media-body">
-									<p>Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker, projector, hardware.</p>
-									<h4>Mark Alviro Wiens</h4>
-									<div class="rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-									</div>
-								</div>
-							</div>
-        				</div>
-        			</div>
-        		</div>
-        	</div>
-        </section>
-        <!--================End Testimonials Area =================-->
-        
-        <!--================Made Life Area =================-->
-        <section class="made_life_area made_white ">
-        	<div class="container">
-        		<div class="made_life_inner">
-					<div class="row ">
-						<div class="col-lg-6">
-							<div class="chart_img">
-								<img class="img-fluid" src="assets/img/banner/home-left-1.png" alt="">
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="left_side_text">
-								<h3>We’ve made a life <br />that will change you</h3>
-								<h6>We are here to listen from you deliver exellence</h6>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-								<a class="main_btn" href="#">Get Started Now</a>
-							</div>
-						</div>
-					</div>
-        		</div>
-        	</div>
-        </section>
-        <!--================End Made Life Area =================-->
-        
-        <!--================Impress Area =================-->
-        <section class="impress_area p_120">
-        	<div class="container">
-        		<div class="impress_inner">
-					<h2>Got Impressed to our features?</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-					<a class="banner_btn2" href="#">Request Free Demo</a>
-        		</div>
-        	</div>
-        </section>
-        <!--================End Impress Area =================-->
-        
-        <!--================Footer Area =================-->
-        <footer class="footer_area p_120">
-        	<div class="container">
-        		<div class="row footer_inner">
-        			<div class="col-lg-5 col-sm-6">
-        				<aside class="f_widget ab_widget">
-        					<div class="f_title">
-        						<h3>About Me</h3>
-        					</div>
-        					<p>Do you want to be even more successful? Learn to love learning and growth. The more effort you put into improving your skills,</p>
-        					<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-        				</aside>
-        			</div>
-        			<div class="col-lg-5 col-sm-6">
-        				<aside class="f_widget news_widget">
-        					<div class="f_title">
-        						<h3>Newsletter</h3>
-        					</div>
-        					<p>Stay updated with our latest trends</p>
-        					<div id="mc_embed_signup">
-                                <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative">
-                                	<div class="input-group d-flex flex-row">
-                                        <input name="EMAIL" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
-                                        <button class="btn sub-btn"><span class="lnr lnr-arrow-right"></span></button>		
-                                    </div>				
-                                    <div class="mt-10 info"></div>
-                                </form>
-                            </div>
-        				</aside>
-        			</div>
-        			<div class="col-lg-2">
-        				<aside class="f_widget social_widget">
-        					<div class="f_title">
-        						<h3>Follow Me</h3>
-        					</div>
-        					<p>Let us be social</p>
-        					<ul class="list">
-        						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-        						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-        						<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-        						<li><a href="#"><i class="fa fa-behance"></i></a></li>
-        					</ul>
-        				</aside>
-        			</div>
-        		</div>
-        	</div>
-        </footer>
 
 </ion-content>

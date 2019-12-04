@@ -1,6 +1,6 @@
 .carousel-control-prev,
 .carousel-control-next{
-    background-color: $danger-color;
+    background-color: $primary-color;
     border-radius: 50%;
     opacity: 1;
     text-shadow: none;
@@ -9,7 +9,7 @@
     &:hover,
     &:focus{
         opacity: 1;
-        background-color: $danger-states-color;
+        background-color: $primary-states-color;
     }
 }
 .carousel-control-prev-icon{
@@ -92,7 +92,7 @@
     border: 0 none;
 }
 .carousel-indicators .active{
-    background-color: $danger-color;
+    background-color: $primary-color;
 }
 .page-carousel:hover{
     .carousel-control-prev,

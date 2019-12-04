@@ -2,8 +2,31 @@ ion-icon {
     font-size: 22px; //Preferred size here
 }
 
-//@import "bootstrap/bootstrap.min.css";
+.icon-slider-forma{
+  color: #51cbce;
+  font-size: 30px; //Preferred size here
+}
 
+.img-bg {
+  background: url('/./../assets/img/fundacion-sin-letras.png')center ;
+  text-align: center;
+}
+.ion-icon-social {
+    font-size: 35px; //Preferred size here
+}
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa1-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+/* Twitter */
+.fa1-twitter {
+  background: #55ACEE;
+  color: white;
+}
 
 /* PREDEFINED CLASSES */
 .clearfix {
@@ -1051,7 +1074,7 @@ body.page-container-boxed .page-container {
   float: left;
   padding: 15px 10px;
   position: relative;
-  background: #080a0e;
+  //background: #080a0e;
 }
 .profile .profile-image {
   float: left;
@@ -3850,7 +3873,7 @@ background: #1caf9a !important;
   margin-bottom: 5px;
 }
 .contact-info strong {
-  font-size: 13px;
+  font-size: 15px;
 }
 .contact-info small {
   font-weight: 700;
