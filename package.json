@@ -13,7 +13,7 @@
     "e2e": "ng e2e",
     "lite": "lite-server",
     "postinstall": "ng build --prod",
-    "heroku-postbuild": "ng build --prod",
+    "heroku-postbuild": "ng build --prod --aot",
     "minify": "ionic-app-scripts minify --cleancss ./config/cleancss.config.js"
   },
   "private": true,
