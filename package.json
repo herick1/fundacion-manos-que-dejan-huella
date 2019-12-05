@@ -5,9 +5,8 @@
   "homepage": "http://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "gzipper": "gzipper",
     "start": "node server.js",
-    "build": "ng build --aot && gzipper --verbose ./dist",
+    "build": "ng build --aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
