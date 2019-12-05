@@ -23,6 +23,28 @@
         font-size: $font-size-base;
         color: $default-color;
         text-transform: uppercase;
+        a{
+            color: $white-color;
+            @include opacity(.9);
+            font-weight: $font-weight-bold;
+            &:focus,
+            &:hover{
+                background-color: transparent;
+                @include opacity(1);
+                color: $white-color;
+            }
+        }
+        .ion-icon-nav{
+            color: $white-color;
+            @include opacity(.9);
+            font-weight: $font-weight-bold;
+            &:focus,
+            &:hover{
+                background-color: transparent;
+                @include opacity(1);
+                color: $white-color;
+            } 
+        }
     }
     .nav-link{
         i{
