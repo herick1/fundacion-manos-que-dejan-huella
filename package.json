@@ -4,6 +4,7 @@
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "scripts": {
+    "build.prod": "ng build --environment=prod && tar -zcvf archive.tar.gz dist/prod/*",
     "ng": "ng",
     "start": "node server.js",
     "build": "ng build",
