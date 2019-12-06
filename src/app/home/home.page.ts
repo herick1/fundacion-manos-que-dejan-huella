@@ -59,7 +59,7 @@ export class HomePage implements OnInit {
                 text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
             },
             {
-                imagePath: 'assets/images/slider3.jpg',
+                imagePath: 'assets/img/fundacion-corazon.jpg',
                 label: 'Third slide label',
                 text:
                     'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
