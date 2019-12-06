@@ -104,7 +104,10 @@
         &.dropdown-danger .dropdown-item:focus{
             background-color: $bg-danger;
         }
-
+        &.dropdown-purple .dropdown-item:hover,
+        &.dropdown-purple .dropdown-item:focus{
+            background-color: $bg-purple;
+        }
     }
     .dropdown-divider{
         margin: 0 !important;
