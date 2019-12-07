@@ -81,6 +81,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'contactanos',
+        children: [
+          {
+            path: '',
+            loadChildren: '../contactanos/contactanos.module#ContactanosPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/es/home',
         pathMatch: 'full'
