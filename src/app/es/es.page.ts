@@ -13,12 +13,12 @@ export class EsPage {
 	      url: '/es/quienes-somos',
 	      icon: 'people',
 	      subPages: [
-	      	{ title: 'Mision', url: '' },
-	      	{ title: 'Vision', url: '' },
-	      	{ title: 'Valores', url: '' },
-	      	{ title: 'Historia', url: '' },
-	      	{ title: 'Objetivo General', url: '' },
-	      	{ title: 'Objetivos Especificos', url: '' }
+	      	{ title: 'Misión', url: '/es/quienes-somos#mision'  },
+	      	{ title: 'Visión', url: '/es/quienes-somos#vision' },
+	      	{ title: 'Valores', url: '/es/quienes-somos#valores' },
+	      	{ title: 'Historia', url: '/es/quienes-somos#historia' },
+	      	{ title: 'Objetivo General', url: '/es/quienes-somos#objetivos' },
+	      	{ title: 'Objetivos Especificos', url: '/es/quienes-somos#' }
 	      ]
 	    },
 	    {

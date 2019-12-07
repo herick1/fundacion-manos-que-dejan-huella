@@ -18,7 +18,7 @@
         </ion-item>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let s of p.subPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[s.url]">
+            <ion-item [routerDirection]="'root'" [href]="[s.url]">
               <ion-label>{{s.title}}</ion-label>
             </ion-item>
           </ion-menu-toggle>
