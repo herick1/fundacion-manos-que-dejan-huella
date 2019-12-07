@@ -91,7 +91,7 @@
                                     <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="nc-icon nc-single-02 icon-cotac"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="nombre" (focus)="focus=true" (blur)="focus=false" >
+                                    <input #nombre nombre.value="" id="campo-nombre" type="text" class="form-control" placeholder="nombre"  >
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -100,15 +100,16 @@
                                     <div class="input-group-prepend">
                                       <span class="input-group-text">  <i class="nc-icon nc-email-85 icon-cotac"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Email" (focus)="focus1=true" (blur)="focus1=false" >
+                                    <input #correo correo.value="" id="campo-correo" type="text" class="form-control" placeholder="Email"  >
                                 </div>
                             </div>
                         </div>
                         <label>Mensaje</label>
-                        <textarea class="form-control" rows="4" placeholder="escribe tus pensamientos..."></textarea>
+                        <textarea #mensaje mensaje.value="" id="campo-mensaje" class="form-control" rows="4" placeholder="escribe tus pensamientos..."></textarea>
                         <div class="row">
                             <div class="col-md-4 mr-auto ml-auto">
-                                <button class="btn btn-danger btn-lg btn-fill">Enviar Mensaje</button>
+                                <button class="btn btn-danger btn-lg btn-fill" (click)="contactar(nombre.value, correo.value, mensaje.value)" 
+                                type="submit" >Enviar Mensaje</button>
                             </div>
                         </div>
                     </form>

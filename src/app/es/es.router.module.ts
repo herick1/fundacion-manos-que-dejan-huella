@@ -43,7 +43,7 @@ const routes: Routes = [
             loadChildren: '../quienes-somos/quienes-somos.module#QuienesSomosPageModule'
           }
         ]
-      },
+        },
       {
         path: 'no-found',
         children: [
