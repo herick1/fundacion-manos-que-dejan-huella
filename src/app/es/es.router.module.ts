@@ -81,15 +81,24 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'contactanos',
+        children: [
+          {
+            path: '',
+            loadChildren: '../contactanos/contactanos.module#ContactanosPageModule'
+          }
+        ]
+      },
+      {
         path: '',
-        redirectTo: '/es/tab1',
+        redirectTo: '/es/home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/es/tab1',
+    redirectTo: '/es/home',
     pathMatch: 'full'
   }
 ];

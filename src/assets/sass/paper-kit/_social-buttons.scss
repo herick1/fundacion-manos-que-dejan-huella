@@ -28,13 +28,13 @@
     }
 }
 
-.btn-linkedin{
-    color: $social-linkedin !important;
+.btn-instagram{
+    color: $social-instagram !important;
 
     &:hover,
     &:focus,
     &:active{
-        color: $social-linkedin !important;
+        color: $social-instagram !important;
     }
 }
 .btn-twitter-bg{
@@ -61,11 +61,11 @@
         border-color: darken($social-google, 5%) !important;
     }
 }
-.btn-github-bg{
-    background-color: #767676 !important;
-    border-color: #767676 !important;
+.btn-instagram-bg{
+    background-color: #e625c9 !important;
+    border-color: #e625c9 !important;
     &:hover{
-        background-color: darken(#767676, 5%) !important;
-        border-color: darken(#767676, 5%) !important;
+        background-color: darken(#e625c9, 5%) !important;
+        border-color: darken(#e625c9, 5%) !important;
     }
 }
