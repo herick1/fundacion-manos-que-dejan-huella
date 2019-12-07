@@ -76,28 +76,30 @@
                             
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
-                                <div class="panel-body">                                    
- <ion-grid>
+                                <div class="panel-body carousel slide" data-ride="carousel">                                    
+ <ion-grid >
     <ion-row>
-      <ion-col size="0.1">
+      <ion-col class="col-md-1" size="1">
   <div style="position: absolute;top: 50%;left: 16px;font-size: 25px;z-index: 2;" (click)="prevSlide(slider)">
     <ion-icon class="icon-slider-forma" name="arrow-dropleft-circle"></ion-icon>
   </div>
       </ion-col>
-      <ion-col size="11">
+      <ion-col class="col-md-4" size="10">
  
     <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
-        <ion-slide ngbSlide *ngFor="let slider of sliders">
+        <ion-slide padding ngbSlide *ngFor="let slider of sliders">
+            <div class="carousel-inner">
                     <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide" width="100%">
                     <div class="carousel-caption">
                         <h3>{{slider.label}}</h3>
                         <p>{{slider.text}}</p>
                     </div>
+            </div>
         </ion-slide>
     
       </ion-slides>
       </ion-col>
-      <ion-col size="0.1">
+      <ion-col  class="col-md-1" size="1">
    <div style="position: absolute;top: 50%;right: 16px;font-size: 25px;z-index: 2;" (click)="nextSlide(slider)">
     <ion-icon class="icon-slider-forma" name="arrow-dropright-circle"></ion-icon>
   </div>

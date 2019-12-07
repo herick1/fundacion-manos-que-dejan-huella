@@ -122,7 +122,7 @@ app.get('*', function (req, res) {
     console.log(fullname)  
     fs.access(fullname, fs.constants.R_OK, (err) => {
        if (err)  //este es el caso de que no exista el html 
-          res.redirect('/tabs/no-found');
+          res.redirect('/es/no-found');
         else  // este es el caso de que si exista un html asi y por eso lo imprime
          res.status(200).sendFile(`/`, {root: 'www'})
     });
