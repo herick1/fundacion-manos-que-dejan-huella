@@ -16,6 +16,16 @@ export class ContactanosPage implements OnInit {
 toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
+
+  contactar(nombre,correo, mensaje){
+    var campo = <HTMLInputElement> document.getElementById("campo-nombre");
+    var campo2 = <HTMLInputElement> document.getElementById("campo-correo");
+    var campo3 = <HTMLInputElement> document.getElementById("campo-mensaje");
+    campo.value="";
+    campo2.value="";
+    campo3.value="";
+  }
+
   ngOnInit() {
   }
 
