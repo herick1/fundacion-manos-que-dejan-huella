@@ -48,21 +48,21 @@ export class HomePage implements OnInit {
   {
             this.sliders.push(
             {
-                imagePath: 'assets/img/login.jpg',
-                label: 'First slide label',
+                imagePath: 'assets/img/example-evento2.jpg',
+                label: 'Proximamente evento 1',
                 text:
-                    'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+                    'Proximamente aqui estaran los eventos destacados.'
             },
             {
-                imagePath: 'assets/img/login.jpg',
-                label: 'Second slide label',
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                imagePath: 'assets/img/example-evento3.jpg',
+                label: 'Proximamente evento 2',
+                text: 'Proximamente aqui estaran los eventos destacados'
             },
             {
-                imagePath: 'assets/img/fundacion.png',
-                label: 'Third slide label',
+                imagePath: 'assets/img/example-evento1.jpg',
+                label: 'Proximamento evento 3',
                 text:
-                    'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
+                    'Proximamente aqui estaran los eventos destacados'
             }
         );
         this.slidershome.push(
@@ -81,8 +81,7 @@ export class HomePage implements OnInit {
                 imagePath: 'assets/img/fundacion-mundo.png',
                 label: '¿Tienes un donativo o quieres ayudarnos?',
                 text:
-                    'Tú ayuda es importante! por eso si tienes un' 
-                    +'donativo o quieres ayudarnos comunicate a manosquedejanhuellas@gmail.com'
+                    'Tú ayuda es importante! comunicate con nosostros a manosquedejanhuellas@gmail.com'
             }
         );
   }
