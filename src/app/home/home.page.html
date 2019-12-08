@@ -84,15 +84,16 @@
     <ion-icon class="icon-slider-forma" name="arrow-dropleft-circle"></ion-icon>
   </div>
       </ion-col>
-      <ion-col class="col-md-4" size="10">
+      <ion-col class="col-md-6" size="10">
  
     <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
-        <ion-slide padding ngbSlide *ngFor="let slider of sliders">
+        <ion-slide padding ngbSlide *ngFor="let slider of slidershome">
             <div class="carousel-inner">
-                    <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide" width="100%">
-                    <div class="carousel-caption">
+                    <img class="img-fluid mx-auto d-block" style="min-height: 260px" [src]="slider.imagePath" alt="Random first slide" width="100%">
+                    <div>
                         <h3>{{slider.label}}</h3>
                         <p>{{slider.text}}</p>
+                        <br/>
                     </div>
             </div>
         </ion-slide>
