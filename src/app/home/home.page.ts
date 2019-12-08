@@ -22,7 +22,6 @@ export class HomePage implements OnInit {
   }
 
 
-
     nextSlide(slides: IonSlides) {
        slides.isEnd().then(data => {
          if(data==true) slides.slideTo(0);
@@ -44,6 +43,7 @@ export class HomePage implements OnInit {
     }
 
   public sliders: Array<any> = [];
+  public slidershome: Array<any> = [];
   constructor( public menuCtrl: MenuController) 
   {
             this.sliders.push(
@@ -59,10 +59,30 @@ export class HomePage implements OnInit {
                 text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
             },
             {
-                imagePath: 'assets/img/fundacion-corazon.jpg',
+                imagePath: 'assets/img/fundacion.png',
                 label: 'Third slide label',
                 text:
                     'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
+            }
+        );
+        this.slidershome.push(
+            {
+                imagePath: 'assets/img/fundacion-areasIntervencion.png',
+                label: '¿Cuales son nuestras areas de Intervención?',
+                text:
+                    'siempre tratando de ayudar y crecer a nuestra Venezuela'
+            },
+            {
+                imagePath: 'assets/gif/gif-phone.gif',
+                label: '¿Sabias de nuestra app Movil?',
+                text: 'Utilizala para estar conectado a nosotros en todo momento.'
+            },
+            {
+                imagePath: 'assets/img/fundacion-mundo.png',
+                label: '¿Tienes un donativo o quieres ayudarnos?',
+                text:
+                    'Tú ayuda es importante! por eso si tienes un' 
+                    +'donativo o quieres ayudarnos comunicate a manosquedejanhuellas@gmail.com'
             }
         );
   }
