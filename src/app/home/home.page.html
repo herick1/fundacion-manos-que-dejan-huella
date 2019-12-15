@@ -76,8 +76,8 @@
                             
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
-                                <div class="panel-body carousel slide" data-ride="carousel">                                    
- <ion-grid>
+                                <div class="panel-body carousel slide tamano-home" data-ride="carousel">
+                                     <ion-grid>
     <ion-row>
       <ion-col class="col-md-1" size="1">
   <div style="position: absolute;top: 50%;left: 16px;font-size: 25px;z-index: 2;" (click)="prevSlide(slider)">
@@ -89,7 +89,7 @@
     <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
         <ion-slide padding ngbSlide *ngFor="let slider of slidershome">
             <div class="carousel-inner">
-                    <img class="img-fluid mx-auto d-block" style="min-height: 240px" [src]="slider.imagePath" alt="Random first slide" width="100%">
+                    <img class="img-fluid mx-auto d-block" style="min-height: 200px ;" [src]="slider.imagePath" alt="Random first slide" width="100%">
                     <div>
                         <h3>{{slider.label}}</h3>
                         <p>{{slider.text}}</p>

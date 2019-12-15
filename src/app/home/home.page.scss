@@ -1032,6 +1032,23 @@ ul.panel-controls > li > .dropdown-menu:before {
   margin-left: -16px;
   margin-top: -16px;
 }
+
+.tamano-home {
+  h3 {
+    background: white;
+  }
+}
+@media (max-width:540px) {
+    .tamano-home {
+      h3 {
+        font-size: 13px;
+      }
+      p {
+        font-size: 10px;
+      }
+    }
+}
+
 /* EOF PANEL REFRESHING */
 .panel-toggled .panel-body,
 .panel-toggled .panel-footer {
