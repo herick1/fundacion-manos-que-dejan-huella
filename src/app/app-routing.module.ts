@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 
 const routes: Routes = [
   { path: '', loadChildren: './es/es.module#EsPageModule' }
@@ -12,8 +12,13 @@ const routes: Routes = [
   //{ path: 'layout', loadChildren: './layout/layout.module#LayoutPageModule' }
 
 ];
+  const routerOptions: ExtraOptions = {
+              anchorScrolling: 'enabled',
+              //onSameUrlNavigation: 'reload',
+              //scrollPositionRestoration: 'enabled'
+        };
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

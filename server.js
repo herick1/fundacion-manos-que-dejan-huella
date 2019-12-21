@@ -121,9 +121,11 @@ app.get('*', function (req, res) {
     var fullname = path.join(__dirname,'src','app',splitt[2], splitt[2]+'.page.html'); 
     console.log(fullname)  
     fs.access(fullname, fs.constants.R_OK, (err) => {
-       if (err)  //este es el caso de que no exista el html 
-          res.redirect('/es/no-found');
-        else  // este es el caso de que si exista un html asi y por eso lo imprime
+       if (err){  //este es el caso de que no exista el html 
+          if(splitt[2].split('#')[0]=='quienes-somos'){ //puede darse el caso que en quienessomos por tener un fragmentp
+            res.status(200).sendFile(`/`, {root: 'www'}) //entre en esta condicion             
+          }else res.redirect('/es/no-found');
+        }else  // este es el caso de que si exista un html asi y por eso lo imprime
          res.status(200).sendFile(`/`, {root: 'www'})
     });
   }else{

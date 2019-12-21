@@ -1,40 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef} from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { IonContent } from "@ionic/angular";
+import { ViewChild} from '@angular/core';
+import {Router } from "@angular/router";
 
 @Component({
   selector: 'app-quienes-somos',
   templateUrl: './quienes-somos.page.html',
   styleUrls: ['./quienes-somos.page.scss'],
 })
-export class QuienesSomosPage implements OnInit {
-    public sliders: Array<any> = [];
-  constructor( public menuCtrl: MenuController) 
+export class QuienesSomosPage implements OnInit { 
+
+  @ViewChild(IonContent,  {static: false}) content: IonContent;
+
+  @ViewChild('quieneSomos',  {static: false}) quieneSomos : ElementRef;  
+  @ViewChild('mision',  {static: false}) mision : ElementRef;
+  @ViewChild('valores',  {static: false}) valores : ElementRef;
+  @ViewChild('vision',  {static: false}) vision : ElementRef;
+  @ViewChild('objetivo',  {static: false}) objetivo : ElementRef;
+  @ViewChild('historia',  {static: false}) historia : ElementRef;
+
+
+  constructor(public menuCtrl: MenuController, private router: Router) 
   {
-            this.sliders.push(
-            {
-                imagePath: 'assets/img/login.jpg',
-                label: 'First slide label',
-                text:
-                    'Nulla vitae elit libero, a pharetra augue mollis interdum.'
-            },
-            {
-                imagePath: 'assets/img/login.jpg',
-                label: 'Second slide label',
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            },
-            {
-                imagePath: 'assets/images/slider3.jpg',
-                label: 'Third slide label',
-                text:
-                    'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
-            }
-        );
+  }
+  buscar_fragmento(fragmento)
+  {
+    switch(fragmento) {
+      case 'quieneSomos':
+        this.content.scrollToPoint(0,this.quieneSomos.nativeElement.offsetTop, 1500);
+        break;
+      case 'mision':     
+        this.content.scrollToPoint(0,this.mision.nativeElement.offsetTop, 1500);
+        break;
+      case 'valores':
+        this.content.scrollToPoint(0,this.valores.nativeElement.offsetTop, 1500);
+        break;
+      case 'vision':
+        this.content.scrollToPoint(0,this.vision.nativeElement.offsetTop, 1500);
+        break;
+      case 'objetivo':
+        this.content.scrollToPoint(0, this.objetivo.nativeElement.offsetTop, 1500);
+        break;
+      case 'historia':
+        this.content.scrollToPoint(0, this.historia.nativeElement.offsetTop, 1500);
+        break;
+      default:
+        return null
+    }
   }
 
-toggleMenu() {
+  toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
-  ngOnInit() {
+  ngOnInit() 
+  {
+  }
+
+  ionViewDidEnter()
+  { //la funcion mas bonita  que pude encontrar de ionic y te conoci por casualidad <3
+  //esta se ejecuta cada vez que la pagina es totalmente cargadda con 
+  //los DOM , router y etc, te quita los problemas dek NAvigationEnd, 
+  //y siempre se ejecuta cuando la vista ya esta esta activada y probada en la el front
+    const tree = this.router.parseUrl(this.router.url); //tenemso que verificar que haya un fragmento
+    if (tree.fragment) { //existe un fragmento?
+      this.buscar_fragmento(tree.fragment) //buscamos si existe el fragmento
+    }
   }
 
 }

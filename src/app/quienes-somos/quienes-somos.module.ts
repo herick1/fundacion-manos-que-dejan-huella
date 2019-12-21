@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { IonicModule } from '@ionic/angular';
-
 import { QuienesSomosPage } from './quienes-somos.page';
 
 const routes: Routes = [
