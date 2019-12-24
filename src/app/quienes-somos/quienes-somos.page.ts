@@ -17,7 +17,7 @@ export class QuienesSomosPage implements OnInit {
   @ViewChild('mision',  {static: false}) mision : ElementRef;
   @ViewChild('valores',  {static: false}) valores : ElementRef;
   @ViewChild('vision',  {static: false}) vision : ElementRef;
-  @ViewChild('objetivo',  {static: false}) objetivo : ElementRef;
+  @ViewChild('objetivos',  {static: false}) objetivos : ElementRef;
   @ViewChild('historia',  {static: false}) historia : ElementRef;
 
 
@@ -39,8 +39,8 @@ export class QuienesSomosPage implements OnInit {
       case 'vision':
         this.content.scrollToPoint(0,this.vision.nativeElement.offsetTop, 1500);
         break;
-      case 'objetivo':
-        this.content.scrollToPoint(0, this.objetivo.nativeElement.offsetTop, 1500);
+      case 'objetivos':
+        this.content.scrollToPoint(0, this.objetivos.nativeElement.offsetTop, 1500);
         break;
       case 'historia':
         this.content.scrollToPoint(0, this.historia.nativeElement.offsetTop, 1500);
