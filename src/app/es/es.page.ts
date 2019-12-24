@@ -23,7 +23,7 @@ export class EsPage {
 	    },
 	    {
 	      title: 'Eventos',
-	      url: '/es/eventos',
+	      url: '/es/no-found',
 	      icon: 'calendar'
 	  	},
 	    {
@@ -33,12 +33,12 @@ export class EsPage {
 	  	},
 	    {
 	      title: 'Usuario',
-	      url: '/es/usuario',
+	      url: '/es/no-found',
 	      icon: 'person'
 	    },
 	    {
 	      title: 'Gestionar evento(s)',
-	      url: '/es/eventos',
+	      url: '/es/no-found',
 	      icon: 'calendar'
 	  	},
 	    {
