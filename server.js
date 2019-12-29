@@ -77,6 +77,13 @@ client.query('SELECT * FROM PRUEBA;'
 
 });
 
+//descargar
+app.get('/download', function(req, res){
+  var file = __dirname + '/dejatushuellas.apk';
+  res.download(file); // Set disposition and send it.
+});
+
+
 // MANEJO DE EVENTOS
 app.get("/evento", urlencodedParser, (req, res) => {
   client.connect();
