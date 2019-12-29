@@ -89,7 +89,7 @@
     <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
         <ion-slide padding ngbSlide *ngFor="let slider of slidershome">
             <div class="carousel-inner">
-                    <img class="img-fluid mx-auto d-block" style="min-height: 200px ;" [src]="slider.imagePath" alt="Random first slide" width="100%">
+                <a [href]="slider.href"> <img class="img-fluid mx-auto d-block" style="min-height: 200px ;" [src]="slider.imagePath" alt="Random first slide" width="100%"></a>
                     <div>
                         <h3>{{slider.label}}</h3>
                         <p>{{slider.text}}</p>
@@ -123,12 +123,13 @@
          <ngb-carousel class="carousel slide" data-ride="carousel">
                 <ng-template ngbSlide *ngFor="let slider of sliders">
                     <div  class="carousel-inner">
-                    <img class="img-fluid mx-auto d-block" style="max-height: 400px" [src]="slider.imagePath" alt="Random first slide" width="100%">
+                    <img class="img-fluid mx-auto d-block" style="max-height: 400px" [src]="slider.imagePath" alt="Random first slide" width="100%" >
 
                     <div class="carousel-caption" style="background-color: rgba(0,0,0,0.3);        -moz-border-radius: 9px;
  -webkit-border-radius:9px;">
 
                         <h3 style="color: white">{{slider.label}}</h3>
+                        <br>
                         <p>{{slider.text}}</p>
                     </div>
                 </div>

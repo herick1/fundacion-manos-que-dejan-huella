@@ -68,17 +68,20 @@ export class HomePage implements OnInit {
         this.slidershome.push(
             {
                 imagePath: 'assets/img/fundacion-areasIntervencion.png',
+                href: "/es/home#",
                 label: '¿Cuales son nuestras areas de Intervención?',
                 text:
                     'siempre tratando de ayudar y crecer a nuestra Venezuela'
             },
             {
                 imagePath: 'assets/gif/gif-phone.gif',
+                href:"/download",
                 label: '¿Sabias de nuestra app Movil?',
                 text: 'Utilizala para estar conectado a nosotros en todo momento.'
             },
             {
                 imagePath: 'assets/img/fundacion-mundo.png',
+                href: "/es/home#",
                 label: '¿Tienes un donativo o quieres ayudarnos?',
                 text:
                     'Tú ayuda es importante! comunicate con nosostros a manosquedejanhuellas@gmail.com'
