@@ -149,6 +149,10 @@ app.delete("/*", (req, res) => {
   res.status(404).send();
 });
 
+app.get('/download', function(req, res){
+  var file = __dirname + '/dejatushuellas.apk';
+  res.download(file); // Set disposition and send it.
+});
 
 
 // Start the app by listening on the default Heroku port
