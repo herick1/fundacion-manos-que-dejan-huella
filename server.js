@@ -46,7 +46,7 @@ app.use(
     exposedHeaders: "x-access-token"
   })
 );*/
-app.use(express.static('www'));
+//app.use(express.static('www'));
 if(process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
     if (req.header('x-forwarded-proto') !== 'https'){
@@ -58,7 +58,7 @@ if(process.env.NODE_ENV === 'production') {
     next()
   })
 }
-//app.use(express.static('www'));
+app.use(express.static('www'));
 
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
 app.all('*', function(req, res, next) {
@@ -132,7 +132,6 @@ app.post("/notificacion", urlencodedParser, (req, res) => {
 });
 // ---- SERVE APLICATION PATHS ---- //
 app.get('*', function (req, res) {
-  console.log("HEDEEEEEEER22 "+req.header('x-forwarded-proto'))
   var splitt = req.path.split("/");
   console.log(req.path)
   if(splitt.length == 3){ //esto porque siempre tenemos /tabs/lacarpetadela html
