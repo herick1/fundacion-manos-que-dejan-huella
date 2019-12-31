@@ -1,5 +1,5 @@
 # WEB FUNDACION MANOS QUE DEJAN HUELLA
-# basado en Ionic v4 Tutorial: Photo Gallery app
+# basado en Ionic v4 Tutorial: Manos que dejan huellas APP
 
 
 Aplicacion web para la fundacion manos que dejan huella.
