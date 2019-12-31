@@ -46,8 +46,16 @@ app.use(
     exposedHeaders: "x-access-token"
   })
 );*/
-
 app.use(express.static('www'));
+if(process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https')
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    else
+    next()
+  })
+}
+//app.use(express.static('www'));
 
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
 app.all('*', function(req, res, next) {
