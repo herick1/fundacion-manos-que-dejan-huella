@@ -75,7 +75,7 @@ app.use(bodyParser.json());
 
 
 app.get("/jugador", urlencodedParser, (req, res) => {
-  console.log(" GET /prueba:");
+  //console.log(" GET /prueba:");
   client.connect();
 
 client.query('SELECT * FROM PRUEBA;'
