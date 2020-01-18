@@ -176,7 +176,7 @@ app.post('/register', (req, res) => {
       findUserByEmail(email, (err, user)=>{
           if (err) return  res.status(500).send('Server error!');  
           const  expiresIn  =  24  *  60  *  60;
-          const  accessToken  =  jwt.sign({ id:  user.id }, SECRET_KEY, {
+          const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
               expiresIn:  expiresIn
           });
           res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn          
