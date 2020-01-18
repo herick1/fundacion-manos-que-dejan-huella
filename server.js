@@ -139,8 +139,7 @@ const  findUserByEmail  = (email, cb,user) => {
   client.connect();
   client.query(query
     , (err, response) => {
-      cb(err)
-      user(response.rows)
+      cb(err,response.rows)
       console.log("ERRROR> "+err)
       console.log("BIEN> "+response)
   });
