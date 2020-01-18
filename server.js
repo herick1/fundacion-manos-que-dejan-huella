@@ -165,7 +165,8 @@ const  findUserByEmail  = (email, cb) => {
 }
 
 const  createUser  = (user, cb) => {
-  let query= "INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) values('"+user.name+"','"+user.apellido+"','"+user.email+"','"+user.password+"');"
+  console.log("USER> "+user)
+  let query= "INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) values('"+user[0]+"','"+user.apellido+"','"+user.email+"','"+user.password+"');"
   client.connect();
   client.query(query
     , (err, response) => {
