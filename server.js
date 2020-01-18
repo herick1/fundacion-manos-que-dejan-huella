@@ -165,10 +165,11 @@ const  findUserByEmail  = (email, cb) => {
 }
 
 const  createUser  = (user, cb) => {
-  let query= 'INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) VALUES (?,?,?,?)'
+  let query= "INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) values('"+user.name+"','"+user.apellido+"','"+user.email+"','"+user.password+"');"
   client.connect();
   return client.query(query
     , (err, response) => {
+      cb(err)
     res.json(response)
   });
 }
@@ -181,7 +182,7 @@ app.post('/register', (req, res) => {
   const  password  =  bcrypt.hashSync(req.body.password);
 
 
-  createUser([name, email, password], (err)=>{
+  createUser([name, apellido,email, password], (err)=>{
       if(err) return  res.status(500).send("Server error!");
       findUserByEmail(email, (err, user)=>{
           if (err) return  res.status(500).send('Server error!');  
