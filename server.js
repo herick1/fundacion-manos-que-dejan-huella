@@ -178,6 +178,7 @@ app.post('/register', (req, res) => {
   //let body = _.pick(req.body, ["name","email"]);
   const  name  =  req.body.name;
   const  email  =  req.body.email;
+  const apellido= req.body.apellido;
   console.log(req.body);
   const  password  =  bcrypt.hashSync(req.body.password);
 
