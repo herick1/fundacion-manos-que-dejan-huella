@@ -71,6 +71,15 @@ const routes: Routes = [
           }
         ]
       },
+      /*{
+      path: 'login2',
+      children: [
+        {
+          path: '',
+          loadChildren: '../auth/login/login.module#LoginPageModule'
+        }
+      ]
+    },*/
       {
         path: 'layout',
         children: [

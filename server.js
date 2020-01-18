@@ -11,7 +11,9 @@ const fs = require('fs');
 
 const path = require('path');
 const { Client } = require('pg');
-
+const  jwt  =  require('jsonwebtoken');
+const  bcrypt  =  require('bcryptjs');
+const SECRET_KEY = "secretkey23456";
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
@@ -151,6 +153,66 @@ app.get('*', function (req, res) {
     else res.redirect('/es/no-found');
   }
 });
+
+//autenticacion
+const  findUserByEmail  = (email, cb) => {
+  let query= `SELECT * FROM usuario WHERE usu_email = ?`
+  client.connect();
+  client.query(query
+    , (err, response) => {
+    res.json(response)
+  });
+}
+
+const  createUser  = (user, cb) => {
+  let query= 'INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) VALUES (?,?,?,?)'
+  client.connect();
+  client.query(query
+    , (err, response) => {
+    res.json(response)
+  });
+}
+
+app.post('/register', (req, res) => {
+  //let body = _.pick(req.body, ["name","email"]);
+  const  name  =  req.body.name;
+  const  email  =  req.body.email;
+  console.log(req.body);
+  const  password  =  bcrypt.hashSync(req.body.password);
+
+
+  createUser([name, email, password], (err)=>{
+      if(err) return  res.status(500).send("Server error!");
+      findUserByEmail(email, (err, user)=>{
+          if (err) return  res.status(500).send('Server error!');  
+          const  expiresIn  =  24  *  60  *  60;
+          const  accessToken  =  jwt.sign({ id:  user.id }, SECRET_KEY, {
+              expiresIn:  expiresIn
+          });
+          res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn          
+          });
+      });
+  });
+});
+
+
+app.post('/login', (req, res) => {
+  const  email  =  req.body.email;
+  const  password  =  req.body.password;
+  findUserByEmail(email, (err, user)=>{
+      if (err) return  res.status(500).send('Server error!');
+      if (!user) return  res.status(404).send('User not found!');
+      const  result  =  bcrypt.compareSync(password, user.password);
+      if(!result) return  res.status(401).send('Password not valid!');
+
+      const  expiresIn  =  24  *  60  *  60;
+      const  accessToken  =  jwt.sign({ id:  user.id }, SECRET_KEY, {
+          expiresIn:  expiresIn
+      });
+      res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
+  });
+});
+
 
 app.get("/es/no-found", (req, res) => {
     res.status(404).sendFile(`/`, {root: 'www'})
