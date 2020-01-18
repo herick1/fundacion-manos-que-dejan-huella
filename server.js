@@ -156,17 +156,23 @@ app.get('*', function (req, res) {
 
 //autenticacion
 const  findUserByEmail  = (email, cb) => {
-  let query= `SELECT * FROM usuario WHERE usu_email = ?`
+  let query= "SELECT * FROM usuario WHERE usu_email ='"+email+"'"
   client.connect();
-  return client.query(query
+  client.query(query
     , (err, response) => {
-    res.json(response)
+      cb(err)
+      console.log("ERRROR> "+err)
+      console.log("BIEN> "+response)
   });
 }
 
 const  createUser  = (user, cb) => {
   console.log("USER> "+user)
-  let query= "INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) values('"+user[0]+"','"+user.apellido+"','"+user.email+"','"+user.password+"');"
+  console.log("user pppp"+user[0])
+  console.log("user pppp"+user[1])
+  console.log("user pppp"+user[2])
+  console.log("user pppp"+user[3])
+  let query= "INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) values('"+user[0]+"','"+user[1]+"','"+user[2]+"','"+user[3]+"');"
   client.connect();
   client.query(query
     , (err, response) => {
