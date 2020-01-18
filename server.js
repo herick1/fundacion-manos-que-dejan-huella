@@ -170,7 +170,7 @@ const  createUser  = (user, cb) => {
   return client.query(query
     , (err, response) => {
       cb(err)
-    res.json(response)
+
   });
 }
 
