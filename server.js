@@ -131,36 +131,16 @@ app.post("/notificacion", urlencodedParser, (req, res) => {
   res.json({ status: "success", message: body.token });
   
 });
-// ---- SERVE APLICATION PATHS ---- //
-app.get('*', function (req, res) {
-  var splitt = req.path.split("/");
-  console.log(req.path)
-  if(splitt.length == 3){ //esto porque siempre tenemos /tabs/lacarpetadela html
-    console.log(req.path)
-    var fullname = path.join(__dirname,'src','app',splitt[2], splitt[2]+'.page.html'); 
-    console.log(fullname)  
-    fs.access(fullname, fs.constants.R_OK, (err) => {
-       if (err){  //este es el caso de que no exista el html 
-          if(splitt[2].split('#')[0]=='quienes-somos'){ //puede darse el caso que en quienessomos por tener un fragmentp
-            res.status(200).sendFile(`/`, {root: 'www'}) //entre en esta condicion             
-          }else res.redirect('/es/no-found');
-        }else  // este es el caso de que si exista un html asi y por eso lo imprime
-         res.status(200).sendFile(`/`, {root: 'www'})
-    });
-  }else{
-    if (req.path == '/cordova.js')
-       res.status(200).sendFile(`/`, {root: 'www'})
-    else res.redirect('/es/no-found');
-  }
-});
+
 
 //autenticacion
-const  findUserByEmail  = (email, cb) => {
+const  findUserByEmail  = (email, cb,user) => {
   let query= "SELECT * FROM usuario WHERE usu_email ='"+email+"'"
   client.connect();
   client.query(query
     , (err, response) => {
       cb(err)
+      user(response.rows)
       console.log("ERRROR> "+err)
       console.log("BIEN> "+response)
   });
@@ -205,6 +185,23 @@ app.post('/register', (req, res) => {
   });
 });
 
+app.get('aja'), (req, res) => {
+
+  const  email  =  "jorge12@gmail.com";
+  const  password  =  "jorge";
+  findUserByEmail(email, (err, user)=>{
+      if (err) return  res.status(500).send('Server error!');
+      if (!user) return  res.status(404).send('User not found!');
+      const  result  =  bcrypt.compareSync(password, user.password);
+      if(!result) return  res.status(401).send('Password not valid!');
+
+      const  expiresIn  =  24  *  60  *  60;
+      const  accessToken  =  jwt.sign({ id:  user.id }, SECRET_KEY, {
+          expiresIn:  expiresIn
+      });
+      res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
+  });
+}
 
 app.post('/login', (req, res) => {
   const  email  =  req.body.email;
@@ -223,6 +220,28 @@ app.post('/login', (req, res) => {
   });
 });
 
+// ---- SERVE APLICATION PATHS ---- //
+app.get('*', function (req, res) {
+  var splitt = req.path.split("/");
+  console.log(req.path)
+  if(splitt.length == 3){ //esto porque siempre tenemos /tabs/lacarpetadela html
+    console.log(req.path)
+    var fullname = path.join(__dirname,'src','app',splitt[2], splitt[2]+'.page.html'); 
+    console.log(fullname)  
+    fs.access(fullname, fs.constants.R_OK, (err) => {
+       if (err){  //este es el caso de que no exista el html 
+          if(splitt[2].split('#')[0]=='quienes-somos'){ //puede darse el caso que en quienessomos por tener un fragmentp
+            res.status(200).sendFile(`/`, {root: 'www'}) //entre en esta condicion             
+          }else res.redirect('/es/no-found');
+        }else  // este es el caso de que si exista un html asi y por eso lo imprime
+         res.status(200).sendFile(`/`, {root: 'www'})
+    });
+  }else{
+    if (req.path == '/cordova.js')
+       res.status(200).sendFile(`/`, {root: 'www'})
+    else res.redirect('/es/no-found');
+  }
+});
 
 app.get("/es/no-found", (req, res) => {
     res.status(404).sendFile(`/`, {root: 'www'})
