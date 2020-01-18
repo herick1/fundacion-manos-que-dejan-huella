@@ -196,7 +196,9 @@ app.get('aja'), (req, res) => {
       if(!result) return  res.status(401).send('Password not valid!');
 
       const  expiresIn  =  24  *  60  *  60;
-      const  accessToken  =  jwt.sign({ id:  user.id }, SECRET_KEY, {
+      console.log("Ssssssss"+user)
+      console.log("JEJEJE"+user[0])
+      const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
           expiresIn:  expiresIn
       });
       res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
@@ -214,7 +216,7 @@ app.post('/login', (req, res) => {
 
       const  expiresIn  =  24  *  60  *  60;
       console.log("Ssssssss"+user)
-      const  accessToken  =  jwt.sign({ id:  user.id }, SECRET_KEY, {
+      const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
           expiresIn:  expiresIn
       });
       res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
