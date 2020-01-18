@@ -158,7 +158,7 @@ app.get('*', function (req, res) {
 const  findUserByEmail  = (email, cb) => {
   let query= `SELECT * FROM usuario WHERE usu_email = ?`
   client.connect();
-  client.query(query
+  return client.query(query
     , (err, response) => {
     res.json(response)
   });
@@ -167,7 +167,7 @@ const  findUserByEmail  = (email, cb) => {
 const  createUser  = (user, cb) => {
   let query= 'INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) VALUES (?,?,?,?)'
   client.connect();
-  client.query(query
+  return client.query(query
     , (err, response) => {
     res.json(response)
   });
