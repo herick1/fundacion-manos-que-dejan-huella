@@ -38,14 +38,11 @@ app.use(express.static(__dirname+'/dist/photo-rc1'));
 app.get('/',function(req,res){
     res.sendFile(path.join(__dirname+'/dist/photo-rc1/index.html'));
 });
-
+*/
 app.use(
-  cors({
-    origin: true,
-    exposedHeaders: "x-access-token"
-  })
-);*/
-//app.use(express.static('www'));
+  cors()
+);
+
 /* ESTO SE QUITAAAAAAAAAAAAAAAAA
 if(process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
@@ -216,10 +213,6 @@ app.post('/login', (req, res) => {
   findUserByEmail(email, (err, user)=>{
       if (err) return  res.status(500).send('Server error!');
       if (!user) return  res.status(404).send('User not found!');
-      console.log("JORGEEEEEE> "+user.usu_password)
-      console.log("JORGEEEEEE2> "+user[0].usu_password)
-      console.log("JORGEEEEEE3> "+user)
-      let value = _.pick(user, ["usu_password"]);
       console.log("JORGEEEEEE4> "+user[0].usu_password)
       const  result  =  bcrypt.compareSync(password, user[0].usu_password);
       if(!result) return  res.status(401).send('Password not valid!');
