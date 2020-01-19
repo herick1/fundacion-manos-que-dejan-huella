@@ -205,8 +205,17 @@ app.post('/login', (req, res) => {
       console.log("JORGEEEEEE> "+user.usu_password)
       console.log("JORGEEEEEE2> "+user[0].usu_password)
       console.log("JORGEEEEEE3> "+user)
-
-      res.status(200).send({ "user":  user[0], "prueba":user[0].usu_password});
+      let value = _.pick(user, ["usu_password"]);
+      console.log("JORGEEEEEE4> "+user[0].usu_password)
+      const  result  =  bcrypt.compareSync(password, user[0].usu_password);
+      if(!result) return  res.status(401).send('Password not valid!');
+      //if(password !=value.usu_password) return  res.status(401).send('Password not valid!');
+      const  expiresIn  =  24  *  60  *  60;
+      console.log("Ssssssss"+user)
+      const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
+          expiresIn:  expiresIn
+      });
+      res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
   });
 });
 
