@@ -38,7 +38,7 @@ export class AuthService {
   login(user: User): Observable<AuthResponse> {
     console.log(user.email)
     console.log(user.password)
-    return this.httpClient.post('https://pruebas-manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password}).pipe(
+    return this.httpClient.post('https://pruebas-manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password},this.options).pipe(
     tap(async (res: AuthResponse) => {
       console.log("ssssss2")
         if (res.user) {

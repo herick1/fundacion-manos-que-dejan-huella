@@ -49,6 +49,7 @@ app.use(
   })
 );*/
 //app.use(express.static('www'));
+/* ESTO SE QUITAAAAAAAAAAAAAAAAA
 if(process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
     if (req.header('x-forwarded-proto') !== 'https'){
@@ -59,6 +60,7 @@ if(process.env.NODE_ENV === 'production') {
     next()
   })
 }
+*/
 app.use(express.static('www'));
 
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
