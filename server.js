@@ -198,7 +198,7 @@ app.get('/aja'), (req, res) => {
 
 app.post('/login', (req, res) => {
   const  email  =  req.body.email;
-  const  password  =  await req.body.password;
+  const  password  =  req.body.password;
   findUserByEmail(email, (err, user)=>{
       if (err) return  res.status(500).send('Server error!');
       if (!user) return  res.status(404).send('User not found!');
