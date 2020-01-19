@@ -167,7 +167,7 @@ app.post('/register', (req, res) => {
   const  email  =  req.body.email;
   const apellido= req.body.apellido;
   console.log(req.body);
-  const  password  =  bcrypt.hashSync(req.body.password);
+  const  password  =  bcrypt.hashSync(req.body.password,10);
 
 
   createUser([name, apellido,email, password], (err)=>{
@@ -203,7 +203,7 @@ app.post('/login', (req, res) => {
       if (err) return  res.status(500).send('Server error!');
       if (!user) return  res.status(404).send('User not found!');
       console.log("JORGEEEEEE> "+user.usu_password)
-      console.log("JORGEEEEEE2> "+user[4])
+      console.log("JORGEEEEEE2> "+user[0])
       console.log("JORGEEEEEE3> "+user)
       let value = _.pick(user, ["usu_password"]);
       console.log("JORGEEEEEE4> "+value.usu_password)
