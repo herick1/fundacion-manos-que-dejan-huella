@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from  '@angular/common/http';
+import { HttpClient , HttpHeaders} from  '@angular/common/http';
 import { tap } from  'rxjs/operators';
 import { Observable, BehaviorSubject } from  'rxjs';
 
@@ -14,11 +14,12 @@ import { AuthResponse } from  './auth-response';
 
 export class AuthService {
 
-  AUTH_SERVER_ADDRESS:  string  =  'http://localhost:3000';
+  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   authSubject  =  new  BehaviorSubject(false);
 
   constructor(private  httpClient:  HttpClient, private  storage:  Storage) { }
 
+  private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
 
   register(user: User): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/register`, user).pipe(
@@ -35,14 +36,19 @@ export class AuthService {
   }
 
   login(user: User): Observable<AuthResponse> {
-    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/login`, user).pipe(
-      tap(async (res: AuthResponse) => {
-
+    console.log(user.email)
+    console.log(user.password)
+    return this.httpClient.post('https://manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password}, this.options).pipe(
+    tap(async (res: AuthResponse) => {
+      console.log("ssssss2")
         if (res.user) {
+          console.log("ssssss3")
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);
           await this.storage.set("EXPIRES_IN", res.user.expires_in);
           this.authSubject.next(true);
         }
+        else 
+        console.log("aja")
       })
     );
   }
@@ -56,5 +62,5 @@ export class AuthService {
   isLoggedIn() {
     return this.authSubject.asObservable();
   }
-  
+
 }
