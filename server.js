@@ -184,40 +184,32 @@ app.post('/register', (req, res) => {
   });
 });
 
-app.get('aja'), (req, res) => {
+app.get('/aja'), (req, res) => {
 
   const  email  =  "jorge12@gmail.com";
   const  password  =  "jorge";
-  findUserByEmail(email, (err, user)=>{
-      if (err) return  res.status(500).send('Server error!');
-      if (!user) return  res.status(404).send('User not found!');
-      const  result  =  bcrypt.compareSync(password, user.password);
+  const password2= bcrypt.hashSync(req.body.password);
+      const  result  =  bcrypt.compareSync(password, password2);
       if(!result) return  res.status(401).send('Password not valid!');
 
-      const  expiresIn  =  24  *  60  *  60;
-      console.log("Ssssssss"+user)
-      console.log("JEJEJE"+user[0])
-      const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
-          expiresIn:  expiresIn
-      });
-      res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
-  });
+      res.status(200).send("djd");
+ 
 }
 
 app.post('/login', (req, res) => {
   const  email  =  req.body.email;
-  const  password  =  req.body.password;
+  const  password  =  await req.body.password;
   findUserByEmail(email, (err, user)=>{
       if (err) return  res.status(500).send('Server error!');
       if (!user) return  res.status(404).send('User not found!');
       console.log("JORGEEEEEE> "+user.usu_password)
       console.log("JORGEEEEEE2> "+user[4])
       console.log("JORGEEEEEE3> "+user)
-      let value = _.pick(req.body, ["usu_password"]);
+      let value =await user.usu_password
       console.log("JORGEEEEEE4> "+value)
-      const  result  =  bcrypt.compareSync(password, value.usu_password);
+      const  result  =  bcrypt.compareSync(password, value);
       if(!result) return  res.status(401).send('Password not valid!');
-
+      //if(password !=value.usu_password) return  res.status(401).send('Password not valid!');
       const  expiresIn  =  24  *  60  *  60;
       console.log("Ssssssss"+user)
       const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
