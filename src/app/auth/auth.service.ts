@@ -14,7 +14,7 @@ import { AuthResponse } from  './auth-response';
 
 export class AuthService {
 
-  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  AUTH_SERVER_ADDRESS:  string  =  'https://pruebas-manos-que-dejan-huella.herokuapp.com';
   authSubject  =  new  BehaviorSubject(false);
 
   constructor(private  httpClient:  HttpClient, private  storage:  Storage) { }
@@ -38,7 +38,7 @@ export class AuthService {
   login(user: User): Observable<AuthResponse> {
     console.log(user.email)
     console.log(user.password)
-    return this.httpClient.post('https://manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password}, this.options).pipe(
+    return this.httpClient.post('https://pruebas-manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password}).pipe(
     tap(async (res: AuthResponse) => {
       console.log("ssssss2")
         if (res.user) {
