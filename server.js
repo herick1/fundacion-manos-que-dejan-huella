@@ -134,7 +134,7 @@ app.post("/notificacion", urlencodedParser, (req, res) => {
 
 
 //autenticacion
-const  findUserByEmail  = (email, cb,user) => {
+const  findUserByEmail  = (email, cb) => {
   let query= "SELECT * FROM usuario WHERE usu_email ='"+email+"'"
   client.connect();
   client.query(query
@@ -210,7 +210,7 @@ app.post('/login', (req, res) => {
   findUserByEmail(email, (err, user)=>{
       if (err) return  res.status(500).send('Server error!');
       if (!user) return  res.status(404).send('User not found!');
-      const  result  =  bcrypt.compareSync(password, user.password);
+      const  result  =  bcrypt.compareSync(password, user.usu_password);
       if(!result) return  res.status(401).send('Password not valid!');
 
       const  expiresIn  =  24  *  60  *  60;
