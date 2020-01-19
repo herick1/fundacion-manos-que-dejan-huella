@@ -212,7 +212,10 @@ app.post('/login', (req, res) => {
       if (!user) return  res.status(404).send('User not found!');
       console.log("JORGEEEEEE> "+user.usu_password)
       console.log("JORGEEEEEE2> "+user[4])
-      const  result  =  bcrypt.compareSync(password, user.usu_password);
+      console.log("JORGEEEEEE3> "+user)
+      let value = _.pick(req.body, ["usu_password"]);
+      console.log("JORGEEEEEE4> "+value)
+      const  result  =  bcrypt.compareSync(password, value.usu_password);
       if(!result) return  res.status(401).send('Password not valid!');
 
       const  expiresIn  =  24  *  60  *  60;
