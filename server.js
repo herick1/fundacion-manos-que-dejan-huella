@@ -14,10 +14,7 @@ const { Client } = require('pg');
 const  jwt  =  require('jsonwebtoken');
 const  bcrypt  =  require('bcryptjs');
 const SECRET_KEY = "secretkey23456";
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
+
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 var firebase = require("firebase/app");
@@ -80,13 +77,17 @@ app.use(bodyParser.json());
 
 app.get("/jugador", urlencodedParser, (req, res) => {
   //console.log(" GET /prueba:");
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
   client.connect();
 
 client.query('SELECT * FROM PRUEBA;'
   , (err, response) => {
   if (err) throw err;
   res.json(response.rows)
- // client.end();
+ client.end();
 });
 
 });
@@ -137,6 +138,10 @@ app.post("/notificacion", urlencodedParser, (req, res) => {
 
 //autenticacion
 const  findUserByEmail  = (email, cb) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
   let query= "SELECT * FROM usuario WHERE usu_email ='"+email+"'"
   client.connect();
   client.query(query
@@ -144,10 +149,15 @@ const  findUserByEmail  = (email, cb) => {
       cb(err,response.rows)
       console.log("ERRROR> "+err)
       console.log("BIEN> "+response)
+      client.end()
   });
 }
 
 const  createUser  = (user, cb) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
   console.log("USER> "+user)
   console.log("user pppp"+user[0])
   console.log("user pppp"+user[1])
@@ -160,6 +170,7 @@ const  createUser  = (user, cb) => {
       cb(err)
       console.log("ERRROR> "+err)
       console.log("BIEN> "+response)
+      client.end()
   });
 }
 
@@ -199,6 +210,7 @@ app.get('/aja'), (req, res) => {
 }
 
 app.post('/login', (req, res) => {
+  
   const  email  =  req.body.email;
   const  password  =  req.body.password;
   findUserByEmail(email, (err, user)=>{
