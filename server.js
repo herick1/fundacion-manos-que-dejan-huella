@@ -210,8 +210,17 @@ app.post('/login', (req, res) => {
   findUserByEmail(email, (err, user)=>{
       if (err) return  res.status(500).send('Server error!');
       if (!user) return  res.status(404).send('User not found!');
-      console.log("JORGEEEEEE"+user)
-     res.status(200).send(user)
+      console.log("JORGEEEEEE> "+user.usu_password)
+      console.log("JORGEEEEEE2> "+user[4])
+      const  result  =  bcrypt.compareSync(password, user.usu_password);
+      if(!result) return  res.status(401).send('Password not valid!');
+
+      const  expiresIn  =  24  *  60  *  60;
+      console.log("Ssssssss"+user)
+      const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
+          expiresIn:  expiresIn
+      });
+      res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
   });
 });
 
