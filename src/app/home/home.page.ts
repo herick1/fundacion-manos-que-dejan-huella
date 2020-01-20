@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
  import { IonSlides } from '@ionic/angular';
 import { ViewChild } from '@angular/core';
-
+import { Storage } from  '@ionic/storage';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',

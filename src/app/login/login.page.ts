@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Router } from  "@angular/router";
 import { AuthService } from '../auth/auth.service';
-import {HttpClient,HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +14,12 @@ import {HttpClient,HttpHeaders} from '@angular/common/http';
 export class LoginPage implements OnInit {
   focus:any;
   focus1:any;
+  prueba:any;
   constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService, private  router:  Router) { }
-
+  
   ngOnInit() {
+   this.authService.storage.get("ACCESS_TOKEN").then(data=>{this.prueba=data})
+
   }
   toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function

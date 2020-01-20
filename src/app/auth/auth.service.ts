@@ -17,7 +17,7 @@ export class AuthService {
   AUTH_SERVER_ADDRESS:  string  =  'https://pruebas-manos-que-dejan-huella.herokuapp.com';
   authSubject  =  new  BehaviorSubject(false);
 
-  constructor(private  httpClient:  HttpClient, private  storage:  Storage) { }
+  constructor(private  httpClient:  HttpClient, public  storage:  Storage) { }
 
 
 
@@ -26,8 +26,8 @@ export class AuthService {
       tap(async (res:  AuthResponse ) => {
 
         if (res.user) {
-          await this.storage.set("ACCESS_TOKEN", res.user.access_token);
-          await this.storage.set("EXPIRES_IN", res.user.expires_in);
+          await this.storage.set("ACCESS_TOKEN", res.access_token);
+          await this.storage.set("EXPIRES_IN", res.expires_in);
           this.authSubject.next(true);
         }
       })
@@ -42,9 +42,8 @@ export class AuthService {
     tap(async (res: AuthResponse) => {
       console.log("ssssss2")
         if (res.user) {
-          console.log("ssssss3")
-          await this.storage.set("ACCESS_TOKEN", res.user.access_token);
-          await this.storage.set("EXPIRES_IN", res.user.expires_in);
+          await this.storage.set("ACCESS_TOKEN", res.access_token);
+          await this.storage.set("EXPIRES_IN", res.expires_in);
           this.authSubject.next(true);
         }
       })
