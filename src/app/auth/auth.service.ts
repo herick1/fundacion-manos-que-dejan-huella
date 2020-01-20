@@ -47,8 +47,6 @@ export class AuthService {
           await this.storage.set("EXPIRES_IN", res.user.expires_in);
           this.authSubject.next(true);
         }
-        else 
-        console.log("aja")
       })
     );
   }

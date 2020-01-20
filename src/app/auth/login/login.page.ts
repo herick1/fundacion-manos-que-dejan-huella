@@ -14,18 +14,16 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
+
   login(form){
-    this.http.post("http://pruebas-manos-que-dejan-huella.herokuapp.com/login",{"email":"jorge5178877@gmail.com","password":"jorge"},options).toPromise().then(
-      (response:any)=> {
-        console.log(response)
-      }
-    )
-  }
-/*
-  login(form){
-    this.authService.login(form.value).subscribe((res)=>{
+    this.authService.login(form.value).toPromise().then((res)=>{
       this.router.navigateByUrl('/');
-    });
+    }
+    ).catch(
+      (err)=>{
+        console.log("ERR"+ err.status)
+      }
+    );
   }
-  */
+
 }
