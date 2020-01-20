@@ -12,7 +12,8 @@ import {HttpClient,HttpHeaders} from '@angular/common/http';
 
 
 export class LoginPage implements OnInit {
-
+  focus:any;
+  focus1:any;
   constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService, private  router:  Router) { }
 
   ngOnInit() {
