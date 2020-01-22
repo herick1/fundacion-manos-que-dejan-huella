@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
  import { IonSlides } from '@ionic/angular';
 import { ViewChild } from '@angular/core';
-import { Storage } from  '@ionic/storage';
+import { AuthService } from '../auth/auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -44,7 +44,7 @@ export class HomePage implements OnInit {
 
   public sliders: Array<any> = [];
   public slidershome: Array<any> = [];
-  constructor( public menuCtrl: MenuController) 
+  constructor( public menuCtrl: MenuController, private  authService:  AuthService) 
   {
             this.sliders.push(
             {

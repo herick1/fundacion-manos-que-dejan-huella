@@ -19,7 +19,6 @@ export class LoginPage implements OnInit {
   
   ngOnInit() {
    this.authService.storage.get("ACCESS_TOKEN").then(data=>{this.prueba=data})
-
   }
   toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
