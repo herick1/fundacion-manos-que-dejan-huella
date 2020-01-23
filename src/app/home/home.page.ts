@@ -44,6 +44,7 @@ export class HomePage implements OnInit {
 
   public sliders: Array<any> = [];
   public slidershome: Array<any> = [];
+  prueba:any;
   constructor( public menuCtrl: MenuController, private  authService:  AuthService) 
   {
             this.sliders.push(
@@ -93,6 +94,7 @@ toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   ngOnInit() {
+  this.prueba=this.authService.isLoggedIn()
   }
 }
 

@@ -57,7 +57,9 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return this.authSubject.asObservable();
+    if(this.storage.get("ACCESS_TOKEN"))
+    return true
+    else false
   }
 
 }
