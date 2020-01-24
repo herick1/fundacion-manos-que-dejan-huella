@@ -96,7 +96,7 @@ app.get('/download', function(req, res){
 });
 
 
-// MANEJO DE EVENTOS
+// -------------------------------  MANEJO DE EVENTOS --------------------------------------------
 app.get("/evento", urlencodedParser, (req, res) => {
   var client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -106,7 +106,7 @@ app.get("/evento", urlencodedParser, (req, res) => {
 client.query('SELECT * FROM EVENTO;'
   , (err, response) => {
   if (err) throw err;
-  res.json(response.rows)
+  res.status(200).send(response.rows)
  client.end();
 });
 
@@ -125,8 +125,41 @@ app.post("/evento", urlencodedParser, (req, res) => {
     res.json(response)
   });
    client.end();
+
+   res.status(200).send("OK");
 });
 
+app.put("/evento{id}", urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
+  client.query(query
+    , (err, response) => {
+    res.json(response)
+  });
+   client.end();
+   res.status(200).send("OK");
+});
+
+app.delete("/evento{id}", urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
+  client.query(query
+    , (err, response) => {
+    res.json(response)
+  });
+   client.end();
+   res.status(200).send("OK");
+});
+
+// ---------------------------------------- ----------------------------------------------------------
 app.post("/notificacion", urlencodedParser, (req, res) => {
   let body = _.pick(req.body, ["token"]);
 
@@ -136,7 +169,7 @@ app.post("/notificacion", urlencodedParser, (req, res) => {
     token:body.token
   })
 
-  res.json({ status: "success", message: body.token });
+  res.status(200).send({ status: "success", message: body.token });
   
 });
 
