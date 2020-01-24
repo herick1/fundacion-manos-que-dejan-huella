@@ -93,6 +93,10 @@ export class HomePage implements OnInit {
 toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
+
+  salir(){
+    this.authService.logout()
+  }
   ngOnInit() {
   this.prueba=this.authService.isLoggedIn()
   }

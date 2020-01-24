@@ -98,25 +98,33 @@ app.get('/download', function(req, res){
 
 // MANEJO DE EVENTOS
 app.get("/evento", urlencodedParser, (req, res) => {
-  client.connect();
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
 client.query('SELECT * FROM EVENTO;'
   , (err, response) => {
   if (err) throw err;
   res.json(response.rows)
- // client.end();
+ client.end();
 });
 
 });
 
 app.post("/evento", urlencodedParser, (req, res) => {
   let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
-  client.connect();
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
   let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
   client.query(query
     , (err, response) => {
     res.json(response)
   });
-   // client.end();
+   client.end();
 });
 
 app.post("/notificacion", urlencodedParser, (req, res) => {
@@ -155,11 +163,6 @@ const  createUser  = (user, cb) => {
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
-  console.log("USER> "+user)
-  console.log("user pppp"+user[0])
-  console.log("user pppp"+user[1])
-  console.log("user pppp"+user[2])
-  console.log("user pppp"+user[3])
   let query= "INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) values('"+user[0]+"','"+user[1]+"','"+user[2]+"','"+user[3]+"');"
   client.connect();
   client.query(query
@@ -194,17 +197,6 @@ app.post('/register', (req, res) => {
   });
 });
 
-app.get('/aja'), (req, res) => {
-
-  const  email  =  "jorge12@gmail.com";
-  const  password  =  "jorge";
-  const password2= bcrypt.hashSync(req.body.password);
-      const  result  =  bcrypt.compareSync(password, password2);
-      if(!result) return  res.status(401).send('Password not valid!');
-
-      res.status(200).send("djd");
- 
-}
 
 app.post('/login', (req, res) => {
   
@@ -213,18 +205,43 @@ app.post('/login', (req, res) => {
   findUserByEmail(email, (err, user)=>{
       if (err) return  res.status(500).send('Server error!');
       if (!user) return  res.status(404).send('User not found!');
-      const  result  =  bcrypt.compareSync(password, user[0].usu_password);
-      if(!result) return  res.status(401).send('Password not valid!');
-      //if(password !=value.usu_password) return  res.status(401).send('Password not valid!');
-      const  expiresIn  =  24  *  60  *  60;
-      console.log("Ssssssss"+user)
-      const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
-          expiresIn:  expiresIn
-      });
-      res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
-  });
+      else{
+
+        const  result  =  bcrypt.compareSync(password, user[0].usu_password);
+        if(!result) return  res.status(401).send('Password not valid!');
+        //if(password !=value.usu_password) return  res.status(401).send('Password not valid!');
+        const  expiresIn  =  24  *  60  *  60;
+        console.log("Ssssssss"+user)
+        const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
+            expiresIn:  expiresIn
+        });
+        res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
+      }
+     
+});
+});
+//CRUD DE USUARIOS -------------------------------------------------------------
+
+app.get('/usuario'), (req, res) => {
+
+ 
+      res.status(200).send("djd");
+ 
+}
+
+app.put('/usuario{id}', (req, res) => {
+
+
+      res.status(200).send("djd");
+ 
 });
 
+app.delete('/usuario{id}', (req, res) => {
+
+      res.status(200).send("djd");
+ 
+});
+//------------------------------------------------------------------------------------
 // ---- SERVE APLICATION PATHS ---- //
 app.get('*', function (req, res) {
   var splitt = req.path.split("/");
@@ -251,17 +268,6 @@ app.get('*', function (req, res) {
 app.get("/es/no-found", (req, res) => {
     res.status(404).sendFile(`/`, {root: 'www'})
 });
-
-
-
-app.put("/*", (req, res) => {
-  res.status(404).send();
-});
-
-app.delete("/*", (req, res) => {
-  res.status(404).send();
-});
-
 
 
 // Start the app by listening on the default Heroku port
