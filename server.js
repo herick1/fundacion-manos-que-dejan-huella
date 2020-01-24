@@ -256,22 +256,39 @@ app.post('/login', (req, res) => {
 //CRUD DE USUARIOS -------------------------------------------------------------
 
 app.get('/usuario'), (req, res) => {
-
+  let query= "Select usu_nombre, usu_apellido, usu_email from usuario; "
+  client.query(query
+    , (err, response) => {
+    res.status(200).send(response.rows);
+  });
+   client.end();
  
-      res.status(200).send("djd");
+      
  
 }
 
-app.put('/usuario{id}', (req, res) => {
-
-
-      res.status(200).send("djd");
+app.put('/usuario/:id', (req, res) => {
+  const  email  =  req.body.email;
+  const  nombre  =  req.body.nombre;
+  const apellido = req.body.apellido
+  
+  let query= "update usuario set usu_nombre='"+nombre+"' , usu_apellido= '"+apellido+"' , usu_email='"+email+"' where usu_id= '"+req.params.id+ "';"
+  client.query(query
+    , (err, response) => {
+    res.status(200).send(err+ " .... "+response.rows);
+  });
+   client.end();
  
 });
 
-app.delete('/usuario{id}', (req, res) => {
+app.delete('/usuario/:id', (req, res) => {
 
-      res.status(200).send("djd");
+  let query= "delete from usuario where usu_id= '"+req.params.id+ "';"
+  client.query(query
+    , (err, response) => {
+    res.status(200).send(err+ " .... "+response.rows);
+  });
+   client.end();
  
 });
 //------------------------------------------------------------------------------------

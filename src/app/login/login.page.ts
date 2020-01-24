@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
   constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService, private  router:  Router) { }
   
   ngOnInit() {
-   this.authService.storage.get("ACCESS_TOKEN").then(data=>{this.prueba=data})
+  // this.authService.storage.get("ACCESS_TOKEN").then(data=>{this.prueba=data})
   }
   toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
@@ -30,6 +30,7 @@ export class LoginPage implements OnInit {
     ).catch(
       (err)=>{
         console.log("ERR"+ err.status)
+        this.prueba=err.message
       }
     );
   }
