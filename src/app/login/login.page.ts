@@ -27,11 +27,13 @@ export class LoginPage implements OnInit {
   login(correo, clave){
     let userss={"email":correo , "password":clave, id:0, name:""}
     this.authService.login(userss).toPromise().then((res)=>{
+      this.prueba="AAAA"
       this.router.navigateByUrl('/');
     }
     ).catch(
       (err)=>{
         console.log("ERR"+ err.status)
+        this.prueba=err.status +" .. "+ err.message +" jajaja"
       }
     );
   }

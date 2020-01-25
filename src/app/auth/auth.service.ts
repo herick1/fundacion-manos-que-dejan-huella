@@ -6,7 +6,11 @@ import { Observable, BehaviorSubject } from  'rxjs';
 import { Storage } from  '@ionic/storage';
 import { User } from  './user';
 import { AuthResponse } from  './auth-response';
-const  options = { headers: new HttpHeaders({'Content-Type':'application/json'}) };
+const  options = { headers: new HttpHeaders({"Access-Control-Allow-Origin": "*",
+"Access-Control-Allow-Headers": "X-Requested-With",
+"Content-Type":"application/json"
+})};
+
 @Injectable({
   providedIn: 'root'
 })
