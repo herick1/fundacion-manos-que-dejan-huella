@@ -9,8 +9,11 @@ import { AuthResponse } from  './auth-response';
 const  options = { headers: new HttpHeaders({"Access-Control-Allow-Origin": "*",
 "Access-Control-Allow-Headers": "X-Requested-With",
 "Content-Type":"application/json"
-})};
-
+}) };
+const  options2 = { headers:{"Access-Control-Allow-Origin": "*",
+"Access-Control-Allow-Headers": "X-Requested-With",
+"Content-Type":"application/json"
+}}
 @Injectable({
   providedIn: 'root'
 })
@@ -42,7 +45,7 @@ export class AuthService {
   login(user: User): Observable<AuthResponse> {
     console.log(user.email)
     console.log(user.password)
-    return this.httpClient.post('https://pruebas-manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password},options).pipe(
+    return this.httpClient.post('https://pruebas-manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password},options2).pipe(
     tap(async (res: AuthResponse) => {
       console.log("ssssss2")
         if (res.user) {
