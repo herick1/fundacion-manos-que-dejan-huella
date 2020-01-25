@@ -72,22 +72,6 @@ app.use(bodyParser.json());
 
 
 
-app.get("/jugador", urlencodedParser, (req, res) => {
-  //console.log(" GET /prueba:");
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  client.connect();
-
-client.query('SELECT * FROM PRUEBA;'
-  , (err, response) => {
-  if (err) throw err;
-  res.json(response.rows)
- client.end();
-});
-
-});
 
 //descargar
 app.get('/download', function(req, res){
