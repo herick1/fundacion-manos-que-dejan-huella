@@ -33,7 +33,7 @@ export class EsPage {
 	  	},
 	    {
 	      title: 'Usuario',
-	      url: '/es/no-found',
+	      url: '/es/usuario',
 	      icon: 'person'
 	    },
 	    {

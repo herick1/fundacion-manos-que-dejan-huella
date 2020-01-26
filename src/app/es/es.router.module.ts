@@ -99,6 +99,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'usuario',
+        children: [
+          {
+            path: '',
+            loadChildren: '../usuario/usuario.module#UsuarioPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/es/home',
         pathMatch: 'full'
