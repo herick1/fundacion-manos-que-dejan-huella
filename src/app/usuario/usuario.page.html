@@ -1,0 +1,339 @@
+<ion-header>
+    <nav class="navbar navbar-expand-lg bg-warning">
+        <div class="container">
+            <a class="navbar-brand">
+                <button class="navbar-toggler ion-icon-nav" type="button" (click)="toggleMenu()">
+                    <ion-icon name="menu"></ion-icon>
+                </button>
+                <a href="/es/home">Manos que dejan huellas </a>
+            </a>
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div ngbDropdown class="d-inline-block dropdown">
+                            <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle>¿Quienes somos?</a>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-purple">
+                                <a class="dropdown-item" href="es/quienes-somos#mision">Mision</a>
+                                <a class="dropdown-item" href="es/quienes-somos#vision">Vision</a>
+                                <a class="dropdown-item" href="es/quienes-somos#valores">Valores</a>
+                                <a class="dropdown-item" href="es/quienes-somos#objetivos">Objetivos
+                                </a>
+                                <a class="dropdown-item" href="es/quienes-somos#historia">Historia
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/es/no-found">Eventos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/es/contactanos">Contactanos</a>
+                    </li>
+                    <li class="nav-item">
+                        <div ngbDropdown class="d-inline-block dropdown">
+                            <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle>Usuario</a>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-purple">
+                                <a class="dropdown-item" href="/es/no-found">Gestionar evento(s)</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.facebook.com/Dejatuhuella777">
+                            <ion-icon name="logo-facebook" aria-hidden="true"></ion-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://twitter.com/dejatushuellas">
+                            <ion-icon name="logo-twitter" aria-hidden="true"></ion-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.instagram.com/dejatushuellas">
+                            <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="/es/login">Entrar</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</ion-header>
+
+<ion-content>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">&nbsp;Usuarios</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+                <button class="btn btn-outline-warning ml-4" (click)="crearUsuario()">
+                    Crear un usuario
+                </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg" style="text-align: center;">
+        <div class="input-group" style="width:400px;">
+            <input type="text" class="form-control" id="texto" placeholder="Buscar por..." (keyup)="showSearchResults($event)" >
+            <div class="input-group-append"><span class="btn-warning"><ion-icon ios="ios-search" md="md-search"></ion-icon></span></div>
+        </div>
+    </div>
+    
+<div class="col-md" style="  text-align: center;">
+                                <!-- START USERS ACTIVITY BLOCK -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title-box" style="  text-align: left;">
+                <h3>Tabla con los usuarios del  sistema</h3>
+                <span>Aqui se puede crear, actualizar y eliminar usuarios del sistema</span>
+            </div>                                      
+        </div>                                
+        <div class="panel-body padding-0">
+            <div class="row stacked" style="background: white">
+                <div class="col">
+                    <div class="banner_content">
+					    <div id="contenedor">
+					        <div class="table-responsive">
+					        <table class="table table-striped table-sm">
+					          <thead style="  text-align: center;">
+					            <tr>
+					            <th>Nombre</th>
+					            <th>Apellido</th>
+					            <th>Correo Electronico</th>
+					            <th>Acciones</th>
+					            </tr>
+					          </thead>
+					          <tbody style="  text-align: center;">
+					            <tr *ngFor="let usuario of usuarios; let indice=index">
+					              <td>
+					              	<a (click)="verUsuario(usuario.id)" type="button"  >
+										{{usuario.nombre }}
+					            	</a>
+					              </td>
+					              <td>
+					              	<a (click)="verUsuario(usuario.id)" type="button"  >
+										{{usuario.apellido}}
+					            	</a>
+					              </td>
+					              <td>
+					               	<a (click)="verUsuario(usuario.id)" type="button"  >
+										{{usuario.email }}
+					            	</a>             	
+					              </td>
+					              <td>
+					                <button class="btn btn-outline-warning" type="button" (click)="actualizarUsuario(usuario.id)">Actualizar
+					                </button>
+					                <button class="btn btn-outline-danger"  type="button" (click)="eliminarUsuario(usuario.id)" data-toggle="modal" data-target="#eliminarModal">Eliminar
+					                </button>
+					              </td>
+					            </tr>
+					          </tbody>
+					        </table>
+					        </div>
+					    </div>
+                    </div>
+                </div>      
+                <div class="col-md-4">
+                        <img class="img-fluid" src="assets/img/fundacion.png" alt="">
+                </div>
+            </div>    
+        </div>                                   
+    </div>
+</div>
+
+
+<!--MODALESS-->
+<ng-template #modalEliminar let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Eliminar usuario</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+  	<div class="modal-body">
+    	¿Estas seguro de eliminar este usuario?
+  	</div>
+    <div class="modal-footer">
+    	<!--button class="btn btn-danger" type="submit" (click)="modal.close('Save click')">Eliminar</button-->
+        <button class="btn btn-danger" type="submit" (click)="eliminar()">Eliminar</button>        
+        <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
+    </div>
+</ng-template> 
+
+
+<ng-template #modalActualizar let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Actualizar usuario</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+  	<div class="modal-body">
+      <div class="form-group">
+      <label><b>Nombre</b></label>
+        <input #nombre value="{{nombreSelecionado}}" type="text" class="form-control input-lg" placeholder="" >
+      </div>
+      <div class="form-group">
+      <label><b>Apellido(s)</b></label>
+        <input #apellido value="{{apellidoSeleccionado}}" type="text" class="form-control input-lg" placeholder="" >
+      </div>
+      <div class="form-group">  
+      <label><b>Email</b></label>
+        <input #email value="{{emailSelecionado}}"  type="text" class="form-control input-lg" placeholder="" >
+      </div>
+      <div class="form-group">  
+      <label><b>Username</b></label>
+        <input #username value="{{usernameSeleccioando}}"  type="text" class="form-control input-lg" placeholder="" >
+      </div>
+      <div class="form-group">  
+      <label><b>Nueva contraseña</b></label>
+        <input #password value=""  type="text" class="form-control input-lg" placeholder="" >
+      </div>
+  	</div>
+    <div class="modal-footer">
+    	<button class="btn btn-danger" type="submit" (click)="confirmarActualizar(nombre.value, apellido.value, email.value, username.value, password.value)">Actualizar</button>    
+        <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
+    </div>
+</ng-template> 
+
+<ng-template #modalConfirmarActualizar let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Confirmar actualizar usuario</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+  	<div class="modal-body">
+    	¿Estas seguro de actualizar este usuario?
+  	</div>
+    <div class="modal-footer">
+    	<button class="btn btn-outline-warning" type="submit" (click)="Actualizar()">Confirmar</button>    
+        <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
+    </div>
+</ng-template> 
+
+
+<ng-template #modalVer let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Detalles del usuario</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+  	<div class="modal-body">
+        <strong>Nombre(s):&nbsp;</strong> <i>{{nombreSelecionado}}</i><br>
+        <strong>Apellido(s): &nbsp;</strong> <i>{{apellidoSeleccionado}}</i><br>
+        <strong>Username:&nbsp;</strong> <i>{{usernameSeleccioando}}</i><br>
+        <strong>Email: &nbsp;</strong> <i>{{emailSelecionado }}</i><br>
+        <br>
+        <br>
+  	</div>
+    <div class="modal-footer">   
+        <button type="button" class="btn btn-outline-warning" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+</ng-template> 
+
+
+<ng-template #modalCrear let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Creacion de usuario</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+  	<div class="modal-body">
+      <div class="form-group">
+      <label><b>Nombre</b></label>
+        <input #nombre  type="text" class="form-control input-lg" placeholder="Ingrese su nombres" >
+      </div>
+      <div class="form-group">
+      <label><b>Apellido(s)</b></label>
+        <input #apellido value="" type="text" class="form-control input-lg" placeholder="Ingrese su apellidos" >
+      </div>
+      <div class="form-group">  
+      <label><b>Email</b></label>
+        <input #email value=""  type="text" class="form-control input-lg" placeholder=" Ingrese su email" >
+      </div>
+      <div class="form-group">  
+      <label><b>Username</b></label>
+        <input #username value="{{usernameSeleccioando}}"  type="text" class="form-control input-lg" placeholder="Ingrese su usuario" >
+      </div>
+      <div class="form-group">  
+      <label><b>Nueva contraseña</b></label>
+        <input #password value=""  type="text" class="form-control input-lg" placeholder=" Ingrese su contraseña" >
+      </div>
+  	</div>
+    <div class="modal-footer">
+    	<button class="btn btn-danger" type="submit" (click)="confirmarCrear(nombre.value, apellido.value, email.value, username.value, password.value)">Crear</button>    
+        <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
+    </div>
+</ng-template> 
+
+<ng-template #modalConfirmarCrear let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Confirmar crear usuario</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+  	<div class="modal-body">
+    	¿Estas seguro de crear este usuario?
+  	</div>
+    <div class="modal-footer">
+    	<button class="btn btn-outline-warning" type="submit" (click)="Crear()">Confirmar</button>    
+        <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
+    </div>
+</ng-template> 
+
+
+
+
+    <div class="modal fade" id="exito" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Se a  exitosamente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" style="font-weight: normal;">
+                La transaccion a exitosamente
+                <br>
+                <!--img  src="{{asset('check_animado_correcto.gif')}}" style="max-height: 200px"-->
+              </div>
+              <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">ok</button>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="errores" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ups the transaction could not be completed</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" style="font-weight: normal;">
+               <!-- The following errors were found during the transaction
+                    <div class="alert alert-warning" role="alert">
+                       @foreach ($errors->all() as $error)
+                          <div>{{ $error }}</div>
+                       @endforeach
+                    </div-->
+              </div>
+              <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+        </div>
+    </div>
+
+</ion-content>
