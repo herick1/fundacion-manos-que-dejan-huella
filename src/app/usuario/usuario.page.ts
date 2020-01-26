@@ -36,7 +36,6 @@ export class UsuarioPage implements OnInit {
   passwordSeleccioando="";
 
   ngOnInit() {
-
   	this.usuarios.push({
   		id:1,
   		nombre:"herick daniel",
