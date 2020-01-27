@@ -219,6 +219,7 @@ app.get('/usuario'), (req, res) => {
   let query= "Select usu_nombre, usu_apellido, usu_email from usuario; "
   client.query(query
     , (err, response) => {
+      console.log("EEEEEEEEEERRORR"+err)
     res.status(200).send(response.rows);
   });
    client.end();
@@ -232,9 +233,11 @@ app.put('/usuario/:id', (req, res) => {
   const  nombre  =  req.body.nombre;
   const apellido = req.body.apellido
   
-  let query= "update usuario set usu_nombre='"+nombre+"' , usu_apellido= '"+apellido+"' , usu_email='"+email+"' where usu_id= '"+req.params.id+ "';"
+  let query= "update usuario set usu_nombre='"+nombre+"' , usu_apellido= '"+apellido+"' , usu_email='"+email+"' where usu_id= "+req.params.id+ ";"
   client.query(query
     , (err, response) => {
+      console.log("EEEEEEEEEERRORR"+err)
+      console.log(req.params.id)
     res.status(200).send(err+ " .... "+response.rows);
   });
    client.end();
@@ -243,9 +246,11 @@ app.put('/usuario/:id', (req, res) => {
 
 app.delete('/usuario/:id', (req, res) => {
 
-  let query= "delete from usuario where usu_id= '"+req.params.id+ "';"
+  let query= "delete from usuario where usu_id= "+req.params.id+ ";"
   client.query(query
     , (err, response) => {
+      console.log("EEEEEEEEEERRORR"+err)
+      console.log(req.params.id)
     res.status(200).send(err+ " .... "+response.rows);
   });
    client.end();
@@ -278,17 +283,6 @@ app.get('*', function (req, res) {
 app.get("/es/no-found", (req, res) => {
     res.status(404).sendFile(`/`, {root: 'www'})
 });
-
-
-
-app.put("/*", (req, res) => {
-  res.status(404).send();
-});
-
-app.delete("/*", (req, res) => {
-  res.status(404).send();
-});
-
 
 
 // Start the app by listening on the default Heroku port
