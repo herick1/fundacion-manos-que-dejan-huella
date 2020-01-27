@@ -197,7 +197,8 @@ app.post('/login', (req, res) => {
   findUserByEmail(email, (err, user)=>{
       if (err) return  res.status(500).send('Server error!');
       if (!user) return  res.status(404).send('User not found!');
-        if(user){
+      else{
+
         const  result  =  bcrypt.compareSync(password, user[0].usu_password);
         if(!result) return  res.status(401).send('Password not valid!');
         //if(password !=value.usu_password) return  res.status(401).send('Password not valid!');
@@ -208,9 +209,8 @@ app.post('/login', (req, res) => {
         });
         res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
       }
-      
-      
-  });
+     
+});
 });
 
 // ---- SERVE APLICATION PATHS ---- //
