@@ -196,7 +196,7 @@ app.post('/login', (req, res) => {
   const  password  =  req.body.password;
   findUserByEmail(email, (err, user)=>{
       if (err) return  res.status(500).send('Server error!');
-      if (!user) return  res.status(404).send('User not found!');
+      if (!user[0]) return  res.status(404).send('User not found!');
       else{
 
         const  result  =  bcrypt.compareSync(password, user[0].usu_password);

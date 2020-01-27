@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
   
   ngOnInit() {
    //this.authService.storage.get("ACCESS_TOKEN").then(data=>{this.prueba=data})
-   this.prueba=this.authService.isLoggedIn()
+   //this.prueba=this.authService.isLoggedIn()
   
   }
   toggleMenu() {
@@ -27,10 +27,12 @@ export class LoginPage implements OnInit {
   login(correo, clave){
     let userss={"email":correo , "password":clave, id:0, name:""}
     this.authService.login(userss).toPromise().then((res)=>{
+      this.prueba="SSS"
       this.router.navigateByUrl('/');
     }
     ).catch(
       (err)=>{
+        this.prueba=err.message+ "  aaaa "+err.status
         console.log("ERR"+ err.status)
       }
     );
