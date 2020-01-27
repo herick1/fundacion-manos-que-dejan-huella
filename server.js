@@ -82,12 +82,16 @@ app.get('/download', function(req, res){
 
 // MANEJO DE EVENTOS
 app.get("/evento", urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
   client.connect();
 client.query('SELECT * FROM EVENTO;'
   , (err, response) => {
   if (err) throw err;
   res.json(response.rows)
- // client.end();
+  client.end();
 });
 
 });
@@ -216,6 +220,10 @@ app.post('/login', (req, res) => {
 //CRUD DE USUARIOS -------------------------------------------------------------
 
 app.get('/usuario'), (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
   let query= "Select usu_nombre, usu_apellido, usu_email from usuario; "
   client.query(query
     , (err, response) => {
@@ -232,7 +240,11 @@ app.put('/usuario/:id', (req, res) => {
   const  email  =  req.body.email;
   const  nombre  =  req.body.nombre;
   const apellido = req.body.apellido
-  
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
   let query= "update usuario set usu_nombre='"+nombre+"' , usu_apellido= '"+apellido+"' , usu_email='"+email+"' where usu_id= "+req.params.id+ ";"
   client.query(query
     , (err, response) => {
@@ -245,7 +257,10 @@ app.put('/usuario/:id', (req, res) => {
 });
 
 app.delete('/usuario/:id', (req, res) => {
-
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
   let query= "delete from usuario where usu_id= "+req.params.id+ ";"
   client.query(query
     , (err, response) => {
