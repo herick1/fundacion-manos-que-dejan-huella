@@ -229,8 +229,9 @@ app.get('/usuario'), (req, res) => {
     , (err, response) => {
       console.log("EEEEEEEEEERRORR"+err)
     res.status(200).send(response.rows);
+    client.end();
   });
-   client.end();
+
  
       
  
@@ -251,8 +252,9 @@ app.put('/usuario/:id', (req, res) => {
       console.log("EEEEEEEEEERRORR"+err)
       console.log(req.params.id)
     res.status(200).send(err+ " .... "+response.rows);
+    client.end();
   });
-   client.end();
+  
  
 });
 
@@ -267,8 +269,9 @@ app.delete('/usuario/:id', (req, res) => {
       console.log("EEEEEEEEEERRORR"+err)
       console.log(req.params.id)
     res.status(200).send(err+ " .... "+response.rows);
+    client.end();
   });
-   client.end();
+
  
 });
 
