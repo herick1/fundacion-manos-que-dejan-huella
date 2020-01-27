@@ -195,12 +195,12 @@ app.post('/login', (req, res) => {
   const  email  =  req.body.email;
   const  password  =  req.body.password;
   findUserByEmail(email, (err, user)=>{
-      if (err) return  res.status(500).send('Server error!');
-      if (!user[0]) return  res.status(404).send('User not found!');
+      if (err) return  res.status(500).send('Error del servidor!');
+      if (!user[0]) return  res.status(404).send('Credenciales invalidas!');
       else{
 
         const  result  =  bcrypt.compareSync(password, user[0].usu_password);
-        if(!result) return  res.status(401).send('Password not valid!');
+        if(!result) return  res.status(401).send('Credenciales invalidas!');
         //if(password !=value.usu_password) return  res.status(401).send('Password not valid!');
         const  expiresIn  =  24  *  60  *  60;
         console.log("Ssssssss"+user)
@@ -211,6 +211,45 @@ app.post('/login', (req, res) => {
       }
      
 });
+});
+
+//CRUD DE USUARIOS -------------------------------------------------------------
+
+app.get('/usuario'), (req, res) => {
+  let query= "Select usu_nombre, usu_apellido, usu_email from usuario; "
+  client.query(query
+    , (err, response) => {
+    res.status(200).send(response.rows);
+  });
+   client.end();
+ 
+      
+ 
+}
+
+app.put('/usuario/:id', (req, res) => {
+  const  email  =  req.body.email;
+  const  nombre  =  req.body.nombre;
+  const apellido = req.body.apellido
+  
+  let query= "update usuario set usu_nombre='"+nombre+"' , usu_apellido= '"+apellido+"' , usu_email='"+email+"' where usu_id= '"+req.params.id+ "';"
+  client.query(query
+    , (err, response) => {
+    res.status(200).send(err+ " .... "+response.rows);
+  });
+   client.end();
+ 
+});
+
+app.delete('/usuario/:id', (req, res) => {
+
+  let query= "delete from usuario where usu_id= '"+req.params.id+ "';"
+  client.query(query
+    , (err, response) => {
+    res.status(200).send(err+ " .... "+response.rows);
+  });
+   client.end();
+ 
 });
 
 // ---- SERVE APLICATION PATHS ---- //
