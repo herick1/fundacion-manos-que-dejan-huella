@@ -210,7 +210,7 @@ app.get('/usuario', urlencodedParser, (req, res) => {
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
-  let query= "Select usu_nombre as nombre, usu_apellido as apellido, usu_email as email from usuario; "
+  let query= "Select usu_nombre as nombre, usu_apellido as apellido, usu_email as email, usu_id as id from usuario; "
   client.connect();
   client.query(query
     , (err, response) => {

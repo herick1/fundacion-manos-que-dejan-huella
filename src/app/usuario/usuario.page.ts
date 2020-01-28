@@ -111,6 +111,7 @@ export class UsuarioPage implements OnInit {
   }
 
   eliminar(){
+	  console.log("EEEEEEEEEEEEEEEEEEEEEEEELIMINNNN> "+this.idSeleccionada)
 	this.httpClient.delete(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,options).subscribe(res=>{
 		this.getUsuario()
 		this.modalService.dismissAll();   
