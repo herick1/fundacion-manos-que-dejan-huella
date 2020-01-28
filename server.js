@@ -70,7 +70,24 @@ app.all('*', function(req, res, next) {
 app.use(bodyParser.json());
 
 
+app.get('/usuario', urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  let query= "Select usu_nombre, usu_apellido, usu_email from usuario; "
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      console.log("EEEEEEEEEERRORR"+err)
+    res.status(200).send(response.rows);
+    client.end();
+  });
 
+ 
+      
+ 
+}
 
 
 //descargar
@@ -208,24 +225,7 @@ app.post('/login', (req, res) => {
 
 //CRUD DE USUARIOS -------------------------------------------------------------
 
-app.get('/usuario'), (req, res) => {
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  let query= "Select usu_nombre, usu_apellido, usu_email from usuario; "
-  client.connect();
-  client.query(query
-    , (err, response) => {
-      console.log("EEEEEEEEEERRORR"+err)
-    res.status(200).send(response.rows);
-    client.end();
-  });
 
- 
-      
- 
-}
 
 app.put('/usuario/:id', (req, res) => {
   const  email  =  req.body.email;
@@ -267,7 +267,7 @@ app.delete('/usuario/:id', (req, res) => {
 });
 
 // ---- SERVE APLICATION PATHS ---- //
-app.get('/es/*', function (req, res) {
+app.get('*', function (req, res) {
   var splitt = req.path.split("/");
   console.log(req.path)
   if(splitt.length == 3){ //esto porque siempre tenemos /tabs/lacarpetadela html
