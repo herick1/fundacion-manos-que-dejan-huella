@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {ViewChild, ElementRef} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient , HttpHeaders} from  '@angular/common/http';
+
+const  options = { headers: new HttpHeaders({'Content-Type':'application/json'}) };
 
 @Component({
   selector: 'app-usuario',
@@ -21,14 +24,13 @@ export class UsuarioPage implements OnInit {
     @ViewChild("modalFracaso", {static:true}) modalFracaso: ElementRef;
 
 
-    constructor(private activatedRoute: ActivatedRoute, private modalService: NgbModal) {}
+    constructor(private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal) {}
 
 
  //variable con todas las partidas en el front 
   usuarios = []
 
   toggleMenu:any 
-  
   idSeleccionada = 0;
   nombreSelecionado="";
   apellidoSeleccionado ="";
@@ -36,6 +38,7 @@ export class UsuarioPage implements OnInit {
   usernameSeleccioando="";
   passwordSeleccioando="";
 
+  AUTH_SERVER_ADDRESS:  string  =  'https://pruebas-manos-que-dejan-huella.herokuapp.com';
   ngOnInit() {
   	this.usuarios.push({
   		id:1,
@@ -67,7 +70,7 @@ export class UsuarioPage implements OnInit {
 			this.passwordSeleccioando= this.usuarios[i].password; 			
  		}
  	}
- 	this.modalService.open(this.modalActualizar);
+ 	this.modalService.open(this.modalActualizar,{centered:true});
   }
 
   //funcion para que abra el modal de confirmar
@@ -77,7 +80,7 @@ export class UsuarioPage implements OnInit {
 	this.emailSelecionado= email;
 	this.usernameSeleccioando= username;
 	this.passwordSeleccioando= password;
- 	this.modalService.open(this.modalConfirmarActualizar);
+ 	this.modalService.open(this.modalConfirmarActualizar,{centered:true});
   }
 
   //funcion para que haga el actualizar bien y haga la peticion al backend para actualizar
@@ -89,17 +92,27 @@ export class UsuarioPage implements OnInit {
 		this.emailSelecionado+ " " +
 		this.usernameSeleccioando+ " " +
 		this.passwordSeleccioando+ " " 
-  	);
+	  );
+	  let user={
+		"nombre": this.nombreSelecionado,
+		"apellido":this.apellidoSeleccionado,
+		"email":this.emailSelecionado,
+		"username":this.usernameSeleccioando,
+		"password":this.passwordSeleccioando
+	  }
+	  this.httpClient.put(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,user,options)
+	  
  	this.modalService.dismissAll();	
   }
 
   //funcion para abrr el modal de usuario
   eliminarUsuario(id){
  	this.idSeleccionada= id;
- 	this.modalService.open(this.modalEliminar);
+ 	this.modalService.open(this.modalEliminar,{centered:true});
   }
 
   eliminar(){
+	this.httpClient.delete(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,options)
       this.modalService.dismissAll();   
   }
 
@@ -114,13 +127,13 @@ export class UsuarioPage implements OnInit {
 			this.passwordSeleccioando= this.usuarios[i].password; 			
  		}
  	}
- 	this.modalService.open(this.modalVer);
+ 	this.modalService.open(this.modalVer,{centered:true});
   }
 
 
   //funcion para llenar el formulario de mostrar
   crearUsuario(){
- 	this.modalService.open(this.modalCrear);
+ 	this.modalService.open(this.modalCrear,{centered:true});
   }
 
   //funcion para que abra el modal de confirmar
@@ -130,7 +143,7 @@ export class UsuarioPage implements OnInit {
 	this.emailSelecionado= email;
 	this.usernameSeleccioando= username;
 	this.passwordSeleccioando= password;
- 	this.modalService.open(this.modalConfirmarCrear);
+ 	this.modalService.open(this.modalConfirmarCrear,{centered:true});
   }
 
   //funcion para que haga el actualizar bien y haga la peticion al backend para actualizar

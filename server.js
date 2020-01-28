@@ -267,7 +267,7 @@ app.delete('/usuario/:id', (req, res) => {
 });
 
 // ---- SERVE APLICATION PATHS ---- //
-app.get('*', function (req, res) {
+app.get('/es/*', function (req, res) {
   var splitt = req.path.split("/");
   console.log(req.path)
   if(splitt.length == 3){ //esto porque siempre tenemos /tabs/lacarpetadela html
