@@ -238,7 +238,7 @@ app.put('/usuario/:id', (req, res) => {
     , (err, response) => {
       console.log("EEEEEEEEEERRORR"+err)
       console.log(req.params.id)
-    res.status(200).send(err+ " .... "+response.rows);
+    res.status(200).send(err+ " .... "+response);
     client.end();
   });
   
@@ -256,7 +256,7 @@ app.delete('/usuario/:id', (req, res) => {
     , (err, response) => {
       console.log("EEEEEEEEEERRORR"+err)
       console.log(req.params.id)
-    res.status(200).send(err+ " .... "+response.rows);
+    res.status(200).send(res);
     client.end();
   });
 

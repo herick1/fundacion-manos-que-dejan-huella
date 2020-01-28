@@ -96,9 +96,12 @@ export class UsuarioPage implements OnInit {
 		"username":this.usernameSeleccioando,
 		"password":this.passwordSeleccioando
 	  }
-	  this.httpClient.put(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,user,options)
+	  this.httpClient.put(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,user,options).toPromise().then(re=>{
+		this.getUsuario()
+		this.modalService.dismissAll();	
+	  }).catch()
 	  
- 	this.modalService.dismissAll();	
+
   }
 
   //funcion para abrr el modal de usuario
@@ -108,8 +111,11 @@ export class UsuarioPage implements OnInit {
   }
 
   eliminar(){
-	this.httpClient.delete(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,options)
-      this.modalService.dismissAll();   
+	this.httpClient.delete(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,options).subscribe(res=>{
+		this.getUsuario()
+		this.modalService.dismissAll();   
+	})
+      
   }
 
   verUsuario(id){
@@ -145,13 +151,14 @@ export class UsuarioPage implements OnInit {
   //funcion para que haga el actualizar bien y haga la peticion al backend para actualizar
   Crear(){
   	console.log(
-  		this.idSeleccionada+ " " +
+  		" AJA" +
 		this.nombreSelecionado+ " " +
 		this.apellidoSeleccionado+ " " +
 		this.emailSelecionado+ " " +
 		this.usernameSeleccioando+ " " +
 		this.passwordSeleccioando+ " " 
-  	);
+	  );
+	  this.getUsuario()
  	this.modalService.dismissAll();	
   }
 
