@@ -40,9 +40,11 @@ app.get('/',function(req,res){
 });
 */
 app.use(
-  cors()
+  cors({
+    origin: true,
+    exposedHeaders: "x-access-token"
+  })
 );
-
 
 if(process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
