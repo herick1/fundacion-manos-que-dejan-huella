@@ -70,26 +70,6 @@ app.all('*', function(req, res, next) {
 app.use(bodyParser.json());
 
 
-app.get('/usuario', urlencodedParser, (req, res) => {
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  let query= "Select usu_nombre, usu_apellido, usu_email from usuario; "
-  client.connect();
-  client.query(query
-    , (err, response) => {
-      console.log("EEEEEEEEEERRORR"+err)
-    res.status(200).send(response.rows);
-    client.end();
-  });
-
- 
-      
- 
-})
-
-
 //descargar
 app.get('/download', function(req, res){
   var file = __dirname + '/dejatushuellas.apk';
@@ -225,7 +205,24 @@ app.post('/login', (req, res) => {
 
 //CRUD DE USUARIOS -------------------------------------------------------------
 
+app.get('/usuario', urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  let query= "Select usu_nombre as nombre, usu_apellido as apellido, usu_email as email from usuario; "
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      console.log("EEEEEEEEEERRORR"+err)
+    res.status(200).send(response.rows);
+    client.end();
+  });
 
+ 
+      
+ 
+})
 
 app.put('/usuario/:id', (req, res) => {
   const  email  =  req.body.email;

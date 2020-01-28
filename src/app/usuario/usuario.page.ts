@@ -40,23 +40,19 @@ export class UsuarioPage implements OnInit {
 
   AUTH_SERVER_ADDRESS:  string  =  'https://pruebas-manos-que-dejan-huella.herokuapp.com';
   ngOnInit() {
-  	this.usuarios.push({
-  		id:1,
-  		nombre:"herick daniel",
-  		apellido:"navarro hernandez",
-  		email:"herick200@gmail.com",
-  		username:"herick1",
-  		password:"herick123456789"
-  	});
-  	this.usuarios.push({
-  		id:2,
-  		nombre:"jorge alejandro",
-  		apellido:"viloria arangure",
-  		email:"javiloria@gmail.com",
-  		username:"joege",
-  		password:"jorge1234"
-  	});
+  this.getUsuario()
   }
+  //funcion para obtener los usuarios
+  getUsuario() {
+	this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/usuario`).subscribe( 
+	  //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
+	  (response: any)=>{    
+		console.log(response)
+		if(response)
+		this.usuarios = response;
+	  }
+	);
+}
 
   //funcion para llenar el formulario de actualizar
   actualizarUsuario(id){
