@@ -182,17 +182,6 @@ app.post('/register', (req, res) => {
   });
 });
 
-app.get('/aja'), (req, res) => {
-
-  const  email  =  "jorge12@gmail.com";
-  const  password  =  "jorge";
-  const password2= bcrypt.hashSync(req.body.password);
-      const  result  =  bcrypt.compareSync(password, password2);
-      if(!result) return  res.status(401).send('Password not valid!');
-
-      res.status(200).send("djd");
- 
-}
 
 app.post('/login', (req, res) => {
   
@@ -225,6 +214,7 @@ app.get('/usuario'), (req, res) => {
     ssl: true,
   });
   let query= "Select usu_nombre, usu_apellido, usu_email from usuario; "
+  client.connect();
   client.query(query
     , (err, response) => {
       console.log("EEEEEEEEEERRORR"+err)
@@ -245,7 +235,7 @@ app.put('/usuario/:id', (req, res) => {
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
-
+  client.connect();
   let query= "update usuario set usu_nombre='"+nombre+"' , usu_apellido= '"+apellido+"' , usu_email='"+email+"' where usu_id= "+req.params.id+ ";"
   client.query(query
     , (err, response) => {
@@ -263,6 +253,7 @@ app.delete('/usuario/:id', (req, res) => {
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
+  client.connect();
   let query= "delete from usuario where usu_id= "+req.params.id+ ";"
   client.query(query
     , (err, response) => {
