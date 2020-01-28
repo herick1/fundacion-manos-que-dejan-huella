@@ -87,7 +87,7 @@ app.get('/usuario', urlencodedParser, (req, res) => {
  
       
  
-}
+})
 
 
 //descargar
