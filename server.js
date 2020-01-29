@@ -238,9 +238,10 @@ app.put('/usuario/:id', (req, res) => {
   let query= "update usuario set usu_nombre='"+nombre+"' , usu_apellido= '"+apellido+"' , usu_email='"+email+"' where usu_id= "+req.params.id+ ";"
   client.query(query
     , (err, response) => {
-      console.log("EEEEEEEEEERRORR"+err)
-      console.log(req.params.id)
-    res.status(200).send(err+ " .... "+response);
+      if(err)
+      res.status(500).send(err);
+      else 
+      res.status(200).send(response);
     client.end();
   });
   
@@ -256,8 +257,9 @@ app.delete('/usuario/:id', (req, res) => {
   let query= "delete from usuario where usu_id= "+req.params.id+ ";"
   client.query(query
     , (err, response) => {
-      console.log("EEEEEEEEEERRORR"+err)
-      console.log(req.params.id)
+      if(err)
+      res.status(500).send(err);
+      else 
     res.status(200).send(response);
     client.end();
   });

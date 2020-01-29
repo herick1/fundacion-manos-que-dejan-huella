@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   login(correo, clave){
-    let userss={"email":correo , "password":clave, id:0, name:""}
+    let userss={"email":correo , "password":clave, id:0, name:"", apellido:""}
     this.authService.login(userss).toPromise().then((res)=>{
       this.prueba="SSS"
       this.router.navigateByUrl('/');

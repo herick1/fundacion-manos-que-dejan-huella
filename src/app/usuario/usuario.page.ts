@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import {ViewChild, ElementRef} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient , HttpHeaders} from  '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
 
 const  options = { headers: new HttpHeaders({'Content-Type':'application/json'}) };
 
@@ -24,7 +25,7 @@ export class UsuarioPage implements OnInit {
     @ViewChild("modalFracaso", {static:true}) modalFracaso: ElementRef;
 
 
-    constructor(private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal) {}
+    constructor(private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService) {}
 
 
  //variable con todas las partidas en el front 
@@ -96,10 +97,10 @@ export class UsuarioPage implements OnInit {
 		"username":this.usernameSeleccioando,
 		"password":this.passwordSeleccioando
 	  }
-	  this.httpClient.put(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,user,options).toPromise().then(re=>{
+	  this.httpClient.put(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,user,options).subscribe(res=>{
 		this.getUsuario()
 		this.modalService.dismissAll();	
-	  }).catch()
+	  })
 	  
 
   }
@@ -159,8 +160,18 @@ export class UsuarioPage implements OnInit {
 		this.usernameSeleccioando+ " " +
 		this.passwordSeleccioando+ " " 
 	  );
-	  this.getUsuario()
- 	this.modalService.dismissAll();	
+	  let userss={"email":this.emailSelecionado , "password":this.passwordSeleccioando, id:0, name:this.nombreSelecionado, apellido:this.apellidoSeleccionado}
+	  this.authService.register(userss).toPromise().then((res)=>{
+		this.modalService.dismissAll();	
+		this.getUsuario()
+	  }
+	  ).catch(
+		(err)=>{
+		  console.log("ERR"+ err.status)
+		}
+	  );
+
+ 	
   }
 
 /**
