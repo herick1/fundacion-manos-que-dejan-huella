@@ -258,7 +258,7 @@ app.delete('/usuario/:id', (req, res) => {
     , (err, response) => {
       console.log("EEEEEEEEEERRORR"+err)
       console.log(req.params.id)
-    res.status(200).send(res);
+    res.status(200).send(response);
     client.end();
   });
 
