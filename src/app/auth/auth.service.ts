@@ -6,8 +6,15 @@ import { Observable, BehaviorSubject } from  'rxjs';
 import { Storage } from  '@ionic/storage';
 import { User } from  './user';
 import { AuthResponse } from  './auth-response';
-const  options = { headers: new HttpHeaders({'Content-Type':'application/json'}) };    
-
+const  options = { headers: new HttpHeaders({'Content-Type':'application/json', 'Access-Control-Expose-Headers':
+'x-access-token','x-access-token':'*','Accept': 'application/json','cache-control': 'no-cache', 
+'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 
+'Origin, Content-Type, X-Auth-Token, Accept, Authorization, X-Request-With, Access-Control-Request-Method, Access-Control-Request-Headers'}) };    
+//"Content-Type": "application/x-www-form-urlencoded; charset=utf-8", 
+          
+          
+        //  'Access-Control-Allow-Credentials' : 'true",
+          //'Access-Control-Allow-Methods' : "GET, POST, DELETE, PUT, OPTIONS, TRACE, PATCH, CONNECT",  
 @Injectable({
   providedIn: 'root'
 })
@@ -39,7 +46,9 @@ export class AuthService {
   login(user: User): Observable<AuthResponse> {
     console.log(user.email)
     console.log(user.password)
-    return this.httpClient.post('https://pruebas-manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password},options).pipe(
+    let headers = new HttpHeaders();
+      headers.append('Content-Type', 'application/json');
+    return this.httpClient.post('https://pruebas-manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password},{headers: headers}).pipe(
     tap(async (res: AuthResponse) => {
       console.log("ssssss2")
         if (res.user) {
