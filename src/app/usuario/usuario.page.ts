@@ -31,7 +31,8 @@ export class UsuarioPage implements OnInit {
 toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
-
+  focus:any;
+  focus1:any;
  //variable con todas las partidas en el front 
   usuarios = []
  
