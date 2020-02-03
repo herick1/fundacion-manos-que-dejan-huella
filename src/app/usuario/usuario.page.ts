@@ -34,8 +34,7 @@ toggleMenu() {
 
  //variable con todas las partidas en el front 
   usuarios = []
-
-  toggleMenu:any 
+ 
   idSeleccionada = 0;
   nombreSelecionado="";
   apellidoSeleccionado ="";
