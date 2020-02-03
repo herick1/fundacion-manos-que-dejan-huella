@@ -5,6 +5,7 @@ import {ViewChild, ElementRef} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient , HttpHeaders} from  '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
+import { MenuController } from '@ionic/angular';
 
 const  options = { headers: new HttpHeaders({'Content-Type':'application/json'}) };
 
@@ -25,8 +26,11 @@ export class UsuarioPage implements OnInit {
     @ViewChild("modalFracaso", {static:true}) modalFracaso: ElementRef;
 
 
-    constructor(private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService) {}
+    constructor(public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService) {}
 
+toggleMenu() {
+    this.menuCtrl.toggle(); //Add this method to your button click function
+  }
 
  //variable con todas las partidas en el front 
   usuarios = []
