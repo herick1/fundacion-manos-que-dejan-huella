@@ -80,7 +80,15 @@ valor:string
 	   
 	  ];
 
-
+funcionsita(titulo){
+	if(titulo == "Salir"){
+		this.authService.logout() 
+	    this.authService.storage.get("ACCESS_TOKEN").then(
+	      (res:any)=>{
+	      	console.log("herick");
+	  });
+	}
+}
 toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
