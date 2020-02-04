@@ -14,7 +14,19 @@ export class LoginPage implements OnInit {
   focus:any;
   focus1:any;
   prueba:any;
-  constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService, private  router:  Router) { }
+  constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService, private  router:  Router) { 
+
+		this.authService.storage.get("ACCESS_TOKEN").then(
+			(res:any)=>{
+			  if(res){
+          this.router.navigateByUrl('es/home');
+			  }
+				else
+        this.prueba=false
+			})
+
+
+  }
   
   ngOnInit() {
    //this.authService.storage.get("ACCESS_TOKEN").then(data=>{this.prueba=data})

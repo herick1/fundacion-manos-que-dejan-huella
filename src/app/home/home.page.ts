@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
- import { IonSlides } from '@ionic/angular';
+import { IonSlides } from '@ionic/angular';
 import { ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 @Component({
@@ -45,7 +45,7 @@ export class HomePage implements OnInit {
   public sliders: Array<any> = [];
   public slidershome: Array<any> = [];
   prueba:any;
-  constructor( public menuCtrl: MenuController, public  authService:  AuthService) 
+  constructor( public menuCtrl: MenuController, private  authService:  AuthService) 
   {
             this.sliders.push(
             {
@@ -94,7 +94,24 @@ toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   ngOnInit() {
-    this.prueba=this.authService.isLoggedIn()
+    this.authService.storage.get("ACCESS_TOKEN").then(
+      (res:any)=>{
+        if(res)
+        this.prueba=true
+      else
+        this.prueba=false
+      })
+  }
+
+  logout(){
+    this.authService.logout() 
+    this.authService.storage.get("ACCESS_TOKEN").then(
+      (res:any)=>{
+        if(res)
+        this.prueba=true
+      else
+        this.prueba=false
+      })
   }
 }
 

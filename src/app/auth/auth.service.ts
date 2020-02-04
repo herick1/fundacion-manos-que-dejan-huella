@@ -22,7 +22,7 @@ const  options = { headers: new HttpHeaders({'Content-Type':'application/json', 
 
 export class AuthService {
 
-  AUTH_SERVER_ADDRESS:  string  =  'https://pruebas-manos-que-dejan-huella.herokuapp.com';
+  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   authSubject  =  new  BehaviorSubject(false);
 
   constructor(private  httpClient:  HttpClient, public  storage:  Storage) { }
@@ -48,13 +48,14 @@ export class AuthService {
     console.log(user.password)
     let headers = new HttpHeaders();
       headers.append('Content-Type', 'application/json');
-    return this.httpClient.post('https://pruebas-manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password},{headers: headers}).pipe(
+    return this.httpClient.post('https://manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password},{headers: headers}).pipe(
     tap(async (res: AuthResponse) => {
       console.log("ssssss2")
         if (res.user) {
           console.log("ssssss3")
           await this.storage.set("ACCESS_TOKEN", res.access_token);
           await this.storage.set("EXPIRES_IN", res.expires_in);
+          console.log(this.storage.get("ACCESS_TOKEN"))
           this.authSubject.next(true);
         }
       })
@@ -63,13 +64,19 @@ export class AuthService {
   async logout() {
     await this.storage.remove("ACCESS_TOKEN");
     await this.storage.remove("EXPIRES_IN");
+    this.storage.clear()
     this.authSubject.next(false);
   }
 
   isLoggedIn() {
-   if(this.storage.get("ACCESS_TOKEN"))
-   return true
-   else false;
+    console.log(this.storage.get("ACCESS_TOKEN"))
+   this.storage.get("ACCESS_TOKEN").then(
+     (res:any)=>{
+      if(res)
+        return true
+      else
+        return false
+     })
   }
 
 }

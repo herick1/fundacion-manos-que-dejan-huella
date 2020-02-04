@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from  "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import {ViewChild, ElementRef} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -26,13 +26,26 @@ export class UsuarioPage implements OnInit {
     @ViewChild("modalFracaso", {static:true}) modalFracaso: ElementRef;
 
 
-    constructor(public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService) {}
+    constructor(public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,private  router:  Router) {
+		this.authService.storage.get("ACCESS_TOKEN").then(
+			(res:any)=>{
+			  if(res){
+			  this.getUsuario()
+			  this.prueba=true
+			  }
+				else
+					this.router.navigateByUrl('es/login');
+			})
+
+
+	}
 
 toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   focus:any;
   focus1:any;
+  prueba:any;
  //variable con todas las partidas en el front 
   usuarios = []
  
@@ -43,10 +56,25 @@ toggleMenu() {
   usernameSeleccioando="";
   passwordSeleccioando="";
 
-  AUTH_SERVER_ADDRESS:  string  =  'https://pruebas-manos-que-dejan-huella.herokuapp.com';
+  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  
   ngOnInit() {
-  this.getUsuario()
+
+
   }
+
+  logout(){
+    this.authService.logout() 
+    this.authService.storage.get("ACCESS_TOKEN").then(
+      (res:any)=>{
+        if(res)
+        this.prueba=true
+      else
+        this.prueba=false
+      })
+  }
+
+  
   //funcion para obtener los usuarios
   getUsuario() {
 	this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/usuario`).subscribe( 

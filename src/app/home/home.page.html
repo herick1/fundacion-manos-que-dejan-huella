@@ -30,10 +30,10 @@
                         <a class="nav-link" href="/es/contactanos">Contactanos</a>
                     </li>
                     <li class="nav-item">
-                        <div ngbDropdown class="d-inline-block dropdown">
-                            <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle>Usuario</a>
+                        <div ngbDropdown class="d-inline-block dropdown" *ngIf="prueba==true">
+                            <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle >Usuario</a>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-primary">
-                                <a class="dropdown-item" href="/es/usuario">Gestionar evento(s)</a>
+                                <a class="dropdown-item" href="/es/usuario">Gestionar usuario(s)</a>
                             </div>
                         </div>
                     </li>
@@ -56,7 +56,8 @@
                     </li>
                     <li class="nav-item" >
                         <a class="navbar-brand" href="/es/login" *ngIf="prueba==false">Entrar</a>
-                        <a class="navbar-brand" href="/es/login" *ngIf="prueba==true">Salir</a>
+                        <a class="navbar-brand" (click)="logout()" *ngIf="prueba==true">Salir</a>
+                        
                     </li>
                 </ul>
             </div>
