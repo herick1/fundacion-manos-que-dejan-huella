@@ -85,7 +85,7 @@ funcionsita(titulo){
 		this.authService.logout() 
 	    this.authService.storage.get("ACCESS_TOKEN").then(
 	      (res:any)=>{
-	      	console.log("herick");
+	      	location.reload(true);
 	  });
 	}
 }

@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
 		this.authService.storage.get("ACCESS_TOKEN").then(
 			(res:any)=>{
 			  if(res){
+          location.reload(true);
           this.router.navigateByUrl('es/home');
 			  }
 				else
