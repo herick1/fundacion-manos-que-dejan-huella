@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
 		this.authService.storage.get("ACCESS_TOKEN").then(
 			(res:any)=>{
 			  if(res){
-          location.reload(true);
+         
           this.router.navigateByUrl('es/home');
 			  }
 				else
@@ -40,13 +40,13 @@ export class LoginPage implements OnInit {
   login(correo, clave){
     let userss={"email":correo , "password":clave, id:0, name:"", apellido:""}
     this.authService.login(userss).toPromise().then((res)=>{
-      this.prueba="SSS"
-      this.router.navigateByUrl('/');
+      location.reload(true);
+      this.router.navigateByUrl('/es/home');
     }
     ).catch(
       (err)=>{
-        this.prueba=err.message+ "  aaaa "+err.status
-        console.log("ERR"+ err.status)
+        this.prueba=err.message
+
       }
     );
   }

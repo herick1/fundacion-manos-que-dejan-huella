@@ -27,8 +27,10 @@ valor:string
 				  })
 			}
 			}
-			else
+			else{
 				this.appPages[5].title='Entrar'
+
+			}
 			})
 			
 		
