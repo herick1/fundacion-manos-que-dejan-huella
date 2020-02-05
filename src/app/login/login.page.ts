@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
           this.router.navigateByUrl('es/home');
 			  }
 				else
-        this.prueba=false
+        this.prueba=""
 			})
 
 
@@ -40,8 +40,8 @@ export class LoginPage implements OnInit {
   login(correo, clave){
     let userss={"email":correo , "password":clave, id:0, name:"", apellido:""}
     this.authService.login(userss).toPromise().then((res)=>{
-      location.reload(true);
       this.router.navigateByUrl('/es/home');
+      location.reload(true);
     }
     ).catch(
       (err)=>{
