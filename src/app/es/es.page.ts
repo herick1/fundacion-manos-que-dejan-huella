@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { AuthService } from '../auth/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-es',
@@ -7,6 +9,33 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['es.page.scss']
 })
 export class EsPage {
+valor:string
+	constructor( public menuCtrl: MenuController, private  authService:  AuthService) 
+	{
+		this.authService.storage.get("ACCESS_TOKEN").then(
+			(res:any)=>{
+			  if(res){
+				this.appPages[5].title='Salir'
+			this.appPages[5].onEnter=function(){
+				this.authService.logout() 
+				this.authService.storage.get("ACCESS_TOKEN").then(
+				  (res:any)=>{
+					if(res)
+					this.prueba=true
+				  else
+					this.prueba=false
+				  })
+			}
+			}
+			else{
+				this.appPages[5].title='Entrar'
+
+			}
+			})
+			
+		
+	}
+  
 	public appPages = [
 	    {
 	      title: '¿Quienes somos?',
@@ -33,26 +62,35 @@ export class EsPage {
 	  	},
 	    {
 	      title: 'Usuario',
-	      url: '/es/no-found',
+	      url: '/es/usuario',
 	      icon: 'person'
 	    },
 	    {
-	      title: 'Gestionar evento(s)',
-	      url: '/es/no-found',
+	      title: 'Gestionar usuario(s)',
+	      url: '/es/usuario',
 	      icon: 'calendar'
-	  	},
-	    {
-	      title: 'Entrar',
-	      url: '/es/login',
-	      icon: 'log-in'
-	  	}
+		  },
+		  {
+			title: this.valor,
+			url: '/es/login',
+			icon: 'log-in',
+			onEnter: function(){
+                
+			
+			}
+		}
+	   
 	  ];
 
-  constructor( public menuCtrl: MenuController) 
-  {
-    //this.initializeApp();
-  }
-
+funcionsita(titulo){
+	if(titulo == "Salir"){
+		this.authService.logout() 
+	    this.authService.storage.get("ACCESS_TOKEN").then(
+	      (res:any)=>{
+	      	location.reload(true);
+	  });
+	}
+}
 toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }

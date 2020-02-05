@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: './es/es.module#EsPageModule' }
+  { path: '', loadChildren: './es/es.module#EsPageModule' },  { path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioPageModule' }
+
 
   
   //{ path: 'contactanos', loadChildren: './contactanos/contactanos.module#ContactanosPageModule' },

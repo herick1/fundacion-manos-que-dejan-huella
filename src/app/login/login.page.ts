@@ -1,28 +1,54 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
-
+import { Router } from  "@angular/router";
+import { AuthService } from '../auth/auth.service';
+import {HttpClient} from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
+
 export class LoginPage implements OnInit {
   focus:any;
   focus1:any;
-  constructor( public menuCtrl: MenuController) 
-  {
-  }
+  prueba:any;
+  constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService, private  router:  Router) { 
 
-toggleMenu() {
+		this.authService.storage.get("ACCESS_TOKEN").then(
+			(res:any)=>{
+			  if(res){
+         
+          this.router.navigateByUrl('es/home');
+			  }
+				else
+        this.prueba=""
+			})
+
+
+  }
+  
+  ngOnInit() {
+   //this.authService.storage.get("ACCESS_TOKEN").then(data=>{this.prueba=data})
+   //this.prueba=this.authService.isLoggedIn()
+  
+  }
+  toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   login(correo, clave){
-    var campo = <HTMLInputElement> document.getElementById("campo-correo");
-    var campo2 = <HTMLInputElement> document.getElementById("campo-clave");
-    campo.value="";
-    campo2.value="";
+    let userss={"email":correo , "password":clave, id:0, name:"", apellido:""}
+    this.authService.login(userss).toPromise().then((res)=>{
+      this.router.navigateByUrl('/es/home');
+      location.reload(true);
+    }
+    ).catch(
+      (err)=>{
+        this.prueba=err.message
+
+      }
+    );
   }
-  //campo.value = "";
-  ngOnInit() {
-  }
+
 }

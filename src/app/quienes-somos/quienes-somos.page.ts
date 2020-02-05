@@ -3,6 +3,7 @@ import { MenuController } from '@ionic/angular';
 import { IonContent } from "@ionic/angular";
 import { ViewChild} from '@angular/core';
 import {Router } from "@angular/router";
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-quienes-somos',
@@ -10,7 +11,7 @@ import {Router } from "@angular/router";
   styleUrls: ['./quienes-somos.page.scss'],
 })
 export class QuienesSomosPage implements OnInit { 
-
+  prueba:any;
   @ViewChild(IonContent,  {static: false}) content: IonContent;
 
   @ViewChild('quieneSomos',  {static: false}) quieneSomos : ElementRef;  
@@ -21,7 +22,7 @@ export class QuienesSomosPage implements OnInit {
   @ViewChild('historia',  {static: false}) historia : ElementRef;
 
 
-  constructor(public menuCtrl: MenuController, private router: Router) 
+  constructor(public menuCtrl: MenuController, private router: Router, private  authService:  AuthService) 
   {
   }
   buscar_fragmento(fragmento)
@@ -53,9 +54,27 @@ export class QuienesSomosPage implements OnInit {
   toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
-  ngOnInit() 
-  {
+  ngOnInit() {
+    this.authService.storage.get("ACCESS_TOKEN").then(
+      (res:any)=>{
+        if(res)
+        this.prueba=true
+      else
+        this.prueba=false
+      })
   }
+
+  logout(){
+    this.authService.logout() 
+    this.authService.storage.get("ACCESS_TOKEN").then(
+      (res:any)=>{
+        if(res)
+        this.prueba=true
+      else
+        this.prueba=false
+      })
+  }
+
 
   ionViewDidEnter()
   { //la funcion mas bonita  que pude encontrar de ionic y te conoci por casualidad <3

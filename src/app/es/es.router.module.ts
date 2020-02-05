@@ -72,6 +72,15 @@ const routes: Routes = [
         ]
       },
       {
+      path: 'login2',
+      children: [
+        {
+          path: '',
+          loadChildren:  '../auth/login/login.module#LoginPageModule' 
+        }
+      ]
+    },
+      {
         path: 'layout',
         children: [
           {
@@ -86,6 +95,15 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: '../contactanos/contactanos.module#ContactanosPageModule'
+          }
+        ]
+      },
+      {
+        path: 'usuario',
+        children: [
+          {
+            path: '',
+            loadChildren: '../usuario/usuario.module#UsuarioPageModule'
           }
         ]
       },
