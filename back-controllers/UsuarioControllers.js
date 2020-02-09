@@ -61,7 +61,7 @@ userController.todo = function(req, res){
 }
 
 userController.login = function(req, res){
-    
+    console.log(req.body)
     const  email  =  req.body.email;
     const  password  =  req.body.password;
     findUserByEmail(email, (err, user)=>{
@@ -85,6 +85,7 @@ userController.login = function(req, res){
 }
 
 userController.crear = function(req, res){
+  console.log(req.body)
  //let body = _.pick(req.body, ["name","email"]);
  const  name  =  req.body.name;
  const  email  =  req.body.email;
@@ -107,6 +108,7 @@ userController.crear = function(req, res){
 }
 
 userController.actualizar = function(req, res){
+  console.log(req.body)
     const  email  =  req.body.email;
     const  nombre  =  req.body.nombre;
     const apellido = req.body.apellido
