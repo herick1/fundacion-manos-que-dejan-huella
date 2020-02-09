@@ -3,6 +3,7 @@ var userController = {};
 const  jwt  =  require('jsonwebtoken');
 const  bcrypt  =  require('bcryptjs');
 const SECRET_KEY = "secretkey23456";
+const { Client } = require('pg');
 
 // funciones de autenticacion
 const  findUserByEmail  = (email, cb) => {

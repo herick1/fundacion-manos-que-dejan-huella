@@ -10,10 +10,14 @@ var app = express();
 const fs = require('fs');
 
 const path = require('path');
-const { Client } = require('pg');
+
+
+// ***************************** RUTAS   ****************************************************
 
 var usuario = require('./back-routes/usuario');
+var evento = require('./back-routes/evento');
 app.use('/back/usuario', usuario);
+app.use('/back/evento', evento);
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 var firebase = require("firebase/app");
@@ -76,32 +80,7 @@ app.get('/download', function(req, res){
 });
 
 
-// MANEJO DE EVENTOS
-app.get("/evento", urlencodedParser, (req, res) => {
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  client.connect();
-client.query('SELECT * FROM EVENTO;'
-  , (err, response) => {
-  if (err) throw err;
-  res.json(response.rows)
-  client.end();
-});
 
-});
-
-app.post("/evento", urlencodedParser, (req, res) => {
-  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
-  client.connect();
-  let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
-  client.query(query
-    , (err, response) => {
-    res.json(response)
-  });
-   // client.end();
-});
 
 app.post("/notificacion", urlencodedParser, (req, res) => {
   let body = _.pick(req.body, ["token"]);
