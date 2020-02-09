@@ -11,15 +11,12 @@ const fs = require('fs');
 
 const path = require('path');
 const { Client } = require('pg');
-const  jwt  =  require('jsonwebtoken');
-const  bcrypt  =  require('bcryptjs');
-const SECRET_KEY = "secretkey23456";
 
+var usuario = require('./back-routes/usuario');
+app.use('/back/usuario', usuario);
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 var firebase = require("firebase/app");
-
-// Add the Firebase products that you want to use
 require("firebase/auth");
 require("firebase/firestore");
 require("firebase/database");
@@ -120,152 +117,6 @@ app.post("/notificacion", urlencodedParser, (req, res) => {
 });
 
 
-//autenticacion
-const  findUserByEmail  = (email, cb) => {
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  let query= "SELECT * FROM usuario WHERE usu_email ='"+email+"'"
-  client.connect();
-  client.query(query
-    , (err, response) => {
-      cb(err,response.rows)
-      console.log("ERRROR> "+err)
-      console.log("BIEN> "+response)
-      client.end()
-  });
-}
-
-const  createUser  = (user, cb) => {
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  console.log("USER> "+user)
-  console.log("user pppp"+user[0])
-  console.log("user pppp"+user[1])
-  console.log("user pppp"+user[2])
-  console.log("user pppp"+user[3])
-  let query= "INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) values('"+user[0]+"','"+user[1]+"','"+user[2]+"','"+user[3]+"');"
-  client.connect();
-  client.query(query
-    , (err, response) => {
-      cb(err)
-      console.log("ERRROR> "+err)
-      console.log("BIEN> "+response)
-      client.end()
-  });
-}
-
-app.post('/register', (req, res) => {
-  //let body = _.pick(req.body, ["name","email"]);
-  const  name  =  req.body.name;
-  const  email  =  req.body.email;
-  const apellido= req.body.apellido;
-  console.log(req.body);
-  const  password  =  bcrypt.hashSync(req.body.password,10);
-
-
-  createUser([name, apellido,email, password], (err)=>{
-      if(err) return  res.status(500).send("Server error!");
-      findUserByEmail(email, (err, user)=>{
-          if (err) return  res.status(500).send('Server error!');  
-          const  expiresIn  =  24  *  60  *  60;
-          const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
-              expiresIn:  expiresIn
-          });
-          res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn          
-          });
-      });
-  });
-});
-
-
-app.post('/login', (req, res) => {
-  
-  const  email  =  req.body.email;
-  const  password  =  req.body.password;
-  findUserByEmail(email, (err, user)=>{
-      if (err) return  res.status(500).send('Error del servidor!');
-      if (!user[0]) return  res.status(404).send('Credenciales invalidas!');
-      else{
-
-        const  result  =  bcrypt.compareSync(password, user[0].usu_password);
-        if(!result) return  res.status(401).send('Credenciales invalidas!');
-        //if(password !=value.usu_password) return  res.status(401).send('Password not valid!');
-        const  expiresIn  =  24  *  60  *  60;
-        console.log("Ssssssss"+user)
-        const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
-            expiresIn:  expiresIn
-        });
-        res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
-      }
-     
-});
-});
-
-//CRUD DE USUARIOS -------------------------------------------------------------
-
-app.get('/usuario', urlencodedParser, (req, res) => {
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  let query= "Select usu_nombre as nombre, usu_apellido as apellido, usu_email as email, usu_id as id from usuario; "
-  client.connect();
-  client.query(query
-    , (err, response) => {
-      console.log("EEEEEEEEEERRORR"+err)
-    res.status(200).send(response.rows);
-    client.end();
-  });
-
- 
-      
- 
-})
-
-app.put('/usuario/:id', (req, res) => {
-  const  email  =  req.body.email;
-  const  nombre  =  req.body.nombre;
-  const apellido = req.body.apellido
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  client.connect();
-  let query= "update usuario set usu_nombre='"+nombre+"' , usu_apellido= '"+apellido+"' , usu_email='"+email+"' where usu_id= "+req.params.id+ ";"
-  client.query(query
-    , (err, response) => {
-      if(err)
-      res.status(500).send(err);
-      else 
-      res.status(200).send(response);
-    client.end();
-  });
-  
- 
-});
-
-app.delete('/usuario/:id', (req, res) => {
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  client.connect();
-  let query= "delete from usuario where usu_id= "+req.params.id+ ";"
-  client.query(query
-    , (err, response) => {
-      if(err)
-      res.status(500).send(err);
-      else 
-    res.status(200).send(response);
-    client.end();
-  });
-
- 
-});
 
 // ---- SERVE APLICATION PATHS ---- //
 app.get('*', function (req, res) {

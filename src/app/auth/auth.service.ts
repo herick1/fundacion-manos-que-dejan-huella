@@ -22,7 +22,7 @@ const  options = { headers: new HttpHeaders({'Content-Type':'application/json', 
 
 export class AuthService {
 
-  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  AUTH_SERVER_ADDRESS:  string  =  'https://pruebas-manos-que-dejan-huella.herokuapp.com/back/usuario';
   authSubject  =  new  BehaviorSubject(false);
 
   constructor(private  httpClient:  HttpClient, public  storage:  Storage) { }
@@ -48,7 +48,7 @@ export class AuthService {
     console.log(user.password)
     let headers = new HttpHeaders();
       headers.append('Content-Type', 'application/json');
-    return this.httpClient.post('https://manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password},{headers: headers}).pipe(
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/login`,{"email":user.email,"password": user.password},{headers: headers}).pipe(
     tap(async (res: AuthResponse) => {
       console.log("ssssss2")
         if (res.user) {

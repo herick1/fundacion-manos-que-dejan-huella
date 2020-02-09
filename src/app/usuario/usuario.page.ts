@@ -56,7 +56,7 @@ toggleMenu() {
   usernameSeleccioando="";
   passwordSeleccioando="";
 
-  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  AUTH_SERVER_ADDRESS:  string  =  'https://pruebas-manos-que-dejan-huella.herokuapp.com/back/usuario';
   
   ngOnInit() {
 
@@ -77,7 +77,7 @@ toggleMenu() {
   
   //funcion para obtener los usuarios
   getUsuario() {
-	this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/usuario`).subscribe( 
+	this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/`).subscribe( 
 	  //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
 	  (response: any)=>{    
 		console.log(response)
@@ -129,7 +129,7 @@ toggleMenu() {
 		"username":this.usernameSeleccioando,
 		"password":this.passwordSeleccioando
 	  }
-	  this.httpClient.put(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,user,options).subscribe(res=>{
+	  this.httpClient.put(`${this.AUTH_SERVER_ADDRESS}/actualizar/${this.idSeleccionada}`,user,options).subscribe(res=>{
 		this.getUsuario()
 		this.modalService.dismissAll();	
 	  })
@@ -145,7 +145,7 @@ toggleMenu() {
 
   eliminar(){
 	  console.log("EEEEEEEEEEEEEEEEEEEEEEEELIMINNNN> "+this.idSeleccionada)
-	this.httpClient.delete(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,options).subscribe(res=>{
+	this.httpClient.delete(`${this.AUTH_SERVER_ADDRESS}/eliminar/${this.idSeleccionada}`,options).subscribe(res=>{
 		this.getUsuario()
 		this.modalService.dismissAll();   
 	})
