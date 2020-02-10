@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const bodyParser = require("body-parser");
+const _ = require("lodash");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var evento= require('../back-controllers/EventoControllers.js');
