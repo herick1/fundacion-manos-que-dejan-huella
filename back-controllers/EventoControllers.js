@@ -20,6 +20,10 @@ eventoController.todo = function(req, res){
   
 eventoController.agregar = function(req, res){
     let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
+    var client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+      });
     client.connect();
     let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
     client.query(query
@@ -35,6 +39,10 @@ eventoController.agregar = function(req, res){
 eventoController.actualizar = function(req, res){
     let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
     const id=req.params.id
+    var client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+      });
     client.connect();
     let query= `UPDATE EVENTO SET EVE_NOMBRE= ${body.nombre},EVE_FECHA_INI=  ${body.fechaini},EVE_FECHA_FIN= 
      ${body.fechafin} ,EVE_DESCRIPCION= ${body.descripcion} ,EVE_DIRECCION=  ${body.direccion} where EVE_id=
@@ -51,6 +59,10 @@ eventoController.actualizar = function(req, res){
 
 eventoController.eliminar = function(req, res){
     const id=req.params.id
+    var client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+      });
     client.connect();
     let query= `DELETE FROM EVENTO WHERE EVE_ID=${id} `
     client.query(query
