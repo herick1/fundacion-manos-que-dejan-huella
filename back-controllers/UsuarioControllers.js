@@ -86,7 +86,6 @@ userController.login = function(req, res){
 }
 
 userController.crear = function(req, res){
-  console.log(req.body)
  //let body = _.pick(req.body, ["name","email"]);
  const  name  =  req.body.name;
  const  email  =  req.body.email;

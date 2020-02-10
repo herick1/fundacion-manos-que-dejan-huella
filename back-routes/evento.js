@@ -7,5 +7,5 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 var evento= require('../back-controllers/EventoControllers.js');
 /* GET eventos listing. */
 router.get('/',urlencodedParser, evento.todo);
-router.post('/agregar', urlencodedParser,evento.agregar);
+router.post('/agregar', evento.agregar);
 module.exports = router;
