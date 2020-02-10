@@ -4,7 +4,7 @@ const  jwt  =  require('jsonwebtoken');
 const  bcrypt  =  require('bcryptjs');
 const SECRET_KEY = "secretkey23456";
 const { Client } = require('pg');
-
+const _ = require("lodash");
 
 // funciones de autenticacion
 const  findUserByEmail  = (email, cb) => {
@@ -62,9 +62,10 @@ userController.todo = function(req, res){
 }
 
 userController.login = function(req, res){
-    console.log(req.body)
-    const  email  =  req.body.email;
-    const  password  =  req.body.password;
+  let body = _.pick(req.body, ["email","password"]);
+    console.log(body)
+    const  email  =  body.email;
+    const  password  =  body.password;
     findUserByEmail(email, (err, user)=>{
         if (err) return  res.status(500).send('Error del servidor!');
         if (!user[0]) return  res.status(404).send('Credenciales invalidas!');
@@ -86,12 +87,12 @@ userController.login = function(req, res){
 }
 
 userController.crear = function(req, res){
- //let body = _.pick(req.body, ["name","email"]);
- const  name  =  req.body.name;
- const  email  =  req.body.email;
- const apellido= req.body.apellido;
- console.log(req.body);
- const  password  =  bcrypt.hashSync(req.body.password,10);
+ let body = _.pick(req.body, ["name","email","apellido","password"]);
+ const  name  =  body.name;
+ const  email  =  body.email;
+ const apellido= body.apellido;
+ console.log(body);
+ const  password  =  bcrypt.hashSync(body.password,10);
 
 
  createUser([name, apellido,email, password], (err)=>{
