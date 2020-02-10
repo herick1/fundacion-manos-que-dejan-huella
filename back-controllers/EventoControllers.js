@@ -44,9 +44,9 @@ eventoController.actualizar = function(req, res){
         ssl: true,
       });
     client.connect();
-    let query= `UPDATE EVENTO SET EVE_NOMBRE= ${body.nombre},EVE_FECHA_INI=  ${body.fechaini},EVE_FECHA_FIN= 
-     ${body.fechafin} ,EVE_DESCRIPCION= ${body.descripcion} ,EVE_DIRECCION=  ${body.direccion} where EVE_id=
-     ${id}`
+    let query= `UPDATE EVENTO SET EVE_NOMBRE= '${body.nombre}',EVE_FECHA_INI=  '${body.fechaini}',EVE_FECHA_FIN= 
+     '${body.fechafin}' ,EVE_DESCRIPCION= '${body.descripcion}' ,EVE_DIRECCION=  '${body.direccion}'
+      where EVE_id=${id}`
     client.query(query
       , (err, response) => {
       if (err) throw err;
