@@ -8,4 +8,6 @@ var evento= require('../back-controllers/EventoControllers.js');
 /* GET eventos listing. */
 router.get('/',urlencodedParser, evento.todo);
 router.post('/agregar', evento.agregar);
+router.put('/actualizar/:id', evento.actualizar);
+router.delete('/eliminar/:id', evento.eliminar);
 module.exports = router;
