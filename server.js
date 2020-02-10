@@ -12,12 +12,15 @@ const fs = require('fs');
 const path = require('path');
 
 
-// ***************************** RUTAS   ****************************************************
+app.use(
+  cors({
+    origin: true,
+    exposedHeaders: "x-access-token"
+  })
+);
 
-var usuario = require('./back-routes/usuario');
-var evento = require('./back-routes/evento');
-app.use('/back/usuario', usuario);
-app.use('/back/evento', evento);
+app.use(bodyParser.json());
+
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 var firebase = require("firebase/app");
@@ -40,12 +43,7 @@ app.get('/',function(req,res){
     res.sendFile(path.join(__dirname+'/dist/photo-rc1/index.html'));
 });
 */
-app.use(
-  cors({
-    origin: true,
-    exposedHeaders: "x-access-token"
-  })
-);
+
 /*
 if(process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
@@ -70,7 +68,6 @@ app.all('*', function(req, res, next) {
 
 
 
-app.use(bodyParser.json());
 
 
 //descargar
@@ -95,7 +92,12 @@ app.post("/notificacion", urlencodedParser, (req, res) => {
   
 });
 
+// ***************************** RUTAS   ****************************************************
 
+var usuario = require('./back-routes/usuario');
+var evento = require('./back-routes/evento');
+app.use('/back/usuario', usuario);
+app.use('/back/evento', evento);
 
 // ---- SERVE APLICATION PATHS ---- //
 app.get('*', function (req, res) {
