@@ -17,8 +17,6 @@ const  findUserByEmail  = (email, cb) => {
     client.query(query
       , (err, response) => {
         cb(err,response.rows)
-        console.log("ERRROR> "+err)
-        console.log("BIEN> "+response)
         client.end()
     });
   }
@@ -28,11 +26,6 @@ const  findUserByEmail  = (email, cb) => {
       connectionString: process.env.DATABASE_URL,
       ssl: true,
     });
-    console.log("USER> "+user)
-    console.log("user pppp"+user[0])
-    console.log("user pppp"+user[1])
-    console.log("user pppp"+user[2])
-    console.log("user pppp"+user[3])
     let query= "INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password) values('"+user[0]+"','"+user[1]+"','"+user[2]+"','"+user[3]+"');"
     client.connect();
     client.query(query
@@ -63,7 +56,6 @@ userController.todo = function(req, res){
 
 userController.login = function(req, res){
   let body = _.pick(req.body, ["email","password"]);
-    console.log(body)
     const  email  =  body.email;
     const  password  =  body.password;
     findUserByEmail(email, (err, user)=>{
@@ -91,7 +83,6 @@ userController.crear = function(req, res){
  const  name  =  body.name;
  const  email  =  body.email;
  const apellido= body.apellido;
- console.log(body);
  const  password  =  bcrypt.hashSync(body.password,10);
 
 
@@ -109,7 +100,6 @@ userController.crear = function(req, res){
 }
 
 userController.actualizar = function(req, res){
-  console.log(req.body)
     const  email  =  req.body.email;
     const  nombre  =  req.body.nombre;
     const apellido = req.body.apellido
