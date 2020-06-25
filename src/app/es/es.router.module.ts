@@ -90,6 +90,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'publicaciones',
+        children: [
+          {
+            path: '',
+            loadChildren: '../publicaciones/publicaciones.module#PublicacionesPageModule'
+          }
+        ]
+      },
+      {
         path: 'contactanos',
         children: [
           {

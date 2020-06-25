@@ -15,6 +15,9 @@ const  jwt  =  require('jsonwebtoken');
 const  bcrypt  =  require('bcryptjs');
 const SECRET_KEY = "secretkey23456";
 
+
+const instagramPosts = require('instagram-posts');
+
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 var firebase = require("firebase/app");
@@ -93,6 +96,31 @@ client.query('SELECT * FROM EVENTO;'
   client.end();
 });
 
+});
+
+// MANEJO DE Publicaciones en instagram
+app.get("/posts", urlencodedParser, (req, res) => {
+
+  (async () => {
+      var posts = await instagramPosts('herick_1');
+      res.status(200).send({ "response": "Exitosa", "Post": posts }) 
+      /*
+      [
+          {
+              id: 'BRWBBbXjT40',
+              username: 'cats_of_instagram',
+              time: 1488904930,
+              type: 'image',
+              likes: 809,
+              comments: 10,
+              text: 'This is my post',
+              media: 'https://instagram.fbma1-1.fna.fbcdn.net/t51.2885-15/s640x640/sh0.08/e35/1231231_123123_1231231.jpg',
+              …
+          },
+          …
+      ]
+      */
+  })();                   
 });
 
 app.post("/evento", urlencodedParser, (req, res) => {
