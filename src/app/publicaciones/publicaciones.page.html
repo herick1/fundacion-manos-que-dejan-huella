@@ -1,6 +1,6 @@
-
 <ion-header>
-    <nav class="navbar navbar-expand-lg navbar-transparent fixed-top">
+    
+    <nav class="navbar navbar-expand-lg bg-danger">
         <div class="container">
             <a class="navbar-brand">
                 <button class="navbar-toggler ion-icon-nav" type="button" (click)="toggleMenu()">
@@ -25,7 +25,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/es/publicaciones">Publicaciones</a>
+                        <a class="nav-link" href="/es/no-found">Eventos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/es/contactanos">Contactanos</a>
@@ -42,21 +42,23 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="https://www.facebook.com/Dejatuhuella777">
-                            <ion-icon class="ion-icon-login-navagetion" name="logo-facebook" aria-hidden="true"></ion-icon>
+                            <ion-icon class="ion-icon-nav" name="logo-facebook" aria-hidden="true"></ion-icon>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://twitter.com/dejatushuellas">
-                            <ion-icon class="ion-icon-login-navagetion" name="logo-twitter" aria-hidden="true"></ion-icon>
+                            <ion-icon class="ion-icon-nav" name="logo-twitter" aria-hidden="true"></ion-icon>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://www.instagram.com/dejatushuellas">
-                            <ion-icon class="ion-icon-login-navagetion" name="logo-instagram" aria-hidden="true"></ion-icon>
+                            <ion-icon class="ion-icon-nav" name="logo-instagram" aria-hidden="true"></ion-icon>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="navbar-brand" href="/es/login">Entrar</a>
+                    <li class="nav-item" >
+                        <a class="navbar-brand" href="/es/login" *ngIf="prueba==false">Entrar</a>
+                        <a class="navbar-brand" (click)="logout()" *ngIf="prueba==true">Salir</a>
+                        
                     </li>
                 </ul>
             </div>
@@ -66,48 +68,27 @@
 </ion-header>
 
 <ion-content>
-  <div class="wrapper">
-    <div class="page-header" style="background-image: url('./assets/img/login.jpg');">
-      <div class="filter"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
-                        <div class="card card-register card-login card-plain">
-                        <h3 class="title text-center">Bienvenido</h3>
-                   <form class="form-register" method="" action="">
-                    <div class="content">
-                      <label>
-                        Correo Electronico
-                      </label>
-                      <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus===true}">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <ion-icon class="ion-icon-login"name="person"></ion-icon></span>
-                        </div>
-                          <input #correo correo.value="" id="campo-correo" type="email" class="form-control" placeholder="correo..." >
-                      </div>
-                      <label>
-                        Contraseña
-                      </label>
-                      <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus1===true}">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><ion-icon class="ion-icon-login"name="unlock"></ion-icon></span>
-                        </div>
-                          <input #clave clave.value="" id="campo-clave" type="password" placeholder="contraseña..." class="form-control" />
-                      </div>
-                    </div>
+<div class="container" style="padding: 10px;">
+    <div class="row justify-content-center">
+        <div class="row">   
+            <div *ngFor="let publicacion of publicaciones"> 
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" [src]="publicacion.media" alt="Card image cap">
+                    <div class="card-body">
 
-                </form>
-                <button class="btn btn-danger btn-block btn-round" (click)="login(correo.value, clave.value)" 
-                type="submit" >Iniciar sesión</button>
-                          <div class="forgot">
-                            {{prueba}}
-                              <a href="#" class="btn btn-link btn-danger">Recuperar contraseña?</a>
-                          </div>
-            </div>
+                        <h5 class="card-title">                         </h5>
+                        <p>
+                        <ion-icon class="ion-icon-nav" name="heart" aria-hidden="true">
+                        </ion-icon>
+                         {{publicacion.likes}}         
+                        </p>
+                        <p class="card-text">{{publicacion.text}}</p>
+                        <a [href]="publicacion.url" class="btn btn-primary">Go intagram</a>
                     </div>
-                </div>
-              
+                </div> 
             </div>
+        </div>
     </div>
 </div>
+
 </ion-content>
