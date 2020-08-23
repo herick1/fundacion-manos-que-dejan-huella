@@ -17,8 +17,8 @@ focus:any;
   focus1:any;
   prueba:any;
   publicaciones = []
-  //AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
-    AUTH_SERVER_ADDRESS:  string  =  'http://localhost:5000';
+  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  //AUTH_SERVER_ADDRESS:  string  =  'http://localhost:5000';
 
     constructor(public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,private  router:  Router) {
         this.prueba=true

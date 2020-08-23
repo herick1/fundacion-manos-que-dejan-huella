@@ -51,8 +51,8 @@ valor:string
 	      ]
 	    },
 	    {
-	      title: 'Eventos',
-	      url: '/es/no-found',
+	      title: 'Publicaciones',
+	      url: '/es/publicaciones',
 	      icon: 'calendar'
 	  	},
 	    {

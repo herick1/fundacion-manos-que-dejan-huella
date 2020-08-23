@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
-import { ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { Router } from  "@angular/router";
+import { ActivatedRoute } from '@angular/router';
+import {ViewChild, ElementRef} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient , HttpHeaders} from  '@angular/common/http';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -45,7 +50,12 @@ export class HomePage implements OnInit {
   public sliders: Array<any> = [];
   public slidershome: Array<any> = [];
   prueba:any;
-  constructor( public menuCtrl: MenuController, private  authService:  AuthService) 
+  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  //AUTH_SERVER_ADDRESS:  string  =  'http://localhost:5000';
+
+
+
+  constructor( public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,private  router:  Router) 
   {
             this.sliders.push(
             {
@@ -101,6 +111,7 @@ toggleMenu() {
       else
         this.prueba=false
       })
+    this.getPublicaciones();
   }
 
   logout(){
@@ -112,6 +123,27 @@ toggleMenu() {
       else
         this.prueba=false
       })
+  }
+
+  publicaciones = [];
+  getPublicaciones(){
+    this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/posts`).subscribe(   
+      (response: any)=>{    
+        if(response)
+          var publicaciones = response.Post;
+          this.sliders = [];
+          for(var i =0; i < 3 && i < publicaciones.length; i++){
+              var number = i+1;
+              this.sliders.push(
+                  {
+                      imagePath: publicaciones[i].media,
+                      label: 'Publicacion nº '+ number,
+                      text: publicaciones[i].text
+                  } 
+              )
+          }
+      }
+    ); 
   }
 }
 
