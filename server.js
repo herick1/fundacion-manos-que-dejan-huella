@@ -102,7 +102,7 @@ client.query('SELECT * FROM EVENTO;'
 app.get("/posts", urlencodedParser, (req, res) => {
 
   (async () => {
-      var posts = await instagramPosts('dejatushuellas');
+      var posts = await instagramPosts('herick_1');
       res.status(200).send({ "response": "Exitosa", "Post": posts }) 
       /*
       [
