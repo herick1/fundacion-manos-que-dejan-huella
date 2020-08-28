@@ -98,9 +98,39 @@ client.query('SELECT * FROM EVENTO;'
 
 });
 
+const getEmails = require('get-emails');
+const got = require('got');
+
+const test = async username => {
+  if (typeof username !== 'string') {
+    throw new TypeError(`Expected \`username\` to be of type \`string\` but received type \`${typeof username}\``);
+  }
+
+  try {
+    const url = `https://instagram.com/${username}`;
+    const {graphql: {user}} = await got(url, {searchParams: {__a: 1}}).json();
+    const email = getEmails(user.biography).values().next().value || '';
+
+    return {
+      ...user,
+      description: user.biography,
+      email,
+      followers: user.edge_followed_by.count,
+      following: user.edge_follow.count,
+      fullName: user.full_name,
+      posts: user.edge_owner_to_timeline_media.count,
+      url,
+      username,
+      website: user.external_url
+    };
+  } catch (error) {
+    return error;
+  }
+}
+  
 // MANEJO DE Publicaciones en instagram
 app.get("/posts", urlencodedParser, (req, res) => {
-  instagramPosts('herick_1')
+  test('herick_1')
     .then(posts => {
           // do something
           res.status(200).send({ "response": "Exitosa", "Post": posts}) 
