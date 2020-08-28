@@ -108,7 +108,18 @@ const test = async username => {
 
   try {
     const url = `https://instagram.com/herick_1`;
+
+    got(url, {searchParams: {__a: 1}}).json()    
+     .then(posts => {
+          console.log(posts) 
+      })
+     .catch(err => {
+              console.log("Errrr");
+              console.log(err);
+      }); 
+
     const {graphql: {user}} = await got(url, {searchParams: {__a: 1}}).json();
+
     console.log("Estoy Aqui");
     const email = getEmails(user.biography).values().next().value || '';
     console.log("Estoy Aqui1");
@@ -125,6 +136,8 @@ const test = async username => {
       website: user.external_url
     };
   } catch (error) {
+    console.log("Errorr");
+    console.log(error);
     throw error;
   }
 }
