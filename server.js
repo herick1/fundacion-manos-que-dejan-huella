@@ -124,7 +124,7 @@ const test = async username => {
       website: user.external_url
     };
   } catch (error) {
-    return error;
+    throw error;
   }
 }
   
