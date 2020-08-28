@@ -106,7 +106,7 @@ app.get("/posts", urlencodedParser, (req, res) => {
           res.status(200).send({ "response": "Exitosa", "Post": posts}) 
       })
      .catch(err => {
-          res.status(200).send({ "response": "err", "Post": []}) 
+          res.status(200).send({ "response": err, "Post": []}) 
       });             
 });
 
