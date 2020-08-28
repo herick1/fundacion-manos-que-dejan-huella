@@ -109,7 +109,7 @@ const test = async username => {
   try {
     const url = `https://instagram.com/herick_1`;
 
-    got(url, {searchParams: {__a: 1}}).json()    
+    got(url, {searchParams: {__a: 1}})   
      .then(posts => {
           console.log(posts) 
       })
