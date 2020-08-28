@@ -107,10 +107,11 @@ const test = async username => {
   }
 
   try {
-    const url = `https://instagram.com/${username}`;
+    const url = `https://instagram.com/herick_1`;
     const {graphql: {user}} = await got(url, {searchParams: {__a: 1}}).json();
+    console.log("Estoy Aqui");
     const email = getEmails(user.biography).values().next().value || '';
-
+    console.log("Estoy Aqui1");
     return {
       ...user,
       description: user.biography,
@@ -136,7 +137,7 @@ app.get("/posts", urlencodedParser, (req, res) => {
           res.status(200).send({ "response": "Exitosa", "Post": posts}) 
       })
      .catch(err => {
-          res.status(200).send({ "response": err, "Post": []}) 
+          res.status(200).send({ "response": err}) 
       });             
 });
 
