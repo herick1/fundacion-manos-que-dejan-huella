@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import {SwPush} from '@angular/service-worker';
+import {NewsletterService} from './services/newsletter.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  readonly VAPID_PUBLIC_KEY = "BGpXrs5JMCp12-ZnyswX3fQyHttIdhwpy-BJGg8Uc-muLZORf82aPO1UBeRemcK_7thNFxIcDkjS3melYigx2wE"
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private swPush: SwPush,
+    private newsletterService: NewsletterService
   ) {
     this.initializeApp();
   }
@@ -22,5 +27,24 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+console.log("entre 3")
+    this.subscribeToNotifications()
+  }
+
+  ngOnInit() {/*
+    console.log("entre 1")
+        this.subscribeToNotifications();
+        */
+      
+    }
+
+  subscribeToNotifications() {
+        if(this.newsletterService.usado==false){
+            this.swPush.requestSubscription({
+                serverPublicKey: this.VAPID_PUBLIC_KEY
+            })
+            .then(sub => this.newsletterService.addPushSubscriber(sub).subscribe())
+            .catch(err => console.error("Could not subscribe to notifications", err));
+        }
   }
 }

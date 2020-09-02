@@ -75,6 +75,7 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "lodash": "^4.17.19",
+    "nodemailer": "^6.4.11",
     "pg": "^7.12.1",
     "protractor": "~5.4.2",
     "request": "^2.88.0",
@@ -84,6 +85,7 @@
     "tslib": "^1.10.0",
     "tslint": "~5.20.0",
     "typescript": "~3.4.3",
+    "web-push": "^3.4.4",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

@@ -1,4 +1,3 @@
-
 const rp = require("request-promise");
 const express = require("express");
 const cors = require("cors");
@@ -18,6 +17,21 @@ const SECRET_KEY = "secretkey23456";
 
 const instagramPosts = require('instagram-posts');
 
+const  webpush  = require('web-push')
+const  vapidKeys  = {
+  publicKey: 'BGpXrs5JMCp12-ZnyswX3fQyHttIdhwpy-BJGg8Uc-muLZORf82aPO1UBeRemcK_7thNFxIcDkjS3melYigx2wE',
+  privateKey: 'nHSouI8mWyDjOQ8YpEBEq2RiXUmAuKurcIzj52s7en0'
+}
+
+webpush.setVapidDetails(
+    'mailto:example@yourdomain.org',
+    vapidKeys.publicKey,
+    vapidKeys.privateKey
+);
+
+var conexion = require('./back-common/conexion');
+const nodemailer = require('nodemailer');
+let createTransport = nodemailer.createTransport(conexion.jConfig);
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 var firebase = require("firebase/app");
@@ -292,6 +306,29 @@ app.delete('/usuario/:id', (req, res) => {
     client.end();
   });
 
+ 
+});
+//***********************************    notificaciones -------*****************************************************
+app.post('/notificacion/suscribir', (req, res) => {
+    const sub = req.body;
+    console.log('Received Subscription on the server: ', sub);
+
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  client.connect();
+
+  var query = `EXECUTE Not_suscribir '${sub.endpoint}', ${sub.expirationTime}, '${sub.keys.p256dh}', '${sub.keys.auth}'`;
+  
+  client.query(query
+    , (err, response) => {
+      if(err)
+      res.status(500).send(err);
+      else 
+    res.status(200).send(response);
+    client.end();
+  });
  
 });
 

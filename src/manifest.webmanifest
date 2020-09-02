@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "short_name": "app",
+  "name": "Deja tus huellas",
+  "short_name": "Deja tus huellas",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

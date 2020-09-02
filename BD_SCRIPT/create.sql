@@ -40,3 +40,24 @@ CREATE TABLE USU_EVE(
   CONSTRAINT FOREIGN_USU_EVE_USUARIO FOREIGN KEY (USU_EVE_FK_USU_ID) REFERENCES USUARIO(USU_ID),
   CONSTRAINT FOREIGN_USU_EVE_EVE FOREIGN KEY (USU_EVE_FK_EVE_ID) REFERENCES EVENTO(EVE_ID)
 );
+
+CREATE TABLE notificaciones(
+NOT_ID serial,
+endpoint VARCHAR(400) UNIQUE,
+expiration_time float,
+p256dh VARCHAR(400),
+auth VARCHAR(400),
+email VARCHAR(100)
+)
+
+create or replace procedure Not_suscribir(
+   endpoint VARCHAR(400),
+   time_exp FLOAT, 
+   p256dh VARCHAR(400),
+   auth VARCHAR(400)
+)
+LANGUAGE SQL   
+as $$
+
+INSERT INTO notificaciones (endpoint,expiration_time,p256dh,auth) values(endpoint,time_exp,p256dh,auth)
+$$
