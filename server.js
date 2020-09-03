@@ -319,7 +319,7 @@ app.post('/notificacion/suscribir', (req, res) => {
   });
   client.connect();
 
-  var query = `EXECUTE Not_suscribir '${sub.endpoint}', ${sub.expirationTime}, '${sub.keys.p256dh}', '${sub.keys.auth}'`;
+  var query = `CALL Not_suscribir '${sub.endpoint}', ${sub.expirationTime}, '${sub.keys.p256dh}', '${sub.keys.auth}'`;
   
   client.query(query
     , (err, response) => {
