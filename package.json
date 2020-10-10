@@ -63,7 +63,7 @@
     "core-js": "^3.3.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "firebase": "^7.5.0",
+    "firebase": "7.21.0",
     "instagram-posts": "^2.2.0",
     "ip": "^1.1.5",
     "jasmine-core": "~3.5.0",
