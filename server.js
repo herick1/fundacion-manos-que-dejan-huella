@@ -143,6 +143,7 @@ const test = async username => {
 }
   
 // MANEJO DE Publicaciones en instagram
+/*
 app.get("/posts", urlencodedParser, (req, res) => {
   
 const instagramPosts = require('instagram-posts');
@@ -165,8 +166,10 @@ const instagramPosts = require('instagram-posts');
     },
     …
   ]
-  */
+ 
 })();
+
+
 
 
 
@@ -179,8 +182,23 @@ const instagramPosts = require('instagram-posts');
      .catch(err => {
           res.status(200).send({ "response": err}) 
       });     
-  */        
+         
 });
+
+*/
+app.get("/posts", async (req, res, next) => {
+  try {
+    const instagramPosts = require('instagram-posts');
+  //listing messages in users mailbox 
+    let posts = await instagramPosts('herick_1');
+    console.log(posts)
+    res.status(200).send({ "response": "Exitosa", "Post": posts}) 
+  } catch (err) {
+    next(err);
+  }
+})
+
+
 
 app.post("/evento", urlencodedParser, (req, res) => {
   let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
