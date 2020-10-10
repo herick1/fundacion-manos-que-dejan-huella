@@ -1,3 +1,4 @@
+
 const rp = require("request-promise");
 const express = require("express");
 const cors = require("cors");
@@ -17,21 +18,6 @@ const SECRET_KEY = "secretkey23456";
 
 const instagramPosts = require('instagram-posts');
 
-const  webpush  = require('web-push')
-const  vapidKeys  = {
-  publicKey: 'BGpXrs5JMCp12-ZnyswX3fQyHttIdhwpy-BJGg8Uc-muLZORf82aPO1UBeRemcK_7thNFxIcDkjS3melYigx2wE',
-  privateKey: 'nHSouI8mWyDjOQ8YpEBEq2RiXUmAuKurcIzj52s7en0'
-}
-
-webpush.setVapidDetails(
-    'mailto:example@yourdomain.org',
-    vapidKeys.publicKey,
-    vapidKeys.privateKey
-);
-
-var conexion = require('./back-common/conexion');
-const nodemailer = require('nodemailer');
-let createTransport = nodemailer.createTransport(conexion.jConfig);
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 var firebase = require("firebase/app");
@@ -158,14 +144,42 @@ const test = async username => {
   
 // MANEJO DE Publicaciones en instagram
 app.get("/posts", urlencodedParser, (req, res) => {
-  test('herick_1')
+  
+const instagramPosts = require('instagram-posts');
+
+(async () => {
+  //console.log();
+  res.status(200).send({ "response": "Exitosa", "Post": await instagramPosts('herick_1')}) 
+  /*
+  [
+    {
+      id: 'BRWBBbXjT40',
+      username: 'cats_of_instagram',
+      time: 1488904930,
+      type: 'image',
+      likes: 809,
+      comments: 10,
+      text: 'This is my post',
+      media: 'https://instagram.fbma1-1.fna.fbcdn.net/t51.2885-15/s640x640/sh0.08/e35/1231231_123123_1231231.jpg',
+      …
+    },
+    …
+  ]
+  */
+})();
+
+
+
+
+  /*test('herick_1')
     .then(posts => {
           // do something
           res.status(200).send({ "response": "Exitosa", "Post": posts}) 
       })
      .catch(err => {
           res.status(200).send({ "response": err}) 
-      });             
+      });     
+  */        
 });
 
 app.post("/evento", urlencodedParser, (req, res) => {
@@ -175,8 +189,9 @@ app.post("/evento", urlencodedParser, (req, res) => {
   client.query(query
     , (err, response) => {
     res.json(response)
+    client.end();
   });
-   // client.end();
+   
 });
 
 app.post("/notificacion", urlencodedParser, (req, res) => {
@@ -337,29 +352,6 @@ app.delete('/usuario/:id', (req, res) => {
     client.end();
   });
 
- 
-});
-//***********************************    notificaciones -------*****************************************************
-app.post('/notificacion/suscribir', (req, res) => {
-    const sub = req.body;
-    console.log('Received Subscription on the server: ', sub);
-
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  client.connect();
-
-  var query = `CALL Not_suscribir ('${sub.endpoint}', ${sub.expirationTime}, '${sub.keys.p256dh}', '${sub.keys.auth}')`;
-  
-  client.query(query
-    , (err, response) => {
-      if(err)
-      res.status(500).send(err);
-      else 
-    res.status(200).send(response);
-    client.end();
-  });
  
 });
 
