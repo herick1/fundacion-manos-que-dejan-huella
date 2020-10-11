@@ -67,9 +67,11 @@ const test = async username => {
 
   try {
 		const url = `https://instagram.com/${username}`;
+		console.log("Estoy Aqui");
 		const {graphql: {user}} = await got(url, {searchParams: {__a: 1}}).json();
+		console.log("Estoy Aqui1");
 		const email = getEmails(user.biography).values().next().value || '';
-
+		console.log("Estoy Aqui2");
 		return {
 			...user,
 			description: user.biography,
