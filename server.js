@@ -143,14 +143,14 @@ const test = async username => {
 }
   
 // MANEJO DE Publicaciones en instagram
-/*
+
 app.get("/posts", urlencodedParser, (req, res) => {
   
-const instagramPosts = require('instagram-posts');
+//const instagramPosts = require('instagram-posts');
 
-(async () => {
+//(async () => {
   //console.log();
-  res.status(200).send({ "response": "Exitosa", "Post": await instagramPosts('herick_1')}) 
+  //res.status(200).send({ "response": "Exitosa", "Post": await instagramPosts('herick_1')}) 
   /*
   [
     {
@@ -169,12 +169,9 @@ const instagramPosts = require('instagram-posts');
  
 })();
 
+*/
 
-
-
-
-
-  /*test('herick_1')
+   test('herick_1')
     .then(posts => {
           // do something
           res.status(200).send({ "response": "Exitosa", "Post": posts}) 
@@ -185,19 +182,21 @@ const instagramPosts = require('instagram-posts');
          
 });
 
-*/
+
+/*
 app.get("/posts", async (req, res, next) => {
   try {
     const instagramPosts = require('instagram-posts');
   //listing messages in users mailbox 
     let posts = await instagramPosts('herick_1');
     console.log(posts)
-    res.status(200).send({ "response": "Exitosa", "Post": posts}) 
+    res.json(posts)
+    //res.status(200).send({ "response": "Exitosa", "Post": posts}) 
   } catch (err) {
     next(err);
   }
 })
-
+*/
 
 
 app.post("/evento", urlencodedParser, (req, res) => {
