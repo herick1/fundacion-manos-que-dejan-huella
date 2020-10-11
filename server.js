@@ -131,7 +131,8 @@ app.get("/posts", urlencodedParser, async (req, res, next) => {
 
 
    var valor= await instagram('herick_1');
-   console.log( valor)
+   console.log(valor)
+   res.setHeader("Content-Type", "application/json; charset=utf-8");
    res.status(200).send({ "response": "Exitosa", "Post": valor}) 
     /*.then(posts => {
           // do something
