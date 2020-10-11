@@ -45,7 +45,8 @@ app.get('/',function(req,res){
 app.use(
   cors({
     origin: true,
-    exposedHeaders: "x-access-token"
+    exposedHeaders: "x-access-token",
+    "Content-Type":"application/json" 
   })
 );
 /*
