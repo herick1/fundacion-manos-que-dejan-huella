@@ -358,7 +358,7 @@ app.post('/notificacion/suscribir', (req, res) => {
       else{
         res.status(200).send(response); 
       } 
-        
+      
       client.end();
     });
 
@@ -390,7 +390,7 @@ app.get('/notificacion/enviar/evento', (req, res) => {
   });
   client.connect();
 
-  var query = `CALL Not_ALL`;
+  var query = `SELECT * FROM Not_ALL()`;
   
   client.query(query
     , (err, response) => {
@@ -402,19 +402,55 @@ app.get('/notificacion/enviar/evento', (req, res) => {
         allSubscriptions=response;
         for(i=0; i<allSubscriptions.length; i++){
           allSubscriptions[i].keys={
-          auth:allSubscriptions[i].auth, 
-          p256dh:allSubscriptions[i].p256dh
+            auth:allSubscriptions[i].auth, 
+            p256dh:allSubscriptions[i].p256dh
           }
           delete allSubscriptions[i].auth;
           delete allSubscriptions[i].p256dh;
         }
 
-        res.status(200).send(response);
-      }
-      client.end();
-    });
+        var cantidadSubsrcipciones=allSubscriptions.length;
+        Promise.all(allSubscriptions.map(sub => webpush.sendNotification(sub, 
+          JSON.stringify(notificationNuevaQuincenaPayload) )))
+        .then(() => res.status(200).json({message: 'Newsletter sent successfully.'}))
+        .catch(err => {
+          if(cantidadSubsrcipciones>1 && err.body=='push subscription has unsubscribed or expired.\n'){
 
-});
+
+            var query = `CALL Not_delete_especifico('${err.endpoint}')`; /////////////////////////CAMBIAR ESTE QUERY
+            
+            client.query(query, (err, response) => {
+              if(err){
+                console.log("err"+err)
+                res.status(500).send(err);
+              }
+              else{
+                res.status(200).json({message: 'Newsletter sent successfully.'})
+              }
+            })
+
+          }
+          else{
+
+             var query = `CALL Not_delete_especifico('${err.endpoint}')`; /////////////////////////CAMBIAR ESTE QUERY
+             
+             client.query(query, (err, response) => {
+               if(err){
+                 console.log("err"+err)
+                 res.status(500).send(err);
+               }
+               else{
+                 res.status(200).json({message: 'Las subscripciones expiraron.'})
+               }
+             })
+
+           }
+           
+           client.end();
+         });
+      };
+    })
+})
 
 
 /**************************** fin de notificaciones ***********************************************************/

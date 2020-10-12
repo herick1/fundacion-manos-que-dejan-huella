@@ -66,9 +66,21 @@ $$
 
 -- Obtener todas las subscripciones
 
-create or replace procedure Not_ALL ()
+
+CREATE or replace FUNCTION Not_ALL() RETURNS table(endpoint varchar, expiration_time float, p256dh varchar, 
+  auth varchar) AS $$
+    
+    SELECT endpoint, expiration_time, p256dh, auth FROM notificaciones;
+$$ LANGUAGE SQL; 
+
+--ELIMINAR SUBSCRIPCION
+
+create or replace procedure Not_delete_especifico(
+   endpointParametro VARCHAR(400)
+)
 LANGUAGE SQL   
 as $$
 
-SELECT * FROM notificaciones
+delete from notificaciones noti where noti.endpoint=endpointParametro
 $$
+
