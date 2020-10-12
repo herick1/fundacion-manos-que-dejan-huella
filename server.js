@@ -411,7 +411,7 @@ app.get('/notificacion/enviar/evento', (req, res) => {
 
         var cantidadSubsrcipciones=allSubscriptions.length;
         Promise.all(allSubscriptions.map(sub => webpush.sendNotification(sub, 
-          JSON.stringify(notificationNuevaQuincenaPayload) )))
+          JSON.stringify(notificationNuevoEvento) )))
         .then(() => res.status(200).json({message: 'Newsletter sent successfully.'}))
         .catch(err => {
           if(cantidadSubsrcipciones>1 && err.body=='push subscription has unsubscribed or expired.\n'){
