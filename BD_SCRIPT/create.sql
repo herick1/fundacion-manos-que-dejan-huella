@@ -47,7 +47,8 @@ endpoint VARCHAR(400) UNIQUE,
 expiration_time float,
 p256dh VARCHAR(400),
 auth VARCHAR(400),
-email VARCHAR(100)
+email VARCHAR(100),
+constraint constraint_unico_notificaciones unique(endpoint,p256dh,auth)
 )
 
 create or replace procedure Not_suscribir(

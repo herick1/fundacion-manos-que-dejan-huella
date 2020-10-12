@@ -48,7 +48,7 @@ app.use(
     exposedHeaders: "x-access-token",
     "Content-Type":"application/json" 
   })
-);
+  );
 /*
 if(process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
@@ -90,12 +90,12 @@ app.get("/evento", urlencodedParser, (req, res) => {
     ssl: true,
   });
   client.connect();
-client.query('SELECT * FROM EVENTO;'
-  , (err, response) => {
-  if (err) throw err;
-  res.json(response.rows)
-  client.end();
-});
+  client.query('SELECT * FROM EVENTO;'
+    , (err, response) => {
+      if (err) throw err;
+      res.json(response.rows)
+      client.end();
+    });
 
 });
 
@@ -104,7 +104,7 @@ const instagram= require('./instagramPost')
 
 app.get("/posts", urlencodedParser, async (req, res, next) => {
   try {
-  
+    
 //const instagramPosts = require('instagram-posts');
 
 //(async () => {
@@ -130,10 +130,10 @@ app.get("/posts", urlencodedParser, async (req, res, next) => {
 */
 
 
-   var valor= await instagram('herick_1');
-   console.log(valor)
-   res.setHeader("Content-Type", "application/json; charset=utf-8");
-   res.status(200).send({ "response": "Exitosa", "Post": valor}) 
+var valor= await instagram('herick_1');
+console.log(valor)
+res.setHeader("Content-Type", "application/json; charset=utf-8");
+res.status(200).send({ "response": "Exitosa", "Post": valor}) 
     /*.then(posts => {
           // do something
           res.status(200).send({ "response": "Exitosa", "Post": posts}) 
@@ -142,11 +142,11 @@ app.get("/posts", urlencodedParser, async (req, res, next) => {
           res.status(200).send({ "response": err}) 
       });     
       */
-  }
-  catch (err) {
-    next(err);
-  }   
-});
+    }
+    catch (err) {
+      next(err);
+    }   
+  });
 
 /*
 app.get("/posts", async (req, res, next) => {
@@ -169,16 +169,16 @@ app.post("/evento", urlencodedParser, (req, res) => {
   let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
   client.query(query
     , (err, response) => {
-    res.json(response)
-    client.end();
-  });
-   
+      res.json(response)
+      client.end();
+    });
+  
 });
 
 app.post("/notificacion", urlencodedParser, (req, res) => {
   let body = _.pick(req.body, ["token"]);
 
- var db= firebase.database();
+  var db= firebase.database();
   var pathtok=db.ref("token-device").push();
   pathtok.set({
     token:body.token
@@ -203,7 +203,7 @@ const  findUserByEmail  = (email, cb) => {
       console.log("ERRROR> "+err)
       console.log("BIEN> "+response)
       client.end()
-  });
+    });
 }
 
 const  createUser  = (user, cb) => {
@@ -224,7 +224,7 @@ const  createUser  = (user, cb) => {
       console.log("ERRROR> "+err)
       console.log("BIEN> "+response)
       client.end()
-  });
+    });
 }
 
 app.post('/register', (req, res) => {
@@ -237,16 +237,16 @@ app.post('/register', (req, res) => {
 
 
   createUser([name, apellido,email, password], (err)=>{
-      if(err) return  res.status(500).send("Server error!");
-      findUserByEmail(email, (err, user)=>{
-          if (err) return  res.status(500).send('Server error!');  
-          const  expiresIn  =  24  *  60  *  60;
-          const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
-              expiresIn:  expiresIn
-          });
-          res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn          
-          });
+    if(err) return  res.status(500).send("Server error!");
+    findUserByEmail(email, (err, user)=>{
+      if (err) return  res.status(500).send('Server error!');  
+      const  expiresIn  =  24  *  60  *  60;
+      const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
+        expiresIn:  expiresIn
       });
+      res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn          
+    });
+    });
   });
 });
 
@@ -256,22 +256,22 @@ app.post('/login', (req, res) => {
   const  email  =  req.body.email;
   const  password  =  req.body.password;
   findUserByEmail(email, (err, user)=>{
-      if (err) return  res.status(500).send('Error del servidor!');
-      if (!user[0]) return  res.status(404).send('Credenciales invalidas!');
-      else{
+    if (err) return  res.status(500).send('Error del servidor!');
+    if (!user[0]) return  res.status(404).send('Credenciales invalidas!');
+    else{
 
-        const  result  =  bcrypt.compareSync(password, user[0].usu_password);
-        if(!result) return  res.status(401).send('Credenciales invalidas!');
+      const  result  =  bcrypt.compareSync(password, user[0].usu_password);
+      if(!result) return  res.status(401).send('Credenciales invalidas!');
         //if(password !=value.usu_password) return  res.status(401).send('Password not valid!');
         const  expiresIn  =  24  *  60  *  60;
         console.log("Ssssssss"+user)
         const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
-            expiresIn:  expiresIn
+          expiresIn:  expiresIn
         });
         res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
       }
-     
-});
+      
+    });
 });
 
 //CRUD DE USUARIOS -------------------------------------------------------------
@@ -286,13 +286,13 @@ app.get('/usuario', urlencodedParser, (req, res) => {
   client.query(query
     , (err, response) => {
       console.log("EEEEEEEEEERRORR"+err)
-    res.status(200).send(response.rows);
-    client.end();
-  });
+      res.status(200).send(response.rows);
+      client.end();
+    });
 
- 
-      
- 
+  
+  
+  
 })
 
 app.put('/usuario/:id', (req, res) => {
@@ -308,13 +308,13 @@ app.put('/usuario/:id', (req, res) => {
   client.query(query
     , (err, response) => {
       if(err)
-      res.status(500).send(err);
+        res.status(500).send(err);
       else 
-      res.status(200).send(response);
-    client.end();
-  });
+        res.status(200).send(response);
+      client.end();
+    });
   
- 
+  
 });
 
 app.delete('/usuario/:id', (req, res) => {
@@ -327,15 +327,61 @@ app.delete('/usuario/:id', (req, res) => {
   client.query(query
     , (err, response) => {
       if(err)
-      res.status(500).send(err);
+        res.status(500).send(err);
       else 
-    res.status(200).send(response);
-    client.end();
-  });
+        res.status(200).send(response);
+      client.end();
+    });
 
- 
+  
 });
 
+//***********************************    notificaciones -------*****************************************************
+app.post('/notificacion/suscribir', (req, res) => {
+  const sub = req.body;
+  console.log('Received Subscription on the server: ', sub);
+
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  client.connect();
+
+  var query = `CALL Not_suscribir '${sub.endpoint}', ${sub.expirationTime}, '${sub.keys.p256dh}', '${sub.keys.auth}'`;
+  
+  client.query(query
+    , (err, response) => {
+      if(err)
+        res.status(500).send(err);
+      else 
+        res.status(200).send(response);
+      client.end();
+    });
+  
+});
+
+app.get('/notificacion/enviar/evento', (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  client.connect();
+
+  var query = `CALL Not_ALL`;
+  
+  client.query(query
+    , (err, response) => {
+      if(err)
+        res.status(500).send(err);
+      else 
+        res.status(200).send(response);
+      client.end();
+    });
+  
+});
+
+
+/**************************** fin de notificaciones ***********************************************************/
 // ---- SERVE APLICATION PATHS ---- //
 app.get('*', function (req, res) {
   var splitt = req.path.split("/");
@@ -350,17 +396,17 @@ app.get('*', function (req, res) {
             res.status(200).sendFile(`/`, {root: 'www'}) //entre en esta condicion             
           }else res.redirect('/es/no-found');
         }else  // este es el caso de que si exista un html asi y por eso lo imprime
-         res.status(200).sendFile(`/`, {root: 'www'})
-    });
+        res.status(200).sendFile(`/`, {root: 'www'})
+      });
   }else{
     if (req.path == '/cordova.js')
-       res.status(200).sendFile(`/`, {root: 'www'})
+      res.status(200).sendFile(`/`, {root: 'www'})
     else res.redirect('/es/no-found');
   }
 });
 
 app.get("/es/no-found", (req, res) => {
-    res.status(404).sendFile(`/`, {root: 'www'})
+  res.status(404).sendFile(`/`, {root: 'www'})
 });
 
 
