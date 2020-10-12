@@ -68,27 +68,7 @@
 </ion-header>
 
 <ion-content>
-<div class="container" style="padding: 10px;">
-    <div class="row justify-content-center">
-        <div class="row">   
-            <div *ngFor="let publicacion of publicaciones"> 
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="publicacion.media" alt="Card image cap">
-                    <div class="card-body">
-
-                        <h5 class="card-title">                         </h5>
-                        <p>
-                        <ion-icon class="ion-icon-nav" name="heart" aria-hidden="true">
-                        </ion-icon>
-                         {{publicacion.likes}}         
-                        </p>
-                        <p class="card-text">{{publicacion.text}}</p>
-                        <a [href]="publicacion.url" class="btn btn-primary">Go intagram</a>
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>
-</div>
+    <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+<div class="elfsight-app-438a5b65-5b2d-4c37-a961-1ec7476920ff"></div>
 
 </ion-content>
