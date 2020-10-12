@@ -358,7 +358,7 @@ app.post('/notificacion/suscribir', (req, res) => {
       else{
         res.status(200).send(response); 
       } 
-      
+
       client.end();
     });
 
@@ -399,7 +399,35 @@ app.get('/notificacion/enviar/evento', (req, res) => {
         res.status(500).send(err);
       }
       else{
-        allSubscriptions=response;
+        res.status(200).send(response);
+      }
+    })
+})
+
+
+app.get('/notificacion/enviar/evento', (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  client.connect();
+
+  var query = `SELECT * FROM Not_ALL()`;
+  
+  client.query(query
+    , (err, response) => {
+      if(err){
+        console.log("err"+err)
+        res.status(500).send(err);
+      }
+      else{
+        result=[]
+
+        for(var i in response){
+          result.push([i, json_data [i]]);
+        }
+
+        allSubscriptions=result;
         for(i=0; i<allSubscriptions.length; i++){
           allSubscriptions[i].keys={
             auth:allSubscriptions[i].auth, 
@@ -418,7 +446,7 @@ app.get('/notificacion/enviar/evento', (req, res) => {
 
 
             var query = `CALL Not_delete_especifico('${err.endpoint}')`; /////////////////////////CAMBIAR ESTE QUERY
-            
+
             client.query(query, (err, response) => {
               if(err){
                 console.log("err"+err)
@@ -433,7 +461,7 @@ app.get('/notificacion/enviar/evento', (req, res) => {
           else{
 
              var query = `CALL Not_delete_especifico('${err.endpoint}')`; /////////////////////////CAMBIAR ESTE QUERY
-             
+
              client.query(query, (err, response) => {
                if(err){
                  console.log("err"+err)
@@ -445,7 +473,7 @@ app.get('/notificacion/enviar/evento', (req, res) => {
              })
 
            }
-           
+
            client.end();
          });
       };
