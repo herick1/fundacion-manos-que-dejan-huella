@@ -51,6 +51,7 @@ email VARCHAR(100),
 constraint constraint_unico_notificaciones unique(endpoint,p256dh,auth)
 )
 
+-- registrarse
 create or replace procedure Not_suscribir(
    endpoint VARCHAR(400),
    time_exp FLOAT, 
@@ -61,4 +62,13 @@ LANGUAGE SQL
 as $$
 
 INSERT INTO notificaciones (endpoint,expiration_time,p256dh,auth) values(endpoint,time_exp,p256dh,auth)
+$$
+
+-- Obtener todas las subscripciones
+
+create or replace procedure Not_ALL ()
+LANGUAGE SQL   
+as $$
+
+SELECT * FROM notificaciones
 $$

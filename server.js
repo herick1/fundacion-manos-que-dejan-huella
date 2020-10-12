@@ -104,7 +104,7 @@ const instagram= require('./instagramPost')
 
 app.get("/posts", urlencodedParser, async (req, res, next) => {
   try {
-    
+
 //const instagramPosts = require('instagram-posts');
 
 //(async () => {
@@ -172,7 +172,7 @@ app.post("/evento", urlencodedParser, (req, res) => {
       res.json(response)
       client.end();
     });
-  
+
 });
 
 app.post("/notificacion", urlencodedParser, (req, res) => {
@@ -252,7 +252,7 @@ app.post('/register', (req, res) => {
 
 
 app.post('/login', (req, res) => {
-  
+
   const  email  =  req.body.email;
   const  password  =  req.body.password;
   findUserByEmail(email, (err, user)=>{
@@ -270,7 +270,7 @@ app.post('/login', (req, res) => {
         });
         res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
       }
-      
+
     });
 });
 
@@ -290,9 +290,9 @@ app.get('/usuario', urlencodedParser, (req, res) => {
       client.end();
     });
 
-  
-  
-  
+
+
+
 })
 
 app.put('/usuario/:id', (req, res) => {
@@ -314,7 +314,7 @@ app.put('/usuario/:id', (req, res) => {
       client.end();
     });
   
-  
+
 });
 
 app.delete('/usuario/:id', (req, res) => {
@@ -333,7 +333,7 @@ app.delete('/usuario/:id', (req, res) => {
       client.end();
     });
 
-  
+
 });
 
 //***********************************    notificaciones -------*****************************************************
@@ -351,13 +351,17 @@ app.post('/notificacion/suscribir', (req, res) => {
   
   client.query(query
     , (err, response) => {
-      if(err)
+      if(err){
+        console.log(err)
         res.status(500).send(err);
-      else 
-        res.status(200).send(response);
+      }
+      else{
+        res.status(200).send(response); 
+      } 
+        
       client.end();
     });
-  
+
 });
 
 app.get('/notificacion/enviar/evento', (req, res) => {
@@ -377,7 +381,7 @@ app.get('/notificacion/enviar/evento', (req, res) => {
         res.status(200).send(response);
       client.end();
     });
-  
+
 });
 
 
