@@ -29,7 +29,7 @@ toggleMenu() {
   }
 
   ngOnInit() {
-        this.getPublicaciones()
+       //this.getPublicaciones()
         this.prueba=true
   }
 
@@ -43,7 +43,7 @@ toggleMenu() {
         this.prueba=false
       })
   }
-
+/*
   getPublicaciones(){
     this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/posts`).subscribe(   
       (response: any)=>{    
@@ -53,5 +53,5 @@ toggleMenu() {
       }
     ); 
   }
-
+*/
 }
