@@ -29,7 +29,7 @@ toggleMenu() {
   }
 
   ngOnInit() {
-        //this.getPublicaciones()
+       //this.getPublicaciones()
         this.prueba=true
   }
 

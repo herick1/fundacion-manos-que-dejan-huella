@@ -16,7 +16,7 @@ const  bcrypt  =  require('bcryptjs');
 const SECRET_KEY = "secretkey23456";
 
 
-const instagramPosts = require('instagram-posts');
+//const instagramPosts = require('instagram-posts');
 
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
@@ -45,7 +45,8 @@ app.get('/',function(req,res){
 app.use(
   cors({
     origin: true,
-    exposedHeaders: "x-access-token"
+    exposedHeaders: "x-access-token",
+    "Content-Type":"application/json" 
   })
 );
 /*
@@ -98,61 +99,69 @@ client.query('SELECT * FROM EVENTO;'
 
 });
 
-const getEmails = require('get-emails');
-const got = require('got');
-
-const test = async username => {
-  if (typeof username !== 'string') {
-    throw new TypeError(`Expected \`username\` to be of type \`string\` but received type \`${typeof username}\``);
-  }
-
-  try {
-    const url = `https://instagram.com/herick_1`;
-
-    got(url, {searchParams: {__a: 1}})   
-     .then(posts => {
-          console.log(posts) 
-      })
-     .catch(err => {
-              console.log("Errrr");
-              console.log(err);
-      }); 
-
-    const {graphql: {user}} = await got(url, {searchParams: {__a: 1}}).json();
-
-    console.log("Estoy Aqui");
-    const email = getEmails(user.biography).values().next().value || '';
-    console.log("Estoy Aqui1");
-    return {
-      ...user,
-      description: user.biography,
-      email,
-      followers: user.edge_followed_by.count,
-      following: user.edge_follow.count,
-      fullName: user.full_name,
-      posts: user.edge_owner_to_timeline_media.count,
-      url,
-      username,
-      website: user.external_url
-    };
-  } catch (error) {
-    console.log("Errorr");
-    console.log(error);
-    throw error;
-  }
-}
-  
+const instagram= require('./instagramPost')  
 // MANEJO DE Publicaciones en instagram
-app.get("/posts", urlencodedParser, (req, res) => {
-  test('herick_1')
-    .then(posts => {
+
+app.get("/posts", urlencodedParser, async (req, res, next) => {
+  try {
+  
+//const instagramPosts = require('instagram-posts');
+
+//(async () => {
+  //console.log();
+  //res.status(200).send({ "response": "Exitosa", "Post": await instagramPosts('herick_1')}) 
+  /*
+  [
+    {
+      id: 'BRWBBbXjT40',
+      username: 'cats_of_instagram',
+      time: 1488904930,
+      type: 'image',
+      likes: 809,
+      comments: 10,
+      text: 'This is my post',
+      media: 'https://instagram.fbma1-1.fna.fbcdn.net/t51.2885-15/s640x640/sh0.08/e35/1231231_123123_1231231.jpg',
+      …
+    },
+    …
+  ]
+ 
+})();
+*/
+
+
+   var valor= await instagram('herick_1');
+   console.log(valor)
+   res.setHeader("Content-Type", "application/json; charset=utf-8");
+   res.status(200).send({ "response": "Exitosa", "Post": valor}) 
+    /*.then(posts => {
           // do something
           res.status(200).send({ "response": "Exitosa", "Post": posts}) 
       })
      .catch(err => {
           res.status(200).send({ "response": err}) 
-      });             
+      });     
+      */
+  }
+  catch (err) {
+    next(err);
+  }   
 });
+
+/*
+app.get("/posts", async (req, res, next) => {
+  try {
+    const instagramPosts = require('instagram-posts');
+  //listing messages in users mailbox 
+    let posts = await instagramPosts('herick_1');
+    console.log(posts)
+    res.status(200).send({ "response": "Exitosa", "Post": posts}) 
+  } catch (err) {
+    next(err);
+  }
+})
+//*/
+
 
 app.post("/evento", urlencodedParser, (req, res) => {
   let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
@@ -161,8 +170,9 @@ app.post("/evento", urlencodedParser, (req, res) => {
   client.query(query
     , (err, response) => {
     res.json(response)
+    client.end();
   });
-   // client.end();
+   
 });
 
 app.post("/notificacion", urlencodedParser, (req, res) => {
