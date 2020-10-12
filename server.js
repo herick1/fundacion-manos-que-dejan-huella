@@ -478,9 +478,9 @@ app.get('/notificacion/enviar/evento', (req, res) => {
 
            }
 
-           client.end();
          });
       };
+      client.end();
     })
 })
 
