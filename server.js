@@ -347,7 +347,7 @@ app.post('/notificacion/suscribir', (req, res) => {
   });
   client.connect();
 
-  var query = `CALL Not_suscribir '${sub.endpoint}', ${sub.expirationTime}, '${sub.keys.p256dh}', '${sub.keys.auth}'`;
+  var query = `CALL Not_suscribir ('${sub.endpoint}', ${sub.expirationTime} , '${sub.keys.p256dh}' , '${sub.keys.auth}')`;
   
   client.query(query
     , (err, response) => {
@@ -364,6 +364,25 @@ app.post('/notificacion/suscribir', (req, res) => {
 
 });
 
+
+
+const notificationNuevoEvento = {
+  "notification": {
+    "title": "Nuevo evento disponible",
+    "body": "Se ha creado un nuevo evento.",
+    "icon": "assets/icons/icon-72x72.png",
+    "vibrate": [100, 50, 100],
+    "data": {
+      "dateOfArrival": Date.now(),
+      "primaryKey": 1
+    },
+    "actions": [{
+      "action": "explore",
+      "title": "Go to the site",
+    }]
+  }
+};
+
 app.get('/notificacion/enviar/evento', (req, res) => {
   var client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -375,10 +394,23 @@ app.get('/notificacion/enviar/evento', (req, res) => {
   
   client.query(query
     , (err, response) => {
-      if(err)
+      if(err){
+        console.log("err"+err)
         res.status(500).send(err);
-      else 
+      }
+      else{
+        allSubscriptions=response;
+        for(i=0; i<allSubscriptions.length; i++){
+          allSubscriptions[i].keys={
+          auth:allSubscriptions[i].auth, 
+          p256dh:allSubscriptions[i].p256dh
+          }
+          delete allSubscriptions[i].auth;
+          delete allSubscriptions[i].p256dh;
+        }
+
         res.status(200).send(response);
+      }
       client.end();
     });
 
