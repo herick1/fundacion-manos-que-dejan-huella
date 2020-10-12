@@ -383,7 +383,7 @@ const notificationNuevoEvento = {
   }
 };
 
-app.get('/notificacion/enviar/evento', (req, res) => {
+app.get('/notificacion/get/evento', (req, res) => {
   var client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
@@ -399,7 +399,7 @@ app.get('/notificacion/enviar/evento', (req, res) => {
         res.status(500).send(err);
       }
       else{
-        res.status(200).send(response);
+        res.status(200).send(response.rows);
       }
     })
 })
@@ -413,7 +413,6 @@ app.get('/notificacion/enviar/evento', (req, res) => {
   client.connect();
 
   var query = `SELECT * FROM Not_ALL()`;
-  
   client.query(query
     , (err, response) => {
       if(err){
@@ -421,13 +420,7 @@ app.get('/notificacion/enviar/evento', (req, res) => {
         res.status(500).send(err);
       }
       else{
-        result=[]
-
-        for(var i in response){
-          result.push([i, json_data [i]]);
-        }
-
-        allSubscriptions=result;
+        allSubscriptions=response.rows;
         for(i=0; i<allSubscriptions.length; i++){
           allSubscriptions[i].keys={
             auth:allSubscriptions[i].auth, 
