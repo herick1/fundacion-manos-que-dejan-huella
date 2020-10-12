@@ -1,12 +1,12 @@
 module.exports = {
   jConfig : {
-        "host":"10.176.56.33", 
-       "port":"25", 
-       "secure":false, 
+        "host":"smtp.gmail.com", 
+       "port":"587", 
+       "secure":true, 
       "auth":{ 
               "type":"login", 
-              "user":"sdc.ve@ve.pwc.com", 
-             "pass":"$dCveR4501" 
+              "user":"soporte.dejatushuellas@gmail.com", 
+             "pass":"Soportedejatushuellas2020" 
      }
   }
 

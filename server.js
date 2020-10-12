@@ -24,10 +24,14 @@ const  vapidKeys  = {
 }
 
 webpush.setVapidDetails(
-    'mailto:example@yourdomain.org',
-    vapidKeys.publicKey,
-    vapidKeys.privateKey
-);
+  'mailto:example@yourdomain.org',
+  vapidKeys.publicKey,
+  vapidKeys.privateKey
+  );
+
+var conexion = require('./back-common/conexion');
+const nodemailer = require('nodemailer');
+let createTransport = nodemailer.createTransport(conexion.jConfig);
 
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
@@ -381,7 +385,7 @@ const notificationNuevoEvento = {
   "notification": {
     "title": "Nuevo evento disponible",
     "body": "Se ha creado un nuevo evento.",
-    "icon": "assets/icons/icon-72x72.png",
+    "icon": "assets/icon/icono72x72.png",
     "vibrate": [100, 50, 100],
     "data": {
       "dateOfArrival": Date.now(),
@@ -482,6 +486,33 @@ app.get('/notificacion/enviar/evento', (req, res) => {
       };
       client.end();
     })
+})
+
+
+//envio de correos
+app.get('/contactanos/enviar', (req, res) => {
+  let emailCorreo ={ 
+    from:{ 
+      name: 'Soporte dejatushuellas',
+      address: 'soporte.dejatushuellas@gmail.com@gmail.com'
+    },  //remitente
+    to:  `javiloria100@gmail.com`,  //destinatario
+    subject:`Contactanos`,  //asunto del correo
+    html:`<div>
+    PRUEBAAAA
+    </div>`
+  }
+
+  createTransport.sendMail(emailCorreo, function (error, info) { 
+    if(error){ 
+      console.log("Error al enviar email: "+error); 
+      res.status(500).send(error);
+    } else{ 
+      console.log("Correo enviado correctamente"); 
+      res.status(200).json({message: 'Correo enviado exitosamente.'})
+    } 
+    createTransport.close(); 
+  }); 
 })
 
 
