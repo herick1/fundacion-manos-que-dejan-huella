@@ -17,6 +17,17 @@ const SECRET_KEY = "secretkey23456";
 
 
 //const instagramPosts = require('instagram-posts');
+const  webpush  = require('web-push')
+const  vapidKeys  = {
+  publicKey: 'BGpXrs5JMCp12-ZnyswX3fQyHttIdhwpy-BJGg8Uc-muLZORf82aPO1UBeRemcK_7thNFxIcDkjS3melYigx2wE',
+  privateKey: 'nHSouI8mWyDjOQ8YpEBEq2RiXUmAuKurcIzj52s7en0'
+}
+
+webpush.setVapidDetails(
+    'mailto:example@yourdomain.org',
+    vapidKeys.publicKey,
+    vapidKeys.privateKey
+);
 
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
