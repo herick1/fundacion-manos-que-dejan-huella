@@ -66,6 +66,30 @@
     </nav>
 </ion-header>
 
+<!-- ********************** Modal de Exito al hacer cliente   ***************************************-->
+<ng-template #modalExito let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Exito en la transacción</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body modal-centered">
+        <div align="center">
+            La transacción se ha realizado con exito
+            <br>
+            <img  src="assets/gif/check_animado_correcto.gif"  style="max-height: 200px">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-outline-success" type="submit" (click)="modal.dismiss('Cross click')"> Aceptar</button>    
+        <button type="button" class="btn btn-outline-warning" (click)="modal.dismiss('Cross click')">Cerrar</button>
+    </div>
+</ng-template>
+<!-- ********************* Fin de Modal de Exito al hacer cliente   *********************************--> 
+
+
+
 <ion-content>
        <div class="section">
             <div class="container text-center">

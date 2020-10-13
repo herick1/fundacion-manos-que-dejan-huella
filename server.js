@@ -473,7 +473,7 @@ app.get('/notificacion/enviar/evento', (req, res) => {
              client.query(query, (err, response) => {
                if(err){
                  console.log("err"+err)
-                 res.status(500).send(err);
+                 res.status(500).send("error:  "+err);
                }
                else{
                  res.status(200).json({message: 'Las subscripciones expiraron.'})
@@ -490,16 +490,39 @@ app.get('/notificacion/enviar/evento', (req, res) => {
 
 
 //envio de correos
-app.get('/contactanos/enviar', (req, res) => {
+app.post('/contactanos/enviar', (req, res) => {
+  const  name  =  req.body.name;
+  const  email  =  req.body.email;
+  const body= req.body.body;
+
   let emailCorreo ={ 
     from:{ 
       name: 'Soporte dejatushuellas',
       address: 'soporte.dejatushuellas@gmail.com@gmail.com'
     },  //remitente
-    to:  `javiloria100@gmail.com`,  //destinatario
+    to:  `javiloria100@gmail.com, herick200@gmail.com`,  //destinatario
     subject:`Contactanos`,  //asunto del correo
-    html:`<div>
-    PRUEBAAAA
+    html:`
+    <div>
+      Buen día. Este es un mensaje enviado por el formulario de contactanos.
+    </div>
+    <br> 
+
+    <div>
+    <label> <strong> Nombre: </strong> </label>
+    <p>
+    ${name}
+    </p>
+    
+    <label> <strong> Correo: </strong> </label>
+    <p>
+    ${email}
+    </p>
+    
+    <label> <strong> Mensaje: </strong> </label>
+    <p>
+    ${body}
+    </p>
     </div>`
   }
 
