@@ -1,7 +1,7 @@
 module.exports = {
   jConfig : {
         "host":"smtp.gmail.com", 
-       "port":"587", 
+       "port":"465", 
        "secure":true, 
       "auth":{ 
               "type":"login", 
