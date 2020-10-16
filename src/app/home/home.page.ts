@@ -86,7 +86,7 @@ export class HomePage implements OnInit {
             },
             {
                 imagePath: 'assets/gif/gif-phone.gif',
-                href:"/download",
+                href:"/download?ngsw-bypass=true",
                 label: '¿Sabias de nuestra app Movil?',
                 text: 'Utilizala para estar conectado a nosotros en todo momento.'
             },

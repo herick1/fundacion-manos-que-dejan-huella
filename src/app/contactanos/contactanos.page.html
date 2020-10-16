@@ -81,7 +81,7 @@
             <img  src="assets/gif/check_animado_correcto.gif"  style="max-height: 200px">
         </div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" style="padding: 12px;">
         <button class="btn btn-outline-success" type="submit" (click)="modal.dismiss('Cross click')"> Aceptar</button>    
         <button type="button" class="btn btn-outline-warning" (click)="modal.dismiss('Cross click')">Cerrar</button>
     </div>
@@ -108,34 +108,34 @@
                 <div class="section">
              	<div class="row">
                 <div class="col-md-8 mr-auto ml-auto">
-                    <h2 class="text-center">Mandanos un correo</h2>
-                    <form class="contact-form">
+                    <h2 class="text-center">Envianos un correo</h2>
+                    <form class="contact-form" #f="ngForm" (ngSubmit)="contactar(f)" >
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Nombre</label>
+                                <ion-label> Nombre </ion-label>
                                 <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="nc-icon nc-single-02 icon-cotac"></i></span>
                                     </div>
-                                    <input #nombre nombre.value="" id="campo-nombre" type="text" class="form-control" placeholder="nombre"  >
+                                    <ion-input #nombre nombre.value="" id="campo-nombre" name="Nombre" type="text" class="form-control" placeholder="nombre"  required ngModel> </ion-input>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label>Email</label>
+                                <ion-label> Email </ion-label>
                                 <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text">  <i class="nc-icon nc-email-85 icon-cotac"></i></span>
                                     </div>
-                                    <input #correo correo.value="" id="campo-correo" type="text" class="form-control" placeholder="Email"  >
+                                    <ion-input type="email" #correo  correo.value=""  id="campo-correo" name="correo"  class="form-control" placeholder="Email" email required ngModel minlength="5"> </ion-input>
                                 </div>
                             </div>
                         </div>
-                        <label>Mensaje</label>
-                        <textarea #mensaje mensaje.value="" id="campo-mensaje" class="form-control" rows="4" placeholder="escribe tus pensamientos..."></textarea>
+                        <ion-label> Mensaje </ion-label>
+                        <textarea #mensaje mensaje.value=""  name="Mensaje" id="campo-mensaje" class="form-control" rows="4" placeholder="escribe tus pensamientos..." required ngModel></textarea>
                         <div class="row">
                             <div class="col-md-4 mr-auto ml-auto">
-                                <button class="btn btn-danger btn-lg btn-fill" (click)="contactar(nombre.value, correo.value, mensaje.value)" 
-                                type="submit" >Enviar Mensaje</button>
+                                <button class="btn btn-danger btn-lg btn-fill"
+                                type="submit" [disabled]="!f.form.valid">Enviar Mensaje</button>
                             </div>
                         </div>
                     </form>
