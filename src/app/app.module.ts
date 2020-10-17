@@ -16,6 +16,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 import { AuthGuard } from './shared/guard';
+import { LoginGuard } from './shared/guard-login';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import { AuthGuard } from './shared/guard';
     SplashScreen,
     Camera,
     AuthGuard,
+    LoginGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

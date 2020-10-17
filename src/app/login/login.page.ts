@@ -15,18 +15,6 @@ export class LoginPage implements OnInit {
   focus1:any;
   prueba:any;
   constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService, private  router:  Router) { 
-
-		this.authService.storage.get("ACCESS_TOKEN").then(
-			(res:any)=>{
-			  if(res){
-         
-          this.router.navigateByUrl('es/home');
-			  }
-				else
-        this.prueba=""
-			})
-
-
   }
   
   ngOnInit() {
@@ -41,7 +29,7 @@ export class LoginPage implements OnInit {
     let userss={"email":correo , "password":clave, id:0, name:"", apellido:""}
     this.authService.login(userss).toPromise().then((res)=>{
       this.router.navigateByUrl('/es/home');
-      location.reload(true);
+      //location.reload(true);
     }
     ).catch(
       (err)=>{
