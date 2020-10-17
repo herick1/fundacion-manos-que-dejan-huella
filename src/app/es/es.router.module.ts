@@ -6,6 +6,7 @@ import { EsPage } from './es.page';
 import { AuthGuard } from '../shared/guard';
 import { LoginGuard } from '../shared/guard-login';
 const routes: Routes = [
+/*
  { path: 'es/home', loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)},
 
  { path: 'es/home', loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)},
@@ -16,7 +17,7 @@ const routes: Routes = [
  { path: 'es/publicaciones', loadChildren: () => import('../publicaciones/publicaciones.module').then(m => m.PublicacionesPageModule)},
  { path: 'es/contactanos', loadChildren: () => import('../contactanos/contactanos.module').then(m => m.ContactanosPageModule)},
  {path: '',redirectTo: '/es/home',pathMatch: 'full'}
-  /*{
+  */{
     path: 'es',
     component: EsPage,
     children: [
@@ -81,7 +82,7 @@ const routes: Routes = [
             path: '',
             loadChildren: '../login/login.module#LoginPageModule'
           }
-        ]
+        ], canActivate: [LoginGuard]
       },
       {
       path: 'login2',
@@ -126,7 +127,7 @@ const routes: Routes = [
             path: '',
             loadChildren: '../usuario/usuario.module#UsuarioPageModule'
           }
-        ]
+        ],canActivate: [AuthGuard]
       },
       {
         path: '',
@@ -139,7 +140,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/es/home',
     pathMatch: 'full'
-  }*/
+  }
 ];
 
 @NgModule({

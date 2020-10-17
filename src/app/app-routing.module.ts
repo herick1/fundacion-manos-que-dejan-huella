@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 import { AuthGuard } from './shared/guard';
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./es/es.module').then(m => m.EsPageModule)},
+{ path: '', loadChildren: './es/es.module#EsPageModule' },
+  //{ path: '', loadChildren: () => import('./es/es.module').then(m => m.EsPageModule)},
   //{ path: 'usuario', loadChildren: () => import('./usuario/usuario.module').then(m => m.UsuarioPageModule),canActivate: [AuthGuard]  }
 /*
 const routes: Routes = [  { path: '', loadChildren: './es/es.module#EsPageModule' },

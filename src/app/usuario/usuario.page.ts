@@ -36,7 +36,7 @@ export class UsuarioPage implements OnInit {
   prueba:any;
   //variable con todas las partidas en el front 
   usuarios = []
-  
+
   idSeleccionada = 0;
   nombreSelecionado="";
   apellidoSeleccionado ="";
@@ -121,7 +121,7 @@ export class UsuarioPage implements OnInit {
       this.getUsuario()
       this.modalService.dismissAll();	
     })
-    
+
 
   }
 
@@ -137,7 +137,7 @@ export class UsuarioPage implements OnInit {
       this.getUsuario()
       this.modalService.dismissAll();   
     })
-    
+
   }
 
   verUsuario(id){
@@ -191,7 +191,7 @@ export class UsuarioPage implements OnInit {
     }
     );
 
-    
+
   }
 
 /**

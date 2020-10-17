@@ -5,7 +5,8 @@
     "types": []
   },
     "include": [
-    "**/*.ts"
+    "**/*.ts",
+    "../server.js"
   ],
   "exclude": [
     "test.ts",
