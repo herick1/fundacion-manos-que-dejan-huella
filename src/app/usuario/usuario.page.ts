@@ -48,7 +48,7 @@ export class UsuarioPage implements OnInit {
   
   ngOnInit() {
 
-
+  this.getUsuario()
   }
 
   logout(){
