@@ -158,7 +158,7 @@
   	<div class="modal-body">
     	¿Estas seguro de eliminar este usuario?
   	</div>
-    <div class="modal-footer">
+    <div class="modal-footer padding-foter">
     	<!--button class="btn btn-danger" type="submit" (click)="modal.close('Save click')">Eliminar</button-->
         <button class="btn btn-danger" type="submit" (click)="eliminar()">Eliminar</button>        
         <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
@@ -195,7 +195,7 @@
         <input #password value=""  type="password" class="form-control input-lg" placeholder="" >
       </div>
   	</div>
-    <div class="modal-footer">
+    <div class="modal-footer padding-foter">
     	<button class="btn btn-danger" type="submit" (click)="confirmarActualizar(nombre.value, apellido.value, email.value, username.value, password.value)">Actualizar</button>    
         <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
     </div>
@@ -211,7 +211,7 @@
   	<div class="modal-body">
     	¿Estas seguro de actualizar este usuario?
   	</div>
-    <div class="modal-footer">
+    <div class="modal-footer padding-foter">
     	<button class="btn btn-outline-warning" type="submit" (click)="Actualizar()">Confirmar</button>    
         <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
     </div>
@@ -233,7 +233,7 @@
         <br>
         <br>
   	</div>
-    <div class="modal-footer">   
+    <div class="modal-footer padding-foter">   
         <button type="button" class="btn btn-outline-warning" (click)="modal.close('Save click')">Cerrar</button>
     </div>
 </ng-template> 
@@ -268,7 +268,7 @@
         <input #password value=""  type="password" class="form-control input-lg" placeholder=" Ingrese su contraseña" >
       </div>
   	</div>
-    <div class="modal-footer">
+    <div class="modal-footer padding-foter">
     	<button class="btn btn-danger" type="submit" (click)="confirmarCrear(nombre.value, apellido.value, email.value, username.value, password.value)">Crear</button>    
         <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
     </div>
@@ -284,7 +284,7 @@
   	<div class="modal-body">
     	¿Estas seguro de crear este usuario?
   	</div>
-    <div class="modal-footer">
+    <div class="modal-footer padding-foter">
     	<button class="btn btn-outline-warning" type="submit" (click)="Crear()">Confirmar</button>    
         <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
     </div>
@@ -307,7 +307,7 @@
                 <br>
                 <!--img  src="{{asset('check_animado_correcto.gif')}}" style="max-height: 200px"-->
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer padding-foter">
                     <button type="button" class="btn btn-success" data-dismiss="modal">ok</button>
               </div>
             </div>
@@ -331,7 +331,7 @@
                        @endforeach
                     </div-->
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer padding-foter">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>

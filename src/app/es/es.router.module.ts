@@ -3,8 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { EsPage } from './es.page';
 
+import { AuthGuard } from '../shared/guard';
 const routes: Routes = [
-  {
+ { path: 'es/home', loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)},
+
+ { path: 'es/home', loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)},
+ { path: 'es/quienes-somos', loadChildren: () => import('../quienes-somos/quienes-somos.module').then(m => m.QuienesSomosPageModule)},
+ { path: 'es/no-found', loadChildren: () => import('../no-found/no-found.module').then(m => m.NoFoundPageModule)},
+ { path: 'es/login', loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule)},
+ { path: 'es/usuario', loadChildren: () => import('../usuario/usuario.module').then(m => m.UsuarioPageModule),canActivate: [AuthGuard]},
+ { path: 'es/publicaciones', loadChildren: () => import('../publicaciones/publicaciones.module').then(m => m.PublicacionesPageModule)},
+ { path: 'es/contactanos', loadChildren: () => import('../contactanos/contactanos.module').then(m => m.ContactanosPageModule)},
+ {path: '',redirectTo: '/es/home',pathMatch: 'full'}
+  /*{
     path: 'es',
     component: EsPage,
     children: [
@@ -127,7 +138,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/es/home',
     pathMatch: 'full'
-  }
+  }*/
 ];
 
 @NgModule({

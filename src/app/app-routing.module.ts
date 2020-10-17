@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, ExtraOptions } from '@angular/router';
-
+import { AuthGuard } from './shared/guard';
 const routes: Routes = [
-  { path: '', loadChildren: './es/es.module#EsPageModule' },  { path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioPageModule' }
-
-
+  { path: '', loadChildren: () => import('./es/es.module').then(m => m.EsPageModule)},
+  //{ path: 'usuario', loadChildren: () => import('./usuario/usuario.module').then(m => m.UsuarioPageModule),canActivate: [AuthGuard]  }
+/*
+const routes: Routes = [  { path: '', loadChildren: './es/es.module#EsPageModule' },
+    { path: '', loadChildren: () => import('./layout/layout.module').then(m => m.LayoutModule), canActivate: [AuthGuard] },
+    { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+    { path: 'not-found', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule) },
+    { path: '**', redirectTo: 'not-found' }
+];
+*/
   
   //{ path: 'contactanos', loadChildren: './contactanos/contactanos.module#ContactanosPageModule' },
   //{ path: 'home', loadChildren: './home/home.module#HomePageModule' },

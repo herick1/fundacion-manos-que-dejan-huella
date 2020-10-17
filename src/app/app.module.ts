@@ -15,6 +15,8 @@ import { AuthModule } from  './auth/auth.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+import { AuthGuard } from './shared/guard';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,6 +30,7 @@ import { environment } from '../environments/environment';
     StatusBar,
     SplashScreen,
     Camera,
+    AuthGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

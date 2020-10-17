@@ -27,7 +27,9 @@ export class UsuarioPage implements OnInit {
 
 
     constructor(public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,private  router:  Router) {
-		this.authService.storage.get("ACCESS_TOKEN").then(
+		console.log("creado")
+    /*
+    this.authService.storage.get("ACCESS_TOKEN").then(
 			(res:any)=>{
 			  if(res){
 			  this.getUsuario()
@@ -36,7 +38,7 @@ export class UsuarioPage implements OnInit {
 				else
 					this.router.navigateByUrl('es/login');
 			})
-
+*/
 
 	}
 
