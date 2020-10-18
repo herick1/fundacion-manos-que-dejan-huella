@@ -49,6 +49,14 @@ export class UsuarioPage implements OnInit {
   ngOnInit() {
 
   this.getUsuario()
+  
+   this.authService.storage.get("ACCESS_TOKEN").then(
+      (res:any)=>{
+        if(res)
+        this.prueba=true
+      else
+        this.prueba=false
+      })
   }
 
   logout(){

@@ -44,18 +44,14 @@ export class AuthService {
   }
 
   login(user: User): Observable<AuthResponse> {
-    console.log(user.email)
-    console.log(user.password)
     let headers = new HttpHeaders();
       headers.append('Content-Type', 'application/json');
     return this.httpClient.post('https://manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password},{headers: headers}).pipe(
     tap(async (res: AuthResponse) => {
-      console.log("ssssss2")
         if (res.user) {
-          console.log("ssssss3")
           await this.storage.set("ACCESS_TOKEN", res.access_token);
           await this.storage.set("EXPIRES_IN", res.expires_in);
-          console.log(this.storage.get("ACCESS_TOKEN"))
+          await this.storage.set("LOGIN_ESTATUS", true);
           this.authSubject.next(true);
         }
       })
@@ -64,15 +60,15 @@ export class AuthService {
   async logout() {
     await this.storage.remove("ACCESS_TOKEN");
     await this.storage.remove("EXPIRES_IN");
+    await this.storage.remove("LOGIN_ESTATUS");
     this.storage.clear()
     this.authSubject.next(false);
   }
 
   isLoggedIn() {
-    console.log(this.storage.get("ACCESS_TOKEN"))
-   this.storage.get("ACCESS_TOKEN").then(
+   this.storage.get("LOGIN_ESTATUS").then(
      (res:any)=>{
-      if(res)
+      if(res==true)
         return true
       else
         return false

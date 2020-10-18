@@ -14,6 +14,7 @@ export class LoginPage implements OnInit {
   focus:any;
   focus1:any;
   prueba:any;
+  mensajeError:any;
   constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService, private  router:  Router) { 
   }
   
@@ -38,7 +39,11 @@ export class LoginPage implements OnInit {
     }
     ).catch(
       (err)=>{
-        this.prueba=err.message
+        if(err.status==401)
+          this.mensajeError="Credenciales invalidas"
+        else
+          this.mensajeError="Error en la comunicación con el servidor"
+
 
       }
     );
