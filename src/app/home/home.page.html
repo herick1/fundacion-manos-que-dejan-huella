@@ -5,7 +5,7 @@
                 <button class="navbar-toggler ion-icon-nav" type="button" (click)="toggleMenu()">
                     <ion-icon name="menu"></ion-icon>
                 </button>
-                <a href="/es/home">Manos que dejan huellas </a>
+                <a [routerLinkActive]="['router-link-active']" [routerLink]="['/es/home']">Manos que dejan huellas </a>
             </a>
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="navbar-nav">
@@ -24,17 +24,14 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/es/publicaciones">Publicaciones</a>
+                        <a class="nav-link" [routerLinkActive]="['router-link-active']" [routerLink]="['/es/publicaciones']">Publicaciones</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/es/contactanos">Contactanos</a>
+                        <a class="nav-link" [routerLinkActive]="['router-link-active']" [routerLink]="['/es/contactanos']" >Contactanos</a>
                     </li>
                     <li class="nav-item">
-                        <div ngbDropdown class="d-inline-block dropdown" *ngIf="prueba==true">
-                            <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle >Usuario</a>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-primary">
-                                <a class="dropdown-item" href="/es/usuario">Gestionar usuario(s)</a>
-                            </div>
+                        <div *ngIf="prueba==true">
+                            <a class="nav-link" [routerLinkActive]="['router-link-active']" [routerLink]="['/es/usuario']" >Usuario</a>
                         </div>
                     </li>
                 </ul>
@@ -55,7 +52,7 @@
                         </a>
                     </li>
                     <li class="nav-item" >
-                        <a class="navbar-brand" href="/es/login" *ngIf="prueba==false">Entrar</a>
+                        <a class="navbar-brand"  [routerLinkActive]="['router-link-active']" [routerLink]="['/es/login']" *ngIf="prueba==false">Entrar</a>
                         <a class="navbar-brand" (click)="logout()" *ngIf="prueba==true">Salir</a>
                         
                     </li>

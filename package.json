@@ -14,9 +14,13 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "lite": "lite-server",
+    "preinstall": "npx npm-force-resolutions",
     "postinstall": "ng build --prod",
     "heroku-postbuild": "ng build --prod",
     "minify": "ionic-app-scripts minify --cleancss ./config/cleancss.config.js"
+  },
+  "resolutions": {
+    "@babel/preset-env": "7.5.5"
   },
   "private": true,
   "dependencies": {

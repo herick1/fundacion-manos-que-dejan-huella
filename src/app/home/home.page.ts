@@ -101,6 +101,7 @@ export class HomePage implements OnInit {
   }
 
 toggleMenu() {
+  console.log("jaja")
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   ngOnInit() {
@@ -111,7 +112,6 @@ toggleMenu() {
       else
         this.prueba=false
       })
-    this.getPublicaciones();
   }
 
   logout(){
@@ -123,27 +123,6 @@ toggleMenu() {
       else
         this.prueba=false
       })
-  }
-
-  publicaciones = [];
-  getPublicaciones(){
-    this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/posts`).subscribe(   
-      (response: any)=>{    
-        if(response)
-          var publicaciones = response.Post;
-          this.sliders = [];
-          for(var i =0; i < 3 && i < publicaciones.length; i++){
-              var number = i+1;
-              this.sliders.push(
-                  {
-                      imagePath: publicaciones[i].media,
-                      label: 'Publicacion nº '+ number,
-                      text: publicaciones[i].text
-                  } 
-              )
-          }
-      }
-    ); 
   }
 }
 

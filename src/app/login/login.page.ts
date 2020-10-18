@@ -18,8 +18,13 @@ export class LoginPage implements OnInit {
   }
   
   ngOnInit() {
-   //this.authService.storage.get("ACCESS_TOKEN").then(data=>{this.prueba=data})
-   //this.prueba=this.authService.isLoggedIn()
+    this.authService.storage.get("ACCESS_TOKEN").then(
+      (res:any)=>{
+        if(res)
+        this.prueba=true
+      else
+        this.prueba=false
+      })
   
   }
   toggleMenu() {
