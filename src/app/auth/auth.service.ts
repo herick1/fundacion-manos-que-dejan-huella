@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders} from  '@angular/common/http';
 import { tap } from  'rxjs/operators';
-import { Observable, BehaviorSubject } from  'rxjs';
+import { Observable, BehaviorSubject, Subject } from  'rxjs';
 
 import { Storage } from  '@ionic/storage';
 import { User } from  './user';
@@ -74,5 +74,15 @@ export class AuthService {
         return false
      })
   }
+
+//********************* METODOS PARA COMUNICAR COMPONENTE PADRE CON HIJO ******************************//
+// Observable string sources
+    private emitChangeSource = new Subject<any>();
+    // Observable string streams
+    changeEmitted$ = this.emitChangeSource.asObservable();
+    // Service message commands
+    emitChange(change: any) {
+        this.emitChangeSource.next(change);
+    }
 
 }

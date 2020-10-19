@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Router } from  "@angular/router";
 import { AuthService } from '../auth/auth.service';
@@ -22,11 +22,11 @@ export class LoginPage implements OnInit {
     this.authService.storage.get("ACCESS_TOKEN").then(
       (res:any)=>{
         if(res)
-        this.prueba=true
-      else
-        this.prueba=false
+          this.prueba=true
+        else
+          this.prueba=false
       })
-  
+
   }
   toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
@@ -34,18 +34,20 @@ export class LoginPage implements OnInit {
   login(correo, clave){
     let userss={"email":correo , "password":clave, id:0, name:"", apellido:""}
     this.authService.login(userss).toPromise().then((res)=>{
+      this.authService.emitChange('Data from child');
+      //this.onLoginExitoso()
       this.router.navigateByUrl('/es/home');
       //location.reload(true);
     }
     ).catch(
-      (err)=>{
-        if(err.status==401)
-          this.mensajeError="Credenciales invalidas"
-        else
-          this.mensajeError="Error en la comunicación con el servidor"
+    (err)=>{
+      if(err.status==401)
+        this.mensajeError="Credenciales invalidas"
+      else
+        this.mensajeError="Error en la comunicación con el servidor"
 
 
-      }
+    }
     );
   }
 

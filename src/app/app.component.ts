@@ -96,6 +96,28 @@ export class AppComponent implements OnInit{
           // This will only print when on iOS
           console.log('I am a desktop device!');
         }
+        
+        if (this.platform.is('cordova')) {
+          this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/cordova`).subscribe( 
+            //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
+            (response: any)=>{    
+              console.log(response)
+            }
+            );
+          // This will only print when on iOS
+          console.log('I am a desktop device!');
+        }
+        
+        if (this.platform.is('mobile')) {
+          this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/mobile`).subscribe( 
+            //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
+            (response: any)=>{    
+              console.log(response)
+            }
+            );
+          // This will only print when on iOS
+          console.log('I am a desktop device!');
+        }
       }
 
     }
