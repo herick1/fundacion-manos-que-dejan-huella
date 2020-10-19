@@ -114,6 +114,27 @@ app.get("/evento", urlencodedParser, (req, res) => {
 
 });
 
+
+// MANEJO DE EVENTOS
+app.get("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
+  const dispositivo=req.params.dispositivo;
+  /*var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  client.connect();
+  client.query('SELECT * FROM EVENTO;'
+    , (err, response) => {
+      if (err) throw err;
+      res.json(response.rows)
+      client.end();
+    });
+*/
+console.log("dispositivo: "+dispositivo)
+res.status(200).send({ "response": "Exitosa"}) 
+});
+
+
 const instagram= require('./instagramPost')  
 // MANEJO DE Publicaciones en instagram
 
