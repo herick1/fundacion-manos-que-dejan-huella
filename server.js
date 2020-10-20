@@ -15,7 +15,7 @@ const  jwt  =  require('jsonwebtoken');
 const  bcrypt  =  require('bcryptjs');
 const SECRET_KEY = "secretkey23456";
 
-import sslRedirect from 'heroku-ssl-redirect';
+const sslRedirect = require('heroku-ssl-redirect').default
 // enable ssl redirect
 app.use(sslRedirect());
 //const instagramPosts = require('instagram-posts');
@@ -93,14 +93,15 @@ app.all('*', function(req, res, next) {
 app.use(bodyParser.json());
 
 
-//descargar
+//descargar APK
 app.get('/download', function(req, res){
   var file = __dirname + '/dejatushuellas.apk';
   res.download(file); // Set disposition and send it.
 });
 
 
-// MANEJO DE EVENTOS
+//*********************************** INICIO DE MANEJO DE EVENTOS ********************************//
+//GET
 app.get("/evento", urlencodedParser, (req, res) => {
   var client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -115,7 +116,47 @@ app.get("/evento", urlencodedParser, (req, res) => {
     });
 
 });
+//CREAR
+app.post("/evento/crear", urlencodedParser, (req, res) => {
+  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
+  client.connect();
+  let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
+  client.query(query
+    , (err, response) => {
+      res.json(response)
+      client.end();
+    });
 
+});
+
+//ACTUALIZAR
+app.put("/evento/actualizar", urlencodedParser, (req, res) => {
+  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
+  client.connect();
+  let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
+  client.query(query
+    , (err, response) => {
+      res.json(response)
+      client.end();
+    });
+
+});
+
+//ELIMINAR
+app.delete("/evento/eliminar/:id", urlencodedParser, (req, res) => {
+  let id = req.params.id;
+  client.connect();
+  let query= `delete from evento where ID=${id}`
+  client.query(query
+    , (err, response) => {
+      res.json(response)
+      client.end();
+    });
+
+});
+
+
+/****************************** FIN DE MANEJO DE EVENTOS *******************************************//
 
 // MANEJO DE EVENTOS
 app.get("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
@@ -125,7 +166,7 @@ app.get("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
     ssl: true,
   });
   client.connect();
-  client.query('SELECT * FROM EVENTO;'
+  client.query('INSERT INTO EVENTO;'
     , (err, response) => {
       if (err) throw err;
       res.json(response.rows)
@@ -199,19 +240,6 @@ app.get("/posts", async (req, res, next) => {
   }
 })
 //*/
-
-
-app.post("/evento", urlencodedParser, (req, res) => {
-  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
-  client.connect();
-  let query= "INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('"+body.nombre+"','"+body.fechaini+"','"+body.fechafin+"','"+body.descripcion+"','"+body.direccion+"');"
-  client.query(query
-    , (err, response) => {
-      res.json(response)
-      client.end();
-    });
-
-});
 
 app.post("/notificacion", urlencodedParser, (req, res) => {
   let body = _.pick(req.body, ["token"]);
