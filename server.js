@@ -156,7 +156,7 @@ app.delete("/evento/eliminar/:id", urlencodedParser, (req, res) => {
 });
 
 
-/****************************** FIN DE MANEJO DE EVENTOS *******************************************//
+/****************************** FIN DE MANEJO DE EVENTOS *******************************************/
 
 // MANEJO DE EVENTOS
 app.get("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
