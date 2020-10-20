@@ -15,7 +15,9 @@ const  jwt  =  require('jsonwebtoken');
 const  bcrypt  =  require('bcryptjs');
 const SECRET_KEY = "secretkey23456";
 
-
+import sslRedirect from 'heroku-ssl-redirect';
+// enable ssl redirect
+app.use(sslRedirect());
 //const instagramPosts = require('instagram-posts');
 const  webpush  = require('web-push')
 const  vapidKeys  = {
