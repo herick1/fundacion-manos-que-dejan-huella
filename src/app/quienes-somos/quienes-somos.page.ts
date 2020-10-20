@@ -65,14 +65,13 @@ export class QuienesSomosPage implements OnInit {
   }
 
   logout(){
-    this.authService.logout() 
-    this.authService.storage.get("ACCESS_TOKEN").then(
+    this.authService.logout().then(
       (res:any)=>{
         if(res)
-        this.prueba=true
-      else
-        this.prueba=false
-      })
+          this.prueba=true
+        else
+          this.prueba=false
+      })  
   }
 
 

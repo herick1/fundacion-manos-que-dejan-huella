@@ -29,29 +29,28 @@ toggleMenu() {
   }
 
   ngOnInit() {
-       //this.getPublicaciones()
-        this.prueba=true
+       this.getLogin()
   }
 
-  logout(){
-    this.authService.logout() 
-    this.authService.storage.get("ACCESS_TOKEN").then(
+  getLogin(){
+    this.authService.storage.get("LOGIN_ESTATUS").then(
       (res:any)=>{
-        if(res)
+        if(res==true)
         this.prueba=true
       else
         this.prueba=false
       })
   }
-/*
-  getPublicaciones(){
-    this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/posts`).subscribe(   
-      (response: any)=>{    
-      console.log(response)
-      if(response)
-         this.publicaciones = response.Post;
-      }
-    ); 
+  
+  logout(){
+    this.authService.logout().then(
+      (res:any)=>{
+        if(res)
+          this.prueba=true
+        else
+          this.prueba=false
+      })  
   }
-*/
+
+  
 }

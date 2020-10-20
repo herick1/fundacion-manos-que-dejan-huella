@@ -60,14 +60,16 @@ export class UsuarioPage implements OnInit {
   }
 
   logout(){
-    this.authService.logout() 
-    this.authService.storage.get("ACCESS_TOKEN").then(
+    this.authService.logout().then(
       (res:any)=>{
-        if(res)
+        if(res){
           this.prueba=true
-        else
-          this.prueba=false
-      })
+        }
+        else{
+          this.authService.emitChange('Data from child');
+          this.router.navigateByUrl('/es/home');
+        }
+      })  
   }
 
   

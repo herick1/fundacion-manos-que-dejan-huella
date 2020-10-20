@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, Platform  } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { Router } from  "@angular/router";
@@ -55,13 +55,63 @@ export class HomePage implements OnInit {
 
 
 
-  constructor( public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,private  router:  Router) 
+  constructor( private platform: Platform, public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,private  router:  Router) 
   {
     //maneja el evento al iniciar sesion para actualizar el menu en home
     this.authService.changeEmitted$.subscribe(
-        text => {
-          this.prueba=true;
-        });
+      text => {
+        this.prueba=true;
+      });
+    if (this.platform.is('cordova')){
+      this.slidershome.push(
+      {
+        imagePath: 'assets/img/fundacion-areasIntervencion.png',
+        href: "/es/home#",
+        label: '¿Cuales son nuestras areas de Intervención?',
+        text:
+        'siempre tratando de ayudar y crecer a nuestra Venezuela'
+      },
+      {
+        imagePath: 'assets/gif/gif-phone.gif',
+        href:"/es/home#",
+        label: '¿Sabias de nuestra app Movil?',
+        text: 'Utilizala para estar conectado a nosotros en todo momento.'
+      },
+      {
+        imagePath: 'assets/img/fundacion-mundo.png',
+        href: "/es/home#",
+        label: '¿Tienes un donativo o quieres ayudarnos?',
+        text:
+        'Tú ayuda es importante! comunicate con nosostros a manosquedejanhuellas@gmail.com'
+      }
+      );
+
+    }
+    else{
+      this.slidershome.push(
+      {
+        imagePath: 'assets/img/fundacion-areasIntervencion.png',
+        href: "/es/home#",
+        label: '¿Cuales son nuestras areas de Intervención?',
+        text:
+        'siempre tratando de ayudar y crecer a nuestra Venezuela'
+      },
+      {
+        imagePath: 'assets/gif/gif-phone.gif',
+        href:"/download?ngsw-bypass=true",
+        label: '¿Sabias de nuestra app Movil?',
+        text: 'Utilizala para estar conectado a nosotros en todo momento.'
+      },
+      {
+        imagePath: 'assets/img/fundacion-mundo.png',
+        href: "/es/home#",
+        label: '¿Tienes un donativo o quieres ayudarnos?',
+        text:
+        'Tú ayuda es importante! comunicate con nosostros a manosquedejanhuellas@gmail.com'
+      }
+      );
+
+    }
 
     this.sliders.push(
     {
@@ -82,32 +132,10 @@ export class HomePage implements OnInit {
       'Proximamente aqui estaran los eventos destacados'
     }
     );
-    this.slidershome.push(
-    {
-      imagePath: 'assets/img/fundacion-areasIntervencion.png',
-      href: "/es/home#",
-      label: '¿Cuales son nuestras areas de Intervención?',
-      text:
-      'siempre tratando de ayudar y crecer a nuestra Venezuela'
-    },
-    {
-      imagePath: 'assets/gif/gif-phone.gif',
-      href:"/download?ngsw-bypass=true",
-      label: '¿Sabias de nuestra app Movil?',
-      text: 'Utilizala para estar conectado a nosotros en todo momento.'
-    },
-    {
-      imagePath: 'assets/img/fundacion-mundo.png',
-      href: "/es/home#",
-      label: '¿Tienes un donativo o quieres ayudarnos?',
-      text:
-      'Tú ayuda es importante! comunicate con nosostros a manosquedejanhuellas@gmail.com'
-    }
-    );
+    
   }
 
   toggleMenu() {
-    console.log("jaja")
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   ngOnInit() {
@@ -120,16 +148,20 @@ export class HomePage implements OnInit {
       })
   }
 
+
+
   logout(){
-    this.authService.logout() 
-    this.authService.storage.get("ACCESS_TOKEN").then(
+    this.authService.logout().then(
       (res:any)=>{
         if(res)
           this.prueba=true
         else
           this.prueba=false
-      })
+      })  
   }
+
+
+  
 }
 
 

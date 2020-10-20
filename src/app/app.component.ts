@@ -29,7 +29,6 @@ export class AppComponent implements OnInit{
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-    console.log("entre 3")
     this.subscribeToNotifications()
   }
 
