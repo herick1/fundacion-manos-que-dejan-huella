@@ -160,6 +160,10 @@ app.delete("/evento/eliminar/:id", urlencodedParser, (req, res) => {
 
 // MANEJO DE EVENTOS
 app.post("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
   const dispositivo=req.params.dispositivo;
   const modulo=req.body.modulo;
   client.connect();
