@@ -55,8 +55,9 @@ export class AppComponent implements OnInit{
       }
 
       EnviarTranzabilidad(){ 
+        let body={modulo:"app"}
         if (this.platform.is('ios')) {
-          this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/ios`).subscribe( 
+          this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/ios`,body).subscribe( 
             //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
             (response: any)=>{    
               console.log(response)
@@ -66,7 +67,7 @@ export class AppComponent implements OnInit{
           console.log('I am an iOS device!');
         }
         if (this.platform.is('android')) {
-          this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/android`).subscribe( 
+          this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/android`,body).subscribe( 
             //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
             (response: any)=>{    
               console.log(response)
@@ -76,7 +77,7 @@ export class AppComponent implements OnInit{
           console.log('I am an android device!');
         }
         if (this.platform.is('mobileweb')) {
-          this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/mobileweb`).subscribe( 
+          this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/mobileweb`,body).subscribe( 
             //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
             (response: any)=>{    
               console.log(response)
@@ -86,7 +87,7 @@ export class AppComponent implements OnInit{
           console.log('I am a mobileweb device!');
         }
         if (this.platform.is('desktop')) {
-          this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/desktop`).subscribe( 
+          this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/desktop`,body).subscribe( 
             //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
             (response: any)=>{    
               console.log(response)
@@ -97,7 +98,7 @@ export class AppComponent implements OnInit{
         }
         
         if (this.platform.is('cordova')) {
-          this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/cordova`).subscribe( 
+          this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/cordova`,body).subscribe( 
             //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
             (response: any)=>{    
               console.log(response)
@@ -108,7 +109,7 @@ export class AppComponent implements OnInit{
         }
         
         if (this.platform.is('mobile')) {
-          this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/mobile`).subscribe( 
+          this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/tranzabilidad/mobile`,body).subscribe( 
             //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
             (response: any)=>{    
               console.log(response)

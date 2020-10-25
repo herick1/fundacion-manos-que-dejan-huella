@@ -159,21 +159,17 @@ app.delete("/evento/eliminar/:id", urlencodedParser, (req, res) => {
 /****************************** FIN DE MANEJO DE EVENTOS *******************************************/
 
 // MANEJO DE EVENTOS
-app.get("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
+app.post("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
   const dispositivo=req.params.dispositivo;
-  /*var client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
+  const modulo=req.body.modulo;
   client.connect();
-  client.query('INSERT INTO EVENTO;'
+  let query= "insert into USO_APP (Dispositivo,Modulo) values('"+dispositivo+"','"+modulo+"');"
+  client.query(query
     , (err, response) => {
-      if (err) throw err;
-      res.json(response.rows)
+      res.json(response)
       client.end();
     });
-*/
-console.log("dispositivo: "+dispositivo)
+console.log("dispositivo: "+dispositivo+"  ---- "+modulo)
 res.status(200).send({ "response": "Exitosa"}) 
 });
 

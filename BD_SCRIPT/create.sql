@@ -84,3 +84,13 @@ as $$
 delete from notificaciones noti where noti.endpoint=endpointParametro
 $$
 
+
+SET TIMEZONE='America/Caracas'
+
+CREATE TABLE USO_APP (
+ID SERIAL,
+Dispositivo VARCHAR(100) NOT NULL,
+Modulo VARCHAR(100),
+fecha date default CURRENT_DATE
+)
+
