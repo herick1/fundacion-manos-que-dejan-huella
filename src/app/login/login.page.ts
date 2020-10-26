@@ -3,6 +3,8 @@ import { MenuController } from '@ionic/angular';
 import { Router } from  "@angular/router";
 import { AuthService } from '../auth/auth.service';
 import {HttpClient} from '@angular/common/http';
+import { TranzabilidadService } from '../services/tranzabilidad.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -15,10 +17,12 @@ export class LoginPage implements OnInit {
   focus1:any;
   prueba:any;
   mensajeError:any;
-  constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService, private  router:  Router) { 
+  constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService,
+   private  router:  Router, private tranzabilidadService:TranzabilidadService) { 
   }
   
   ngOnInit() {
+    this.tranzabilidadService.EnviarTranzabilidad("Login")
     this.authService.storage.get("ACCESS_TOKEN").then(
       (res:any)=>{
         if(res)

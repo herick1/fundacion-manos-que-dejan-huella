@@ -3,6 +3,7 @@ import { MenuController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import {HttpClient} from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranzabilidadService } from '../services/tranzabilidad.service';
 
 @Component({
   selector: 'app-contactanos',
@@ -17,7 +18,8 @@ export class ContactanosPage implements OnInit {
   @ViewChild("modalExito", {static:true}) modalExito: ElementRef; 
   @ViewChild("modalConfirmarEnviar", {static:true}) modalConfirmarEnviar: ElementRef; 
 
-  constructor( public menuCtrl: MenuController , private  authService:  AuthService, private httpClient:HttpClient, private modalService: NgbModal) 
+  constructor( public menuCtrl: MenuController , private  authService:  AuthService, private httpClient:HttpClient,
+   private modalService: NgbModal, private tranzabilidadService:TranzabilidadService) 
   {
   }
 
@@ -62,6 +64,7 @@ toggleMenu() {
   }
 
   ngOnInit() {
+    this.tranzabilidadService.EnviarTranzabilidad("Contactanos")
     this.authService.storage.get("ACCESS_TOKEN").then(
       (res:any)=>{
         if(res)

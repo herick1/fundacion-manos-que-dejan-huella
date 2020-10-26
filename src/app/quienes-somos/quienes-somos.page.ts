@@ -4,6 +4,7 @@ import { IonContent } from "@ionic/angular";
 import { ViewChild} from '@angular/core';
 import {Router } from "@angular/router";
 import { AuthService } from '../auth/auth.service';
+import { TranzabilidadService } from '../services/tranzabilidad.service';
 
 @Component({
   selector: 'app-quienes-somos',
@@ -22,7 +23,8 @@ export class QuienesSomosPage implements OnInit {
   @ViewChild('historia',  {static: false}) historia : ElementRef;
 
 
-  constructor(public menuCtrl: MenuController, private router: Router, private  authService:  AuthService) 
+  constructor(public menuCtrl: MenuController, private router: Router, private  authService:  AuthService,
+    private tranzabilidadService:TranzabilidadService) 
   {
   }
   buscar_fragmento(fragmento)
@@ -55,6 +57,7 @@ export class QuienesSomosPage implements OnInit {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   ngOnInit() {
+    this.tranzabilidadService.EnviarTranzabilidad("QuienesSomos")
     this.authService.storage.get("ACCESS_TOKEN").then(
       (res:any)=>{
         if(res)

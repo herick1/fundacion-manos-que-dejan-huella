@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController, Platform  } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
+import { TranzabilidadService } from '../services/tranzabilidad.service';
 import { Router } from  "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import {ViewChild, ElementRef} from '@angular/core';
@@ -55,7 +56,9 @@ export class HomePage implements OnInit {
 
 
 
-  constructor( private platform: Platform, public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,private  router:  Router) 
+  constructor(private platform: Platform, public menuCtrl: MenuController,private activatedRoute: ActivatedRoute, 
+    private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,
+    private  router:  Router, private tranzabilidadService:TranzabilidadService) 
   {
     //maneja el evento al iniciar sesion para actualizar el menu en home
     this.authService.changeEmitted$.subscribe(
@@ -139,6 +142,7 @@ export class HomePage implements OnInit {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   ngOnInit() {
+    this.tranzabilidadService.EnviarTranzabilidad("Home")
     this.authService.storage.get("LOGIN_ESTATUS").then(
       (res:any)=>{
         if(res==true)

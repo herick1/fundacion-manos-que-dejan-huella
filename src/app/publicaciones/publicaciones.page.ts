@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient , HttpHeaders} from  '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { MenuController } from '@ionic/angular';
+import { TranzabilidadService } from '../services/tranzabilidad.service';
 
 @Component({
   selector: 'app-publicaciones',
@@ -20,7 +21,9 @@ focus:any;
   AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   //AUTH_SERVER_ADDRESS:  string  =  'http://localhost:5000';
 
-    constructor(public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,private  router:  Router) {
+    constructor(public menuCtrl: MenuController, private activatedRoute: ActivatedRoute,
+     private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,
+     private  router:  Router, private tranzabilidadService:TranzabilidadService) {
         this.prueba=true
   }
 
@@ -29,6 +32,7 @@ toggleMenu() {
   }
 
   ngOnInit() {
+    this.tranzabilidadService.EnviarTranzabilidad("Publicaciones")
        this.getLogin()
   }
 
