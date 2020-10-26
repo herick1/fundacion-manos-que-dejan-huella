@@ -132,6 +132,15 @@ path: '',
      ],canActivate: [AuthGuard]
    },
    {
+     path: 'dashboardEstadisticas',
+     children: [
+     {
+       path: '',
+       loadChildren: '../dashboard-estadisticas/dashboard-estadisticas.module#dashboardEstadisticasPageModule'
+     }
+     ]
+   },
+   {
      path: '',
      redirectTo: '/es/home',
      pathMatch: 'full'

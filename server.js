@@ -170,11 +170,12 @@ app.post("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
   let query= "insert into USO_APP (Dispositivo,Modulo) values('"+dispositivo+"','"+modulo+"');"
   client.query(query
     , (err, response) => {
-      res.json(response)
+      res.status(200).send({ "response": "Exitosa"})
       client.end();
     });
+  console.log(process.env.DATABASE_URL)
 console.log("dispositivo: "+dispositivo+"  ---- "+modulo)
-res.status(200).send({ "response": "Exitosa"}) 
+ 
 });
 
 
