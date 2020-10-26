@@ -157,7 +157,6 @@ app.delete("/evento/eliminar/:id", urlencodedParser, (req, res) => {
 
 
 /****************************** FIN DE MANEJO DE EVENTOS *******************************************/
-//connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
 // MANEJO DE EVENTOS
 app.post("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
   var client = new Client({
