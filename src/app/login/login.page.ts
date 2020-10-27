@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Router } from  "@angular/router";
 import { AuthService } from '../auth/auth.service';
@@ -22,6 +22,11 @@ export class LoginPage implements OnInit {
   }
   
   ngOnInit() {
+    
+
+  }
+
+  ngAfterViewInit(){
     this.tranzabilidadService.EnviarTranzabilidad("Login")
     this.authService.storage.get("ACCESS_TOKEN").then(
       (res:any)=>{
@@ -30,8 +35,9 @@ export class LoginPage implements OnInit {
         else
           this.prueba=false
       })
-
   }
+
+  
   toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }

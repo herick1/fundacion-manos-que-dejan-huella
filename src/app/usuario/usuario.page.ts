@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Router } from  "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import {ViewChild, ElementRef} from '@angular/core';
@@ -50,16 +50,17 @@ export class UsuarioPage implements OnInit {
   AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   
   ngOnInit() {
+    
+  }
+  ngAfterViewInit(){
     this.tranzabilidadService.EnviarTranzabilidad("Usuario")
-
-  this.getUsuario()
-  
-   this.authService.storage.get("ACCESS_TOKEN").then(
+    this.getUsuario()
+    this.authService.storage.get("LOGIN_ESTATUS").then(
       (res:any)=>{
-        if(res)
-        this.prueba=true
-      else
-        this.prueba=false
+        if(res==true)
+          this.prueba=true
+        else
+          this.prueba=false
       })
   }
 

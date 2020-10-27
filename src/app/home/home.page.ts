@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { MenuController, Platform  } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
@@ -142,6 +142,10 @@ export class HomePage implements OnInit {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   ngOnInit() {
+
+  }
+  
+  ngAfterViewInit(){
     this.tranzabilidadService.EnviarTranzabilidad("Home")
     this.authService.storage.get("LOGIN_ESTATUS").then(
       (res:any)=>{
@@ -151,7 +155,6 @@ export class HomePage implements OnInit {
           this.prueba=false
       })
   }
-
 
 
   logout(){

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef} from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit} from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { IonContent } from "@ionic/angular";
 import { ViewChild} from '@angular/core';
@@ -31,25 +31,25 @@ export class QuienesSomosPage implements OnInit {
   {
     switch(fragmento) {
       case 'quieneSomos':
-        this.content.scrollToPoint(0,this.quieneSomos.nativeElement.offsetTop, 1500);
-        break;
+      this.content.scrollToPoint(0,this.quieneSomos.nativeElement.offsetTop, 1500);
+      break;
       case 'mision':     
-        this.content.scrollToPoint(0,this.mision.nativeElement.offsetTop, 1500);
-        break;
+      this.content.scrollToPoint(0,this.mision.nativeElement.offsetTop, 1500);
+      break;
       case 'valores':
-        this.content.scrollToPoint(0,this.valores.nativeElement.offsetTop, 1500);
-        break;
+      this.content.scrollToPoint(0,this.valores.nativeElement.offsetTop, 1500);
+      break;
       case 'vision':
-        this.content.scrollToPoint(0,this.vision.nativeElement.offsetTop, 1500);
-        break;
+      this.content.scrollToPoint(0,this.vision.nativeElement.offsetTop, 1500);
+      break;
       case 'objetivos':
-        this.content.scrollToPoint(0, this.objetivos.nativeElement.offsetTop, 1500);
-        break;
+      this.content.scrollToPoint(0, this.objetivos.nativeElement.offsetTop, 1500);
+      break;
       case 'historia':
-        this.content.scrollToPoint(0, this.historia.nativeElement.offsetTop, 1500);
-        break;
+      this.content.scrollToPoint(0, this.historia.nativeElement.offsetTop, 1500);
+      break;
       default:
-        return null
+      return null
     }
   }
 
@@ -57,13 +57,16 @@ export class QuienesSomosPage implements OnInit {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
   ngOnInit() {
+    
+  }
+  ngAfterViewInit(){
     this.tranzabilidadService.EnviarTranzabilidad("QuienesSomos")
     this.authService.storage.get("ACCESS_TOKEN").then(
       (res:any)=>{
         if(res)
-        this.prueba=true
-      else
-        this.prueba=false
+          this.prueba=true
+        else
+          this.prueba=false
       })
   }
 
@@ -80,9 +83,9 @@ export class QuienesSomosPage implements OnInit {
 
   ionViewDidEnter()
   { //la funcion mas bonita  que pude encontrar de ionic y te conoci por casualidad <3
-  //esta se ejecuta cada vez que la pagina es totalmente cargadda con 
-  //los DOM , router y etc, te quita los problemas dek NAvigationEnd, 
-  //y siempre se ejecuta cuando la vista ya esta esta activada y probada en la el front
+    //esta se ejecuta cada vez que la pagina es totalmente cargadda con 
+    //los DOM , router y etc, te quita los problemas dek NAvigationEnd, 
+    //y siempre se ejecuta cuando la vista ya esta esta activada y probada en la el front
     const tree = this.router.parseUrl(this.router.url); //tenemso que verificar que haya un fragmento
     if (tree.fragment) { //existe un fragmento?
       this.buscar_fragmento(tree.fragment) //buscamos si existe el fragmento

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef,ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef,ViewChild, AfterViewInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import {HttpClient} from '@angular/common/http';
@@ -19,11 +19,11 @@ export class ContactanosPage implements OnInit {
   @ViewChild("modalConfirmarEnviar", {static:true}) modalConfirmarEnviar: ElementRef; 
 
   constructor( public menuCtrl: MenuController , private  authService:  AuthService, private httpClient:HttpClient,
-   private modalService: NgbModal, private tranzabilidadService:TranzabilidadService) 
+    private modalService: NgbModal, private tranzabilidadService:TranzabilidadService) 
   {
   }
 
-toggleMenu() {
+  toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
 
@@ -54,40 +54,44 @@ toggleMenu() {
           this.error=err.message
         }
 
-      );
-    //}
-    //else{
-      //  this.error="Los campos Nombre, correo y mensaje son requeridos"
-    //}
-      
-    
-  }
+        );
+      //}
+      //else{
+        //  this.error="Los campos Nombre, correo y mensaje son requeridos"
+        //}
+        
+        
+      }
 
-  ngOnInit() {
-    this.tranzabilidadService.EnviarTranzabilidad("Contactanos")
-    this.authService.storage.get("ACCESS_TOKEN").then(
-      (res:any)=>{
-        if(res)
-        this.prueba=true
-      else
-        this.prueba=false
-      })
-  }
+      ngOnInit() {
+        
+      }
 
-  logout(){
-    this.authService.logout() 
-    this.authService.storage.get("ACCESS_TOKEN").then(
-      (res:any)=>{
-        if(res)
-        this.prueba=true
-      else
-        this.prueba=false
-      })
-  }
+      ngAfterViewInit(){
+        this.tranzabilidadService.EnviarTranzabilidad("Contactanos")
+        this.authService.storage.get("ACCESS_TOKEN").then(
+          (res:any)=>{
+            if(res)
+              this.prueba=true
+            else
+              this.prueba=false
+          })
+      }
 
-  confirmacionEnviar(){
-    this.modalService.open(this.modalConfirmarEnviar,{centered:true});
-  }
+      logout(){
+        this.authService.logout() 
+        this.authService.storage.get("ACCESS_TOKEN").then(
+          (res:any)=>{
+            if(res)
+              this.prueba=true
+            else
+              this.prueba=false
+          })
+      }
+
+      confirmacionEnviar(){
+        this.modalService.open(this.modalConfirmarEnviar,{centered:true});
+      }
 
 
-}
+    }
