@@ -100,7 +100,7 @@
                 type="submit" >Iniciar sesión</button>
                           <div class="forgot">
                             {{mensajeError}}
-                              <a href="#" class="btn btn-link btn-danger">Recuperar contraseña?</a>
+                              <a href="/es/login#" (click)="recuperarClave(correo.value)" class="btn btn-link btn-danger">Recuperar contraseña?</a>
                           </div>
             </div>
                     </div>

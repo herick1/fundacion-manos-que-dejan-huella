@@ -157,7 +157,7 @@ app.delete("/evento/eliminar/:id", urlencodedParser, (req, res) => {
 
 
 /****************************** FIN DE MANEJO DE EVENTOS *******************************************/
-// MANEJO DE EVENTOS
+// MANEJO DE estadisticas
 app.post("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
   var client = new Client({
     connectionString: process.env.DATABASE_URL+'?ssl=true', 
@@ -173,8 +173,8 @@ app.post("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
       client.end();
     });
   console.log(process.env.DATABASE_URL)
-console.log("dispositivo: "+dispositivo+"  ---- "+modulo)
- 
+  console.log("dispositivo: "+dispositivo+"  ---- "+modulo)
+
 });
 
 
@@ -338,6 +338,78 @@ app.post('/login', (req, res) => {
       }
 
     });
+});
+
+app.post('/recuperarClave', (req, res) => {
+
+  const  email  =  req.body.email;
+  findUserByEmail(email, (err, user)=>{
+    if (err) return  res.status(500).send('Error del servidor!');
+    if (!user[0]) return  res.status(404).send('Ups ocurrio un error!');
+    else{
+      let contragenerada = Math.random().toString(36).substring(7);
+      console.log("random", contragenerada);
+      let emailCorreo ={ 
+        from:{ 
+          name: 'Soporte dejatushuellas',
+          address: 'soporte.dejatushuellas@gmail.com'
+    },  //remitente
+    to:  email,  //destinatario
+    subject:`Contactanos`,  //asunto del correo
+    html:` 
+    <div> 
+    <p>Buenas, se ha creado la siguiente contraseña temporal: <strong>${contragenerada}</strong> para poder ingresar nuevamente al sistema, por favor realizar el cambio de la misma después de acceder. </p> 
+    <br> 
+    <p> <strong> NOTA: Favor no responder este mensaje que ha sido emitido automáticamente por el sistema </strong>  </p>                               
+    </div> 
+    ` 
+  };
+
+  const  password  =   bcrypt.hashSync(contragenerada,10);
+  createTransport.sendMail(emailCorreo, function (error, info) { 
+    if(error){ 
+      console.log("Error al enviar email"); 
+    } else{ 
+      console.log("Correo enviado correctamente"); 
+    } 
+    createTransport.close(); 
+  });
+
+  var client = new Client({
+    connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5'+'?ssl=true', 
+    ssl: true,
+  });
+  client.connect();
+  let query= `CALL usu_recuperarContraseña('${email}', '${password}');`
+  client.query(query
+    , (err, response) => {
+      res.status(200).send({ "response": "Exitosa"})
+      client.end();
+    });
+}
+
+
+});
+
+})
+
+
+app.post('/recuperarContraseña', (req, res) => {
+
+  const  email  =  req.body.email;
+  const  password  =   bcrypt.hashSync(req.body.password,10);
+   var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  let query= "call stored"
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      res.status(200).send(response.rows);
+      client.end();
+    });
+
 });
 
 //CRUD DE USUARIOS -------------------------------------------------------------
@@ -549,13 +621,13 @@ app.post('/contactanos/enviar', (req, res) => {
   let emailCorreo ={ 
     from:{ 
       name: 'Soporte dejatushuellas',
-      address: 'soporte.dejatushuellas@gmail.com@gmail.com'
+      address: 'soporte.dejatushuellas@gmail.com'
     },  //remitente
     to:  `javiloria100@gmail.com, herick200@gmail.com`,  //destinatario
     subject:`Contactanos`,  //asunto del correo
     html:`
     <div>
-      Buen día. Este es un mensaje enviado por el formulario de contactanos.
+    Buen día. Este es un mensaje enviado por el formulario de contactanos.
     </div>
     <br> 
 

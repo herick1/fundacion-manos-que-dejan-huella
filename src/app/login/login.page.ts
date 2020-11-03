@@ -61,4 +61,11 @@ export class LoginPage implements OnInit {
     );
   }
 
+  recuperarClave(correo){
+    this.authService.recuperarClave(correo).toPromise().then((res)=>{
+
+    });
+
+  }
+
 }

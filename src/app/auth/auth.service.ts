@@ -22,7 +22,9 @@ const  options = { headers: new HttpHeaders({'Content-Type':'application/json', 
 
 export class AuthService {
 
+ // AUTH_SERVER_ADDRESS:  string  =  'http://localhost:5000';
   AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  
   authSubject  =  new  BehaviorSubject(false);
 
   constructor(private  httpClient:  HttpClient, public  storage:  Storage) { }
@@ -46,7 +48,7 @@ export class AuthService {
   login(user: User): Observable<AuthResponse> {
     let headers = new HttpHeaders();
       headers.append('Content-Type', 'application/json');
-    return this.httpClient.post('https://manos-que-dejan-huella.herokuapp.com/login',{"email":user.email,"password": user.password},{headers: headers}).pipe(
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/login`,{"email":user.email,"password": user.password},{headers: headers}).pipe(
     tap(async (res: AuthResponse) => {
         if (res.user) {
           await this.storage.set("ACCESS_TOKEN", res.access_token);
@@ -74,6 +76,11 @@ export class AuthService {
         return false
      })
   }
+
+  recuperarClave(correo){
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/recuperarClave`,{"email":correo});
+
+    }
 
 //********************* METODOS PARA COMUNICAR COMPONENTE PADRE CON HIJO ******************************//
 // Observable string sources
