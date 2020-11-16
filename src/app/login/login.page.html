@@ -91,12 +91,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><ion-icon class="ion-icon-login"name="unlock"></ion-icon></span>
                         </div>
-                          <input #clave clave.value="" id="campo-clave" type="password" placeholder="contraseña..." class="form-control" />
+                          <input #clave clave.value="" id="campo-clave" type="password" placeholder="contraseña..." class="form-control" onkeypress="if (event.keyCode == 13) {document.getElementById('boton').click(); return false; }">
                       </div>
                     </div>
 
                 </form>
-                <button class="btn btn-danger btn-block btn-round" (click)="login(correo.value, clave.value)" 
+                <button class="btn btn-danger btn-block btn-round" id ="boton" (click)="login(correo.value, clave.value)" 
                 type="submit" >Iniciar sesión</button>
                           <div class="forgot">
                             {{mensajeError}}

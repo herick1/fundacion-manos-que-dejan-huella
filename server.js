@@ -355,7 +355,7 @@ app.post('/recuperarClave', (req, res) => {
           address: 'soporte.dejatushuellas@gmail.com'
     },  //remitente
     to:  email,  //destinatario
-    subject:`Contactanos`,  //asunto del correo
+    subject:`Recuperación de contraseña`,  //asunto del correo
     html:` 
     <div> 
     <p>Buenas, se ha creado la siguiente contraseña temporal: <strong>${contragenerada}</strong> para poder ingresar nuevamente al sistema, por favor realizar el cambio de la misma después de acceder. </p> 
@@ -663,6 +663,96 @@ app.post('/contactanos/enviar', (req, res) => {
 
 
 /**************************** fin de notificaciones ***********************************************************/
+
+/******************************* estadisticas de uso ************************************************************/
+
+app.get('/dashboardEstadisticas/graficaMes', urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  let query= "Select * from estadisticas_grafica_mes(); "
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      res.status(200).send(response.rows);
+      client.end();
+    });
+})
+
+app.get('/dashboardEstadisticas/graficaMesDispositivo', urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  let query= "Select * from estadisticas_grafica_mes_dispositivo(); "
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      res.status(200).send(response.rows);
+      client.end();
+    });
+})
+
+app.get('/dashboardEstadisticas/graficaMesModulo', urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  let query= "Select * from estadisticas_grafica_mes_modulo();"
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      res.status(200).send(response.rows);
+      client.end();
+    });
+})
+
+app.get('/dashboardEstadisticas/graficaModulo', urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  let query= "Select * from estadisticas_grafica_modulo(); "
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      res.status(200).send(response.rows);
+      client.end();
+    });
+})
+
+app.get('/dashboardEstadisticas/graficaDispositivo', urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  let query= "Select * from estadisticas_grafica_dispositivo(); "
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      res.status(200).send(response.rows);
+      client.end();
+    });
+})
+
+app.get('/dashboardEstadisticas/graficaYear', urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  let query= "Select * from estadisticas_grafica_año(); "
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      res.status(200).send(response.rows);
+      client.end();
+    });
+})
+
+/******************************* FIN DE ESTADISTICAS DE USO ****************************************************/
+
+
 // ---- SERVE APLICATION PATHS ---- //
 app.get('*', function (req, res) {
   var splitt = req.path.split("/");
