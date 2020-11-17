@@ -666,12 +666,13 @@ app.post('/contactanos/enviar', (req, res) => {
 
 /******************************* estadisticas de uso ************************************************************/
 
-app.get('/dashboardEstadisticas/graficaMes', urlencodedParser, (req, res) => {
+app.get('/dashboardEstadisticas/graficaMes/:year', urlencodedParser, (req, res) => {
+  let year = req.params.year;
   var client = new Client({
     connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= "Select * from estadisticas_grafica_mes(); "
+  let query= `Select * from estadisticas_grafica_mes(${year}); `
   client.connect();
   client.query(query
     , (err, response) => {
@@ -680,12 +681,13 @@ app.get('/dashboardEstadisticas/graficaMes', urlencodedParser, (req, res) => {
     });
 })
 
-app.get('/dashboardEstadisticas/graficaMesDispositivo', urlencodedParser, (req, res) => {
+app.get('/dashboardEstadisticas/graficaMesDispositivo/:year', urlencodedParser, (req, res) => {
+  let year = req.params.year;
   var client = new Client({
     connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= "Select * from estadisticas_grafica_mes_dispositivo(); "
+  let query= `Select * from estadisticas_grafica_mes_dispositivo(${year}); `
   client.connect();
   client.query(query
     , (err, response) => {
@@ -694,12 +696,13 @@ app.get('/dashboardEstadisticas/graficaMesDispositivo', urlencodedParser, (req, 
     });
 })
 
-app.get('/dashboardEstadisticas/graficaMesModulo', urlencodedParser, (req, res) => {
+app.get('/dashboardEstadisticas/graficaMesModulo/:year', urlencodedParser, (req, res) => {
+  let year = req.params.year;
   var client = new Client({
     connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= "Select * from estadisticas_grafica_mes_modulo();"
+  let query= `Select * from estadisticas_grafica_mes_modulo(${year});`
   client.connect();
   client.query(query
     , (err, response) => {
@@ -708,12 +711,13 @@ app.get('/dashboardEstadisticas/graficaMesModulo', urlencodedParser, (req, res) 
     });
 })
 
-app.get('/dashboardEstadisticas/graficaModulo', urlencodedParser, (req, res) => {
+app.get('/dashboardEstadisticas/graficaModulo/:year', urlencodedParser, (req, res) => {
+  let year = req.params.year;
   var client = new Client({
     connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= "Select * from estadisticas_grafica_modulo(); "
+  let query= `Select * from estadisticas_grafica_modulo(${year}); `
   client.connect();
   client.query(query
     , (err, response) => {
@@ -722,12 +726,13 @@ app.get('/dashboardEstadisticas/graficaModulo', urlencodedParser, (req, res) => 
     });
 })
 
-app.get('/dashboardEstadisticas/graficaDispositivo', urlencodedParser, (req, res) => {
+app.get('/dashboardEstadisticas/graficaDispositivo/:year', urlencodedParser, (req, res) => {
+  let year = req.params.year;
   var client = new Client({
     connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= "Select * from estadisticas_grafica_dispositivo(); "
+  let query= `Select * from estadisticas_grafica_dispositivo(${year}); `
   client.connect();
   client.query(query
     , (err, response) => {
@@ -736,12 +741,28 @@ app.get('/dashboardEstadisticas/graficaDispositivo', urlencodedParser, (req, res
     });
 })
 
-app.get('/dashboardEstadisticas/graficaYear', urlencodedParser, (req, res) => {
+app.get('/dashboardEstadisticas/graficaYear/:year', urlencodedParser, (req, res) => {
+  let year = req.params.year;
   var client = new Client({
     connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= "Select * from estadisticas_grafica_año(); "
+  let query= `Select * from estadisticas_grafica_año(${year}); `
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      res.status(200).send(response.rows);
+      client.end();
+    });
+})
+
+
+app.get('/dashboardEstadisticas/year', urlencodedParser, (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  let query= `Select * from estadisticas_get_año(); `
   client.connect();
   client.query(query
     , (err, response) => {

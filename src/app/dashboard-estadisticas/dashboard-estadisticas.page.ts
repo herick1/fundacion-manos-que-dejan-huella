@@ -37,11 +37,14 @@ export class dashboardEstadisticasPage implements OnInit {
   {
   }
   prueba:any;
+  year=[];
   toggleMenu() {
     this.menuCtrl.toggle(); //Add this method to your button click function
   }
 
   SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+
+  //SERVER_ADDRESS:  string  =  'http://localhost:5000';
 
   backgroundColorsito = [ '#dc6900', '#ffb600', '#a32020',"#ABA591","#D62E1C",'#602320', "#FFCF48", "#EB8C00","#CBC6B7","#736B53","#F7D5D5","#E16767","#602320","#F09B92","#3D0C0C","#857C60","#FFC571","#B23F02","#FEB791","#933401","#FFB600","#A37400","#E2AAA7","#AA2417","#CF736E","#741910","#CBC6B7","#615A46","#D04A02","#FD9359","#752A01","#FFDCA9","#EB8C00","#FFC83D","#0A4E7B","#B6CAD7","#05355E","#85A7BD","#094773","#B4AD97","#634A8F","#D0C9DD","#473272","#B1A5C7","#855F00","#E0A000","#66BB6A","#D1EBD2","#38963C","#B3DDB5","#714300","#CC7A00","#D93954","#FDD7DE","#7F182D","#EEA8B6","#491B18","#C14A44"]; 
 
@@ -68,12 +71,8 @@ export class dashboardEstadisticasPage implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.llenadoGraficaMes();
-    this.llenadoGraficaDispositivo();
-    this.llenadoGraficaModulo();
-    this.llenadoGraficaMesDispositivo();
-    this.llenadoGraficaMesModulo();
-    this.llenadoGraficaAño();
+    this.getYearSelect();
+    
   }
 
 
@@ -120,9 +119,9 @@ export class dashboardEstadisticasPage implements OnInit {
   }
 
 
-  public llenadoGraficaMes()
+  public llenadoGraficaMes(year)
   {
-    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaMes` ).subscribe(
+    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaMes/${year}` ).subscribe(
       (res:any)=>{
 
         if((res!= null) && (res[0] != null)){
@@ -156,9 +155,9 @@ export class dashboardEstadisticasPage implements OnInit {
   }
 
 
-  public llenadoGraficaDispositivo()
+  public llenadoGraficaDispositivo(year)
   {
-    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaDispositivo` ).subscribe(
+    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaDispositivo/${year}` ).subscribe(
       (res:any)=>{
 
         if((res!= null) && (res[0] != null)){
@@ -193,9 +192,9 @@ export class dashboardEstadisticasPage implements OnInit {
 
 
 
-  public llenadoGraficaModulo()
+  public llenadoGraficaModulo(year)
   {
-    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaModulo` ).subscribe(
+    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaModulo/${year}` ).subscribe(
       (res:any)=>{
 
         if((res!= null) && (res[0] != null)){
@@ -228,9 +227,9 @@ export class dashboardEstadisticasPage implements OnInit {
 
   }
 
-  public llenadoGraficaMesModulo()
+  public llenadoGraficaMesModulo(year)
   {
-    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaMesModulo` ).subscribe(
+    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaMesModulo/${year}` ).subscribe(
       (res:any)=>{
 
         if((res!= null) && (res[0] != null)){
@@ -298,9 +297,9 @@ export class dashboardEstadisticasPage implements OnInit {
 
   }
 
-  public llenadoGraficaMesDispositivo()
+  public llenadoGraficaMesDispositivo(year)
   {
-    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaMesDispositivo` ).subscribe(
+    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaMesDispositivo/${year}` ).subscribe(
       (res:any)=>{
 
         if((res!= null) && (res[0] != null)){
@@ -356,9 +355,9 @@ export class dashboardEstadisticasPage implements OnInit {
 
   }
 
-  public llenadoGraficaAño()
+  public llenadoGraficaAño(year)
   {
-    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaYear` ).subscribe(
+    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/graficaYear/${year}` ).subscribe(
       (res:any)=>{
 
         if((res!= null) && (res[0] != null)){
@@ -391,5 +390,20 @@ export class dashboardEstadisticasPage implements OnInit {
 
   }
 
+  getYearSelect(){
+    this.httpClient.get(`${this.SERVER_ADDRESS}/dashboardEstadisticas/year` ).subscribe(
+
+      (res:any)=>{
+        for(var i=0; i< res.length; i++){
+          this.year.push(res[i].año)
+        }
+        this.llenadoGraficaMes(this.year[this.year.length-1]);
+        this.llenadoGraficaDispositivo(this.year[this.year.length-1]);
+        this.llenadoGraficaModulo(this.year[this.year.length-1]);
+        this.llenadoGraficaMesDispositivo(this.year[this.year.length-1]);
+        this.llenadoGraficaMesModulo(this.year[this.year.length-1]);
+        this.llenadoGraficaAño(this.year[this.year.length-1]);
+      })
+    }
 
 }
