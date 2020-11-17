@@ -404,6 +404,44 @@ export class dashboardEstadisticasPage implements OnInit {
         this.llenadoGraficaMesModulo(this.year[this.year.length-1]);
         this.llenadoGraficaAño(this.year[this.year.length-1]);
       })
+  }
+
+  ValorSelecionado(year){
+    if(this.graficaPorMes){
+      this.graficaPorMes.destroy()
+      this.graficaPorMes.clear;            
     }
+    if(this.graficaPorDispositivo){
+      this.graficaPorDispositivo.destroy()
+      this.graficaPorDispositivo.clear;            
+    }
+
+    if(this.graficaPorModulo){
+      this.graficaPorModulo.destroy()
+      this.graficaPorModulo.clear;            
+    }
+
+    if(this.graficaPorMesDispositivo){
+      this.graficaPorMesDispositivo.destroy()
+      this.graficaPorMesDispositivo.clear;            
+    }
+
+    if(this.graficaPorMesModulo){
+      this.graficaPorMesModulo.destroy()
+      this.graficaPorMesModulo.clear;            
+    }
+
+    if(this.graficaPorAño){
+      this.graficaPorAño.destroy()
+      this.graficaPorAño.clear;            
+    }
+    this.llenadoGraficaMes(year);
+    this.llenadoGraficaDispositivo(year);
+    this.llenadoGraficaModulo(year);
+    this.llenadoGraficaMesDispositivo(year);
+    this.llenadoGraficaMesModulo(year);
+    this.llenadoGraficaAño(year);
+
+  }
 
 }
