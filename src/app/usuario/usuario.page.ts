@@ -71,7 +71,7 @@ export class UsuarioPage implements OnInit {
           this.prueba=true
         }
         else{
-          this.authService.emitChange('Data from child');
+          this.authService.emitChange('logout');
           this.router.navigateByUrl('/es/home');
         }
       })  

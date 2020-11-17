@@ -4,6 +4,7 @@ import { AuthService } from '../auth/auth.service';
 import {HttpClient} from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'chart.js';
+import { Router } from  "@angular/router";
 
 @Component({
   selector: 'app-dashboard-estadisticas',
@@ -33,7 +34,8 @@ export class dashboardEstadisticasPage implements OnInit {
   @ViewChild('graficaPorAño', { static: false }) BarrasgraficaPorAño!: ElementRef<HTMLCanvasElement>;
   graficaPorAño!: Chart;
 
-  constructor( public menuCtrl: MenuController , private  authService:  AuthService, private httpClient:HttpClient, private modalService: NgbModal) 
+  constructor( public menuCtrl: MenuController , private  authService:  AuthService, 
+    private httpClient:HttpClient, private modalService: NgbModal,private  router:  Router) 
   {
   }
   prueba:any;
@@ -60,14 +62,19 @@ export class dashboardEstadisticasPage implements OnInit {
   }
 
   logout(){
-    this.authService.logout() 
-    this.authService.storage.get("ACCESS_TOKEN").then(
+    this.authService.logout().then( res=>{
+      this.authService.storage.get("ACCESS_TOKEN").then(
       (res:any)=>{
         if(res)
           this.prueba=true
-        else
-          this.prueba=false
+        else{
+          this.authService.emitChange('logout');
+          this.router.navigateByUrl('/es/home');
+        }
       })
+    
+    }) 
+    
   }
 
   ngAfterViewInit() {

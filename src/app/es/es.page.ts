@@ -56,27 +56,34 @@ export class EsPage implements OnInit {
     icon: 'person'
   },
   {
+    title: 'Estadisticas',
+    url: '/es/dashboardEstadisticas',
+    icon: 'stats'
+  },
+  {
     title: 'Salir',
-    url: '/es/login',
+    url: '/es/home',
     icon: 'log-in',
     onEnter: function(){
-      this.authService.logout() 
-      this.authService.storage.get("LOGIN_ESTATUS").then(
-        (res:any)=>{
-          if(res)
-            this.prueba=true
-          else
-            this.prueba=false
-        })
+      this.authService.logout().then(res=>{
+        this.authService.storage.get("LOGIN_ESTATUS").then(
+          (res:any)=>{
+            if(res)
+              this.prueba=true
+            else
+              this.prueba=false
+          })
 
+      }) 
+      
     }
   }
 
   ];
 
-/////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////
 
-sinUsuario = [
+  sinUsuario = [
   {
     title: '¿Quienes somos?',
     url: '/es/quienes-somos',
@@ -105,14 +112,15 @@ sinUsuario = [
     url: '/es/login',
     icon: 'log-in',
     onEnter: function(){
-      this.authService.logout() 
-      this.authService.storage.get("LOGIN_ESTATUS").then(
-        (res:any)=>{
-          if(res)
-            this.prueba=true
-          else
-            this.prueba=false
-        })
+      this.authService.logout().then(res=>{ 
+        this.authService.storage.get("LOGIN_ESTATUS").then(
+          (res:any)=>{
+            if(res)
+              this.prueba=true
+            else
+              this.prueba=false
+          })
+      })
 
     }
   }

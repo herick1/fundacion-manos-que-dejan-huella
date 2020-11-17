@@ -138,7 +138,7 @@ path: '',
        path: '',
        loadChildren: '../dashboard-estadisticas/dashboard-estadisticas.module#dashboardEstadisticasPageModule'
      }
-     ]
+     ],canActivate: [AuthGuard]
    },
    {
      path: '',

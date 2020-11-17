@@ -5,7 +5,7 @@ import { AuthService } from '../auth/auth.service';
 import { TranzabilidadService } from '../services/tranzabilidad.service';
 import { Router } from  "@angular/router";
 import { ActivatedRoute } from '@angular/router';
-import {ViewChild, ElementRef} from '@angular/core';
+import {ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef,} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient , HttpHeaders} from  '@angular/common/http';
 
@@ -13,6 +13,7 @@ import { HttpClient , HttpHeaders} from  '@angular/common/http';
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 
@@ -58,12 +59,18 @@ export class HomePage implements OnInit {
 
   constructor(private platform: Platform, public menuCtrl: MenuController,private activatedRoute: ActivatedRoute, 
     private  httpClient:  HttpClient, private modalService: NgbModal, private  authService:  AuthService,
-    private  router:  Router, private tranzabilidadService:TranzabilidadService) 
+    private  router:  Router, private tranzabilidadService:TranzabilidadService, private cdRef:ChangeDetectorRef) 
   {
     //maneja el evento al iniciar sesion para actualizar el menu en home
     this.authService.changeEmitted$.subscribe(
       text => {
-        this.prueba=true;
+        if(text=='login'){
+          this.prueba=true;
+        }
+        else{
+          this.prueba=false;
+        }
+        this.cdRef.detectChanges();
       });
     if (this.platform.is('cordova')){
       this.slidershome.push(
