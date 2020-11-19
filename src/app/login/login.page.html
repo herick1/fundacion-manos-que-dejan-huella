@@ -68,45 +68,105 @@
   <div class="wrapper">
     <div class="page-header" style="background-image: url('./assets/img/login.jpg');">
       <div class="filter"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
-                        <div class="card card-register card-login card-plain">
-                        <h3 class="title text-center">Bienvenido</h3>
-                   <form class="form-register" method="" action="">
-                    <div class="content">
-                      <label>
-                        Correo Electronico
-                      </label>
-                      <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus===true}">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <ion-icon class="ion-icon-login"name="person"></ion-icon></span>
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
+                <div class="card card-register card-login card-plain">
+                    <h3 class="title text-center">Bienvenido</h3>
+                    <form class="form-register" method="" action="">
+                        <div class="content">
+                          <label>
+                            Correo electronico
+                        </label>
+                        <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus===true}">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <ion-icon class="ion-icon-login"name="person"></ion-icon></span>
+                            </div>
+                            <input #correo correo.value="" id="campo-correo" type="email" class="form-control" placeholder="Correo electronico..." >
                         </div>
-                          <input #correo correo.value="" id="campo-correo" type="email" class="form-control" placeholder="correo..." >
-                      </div>
-                      <label>
-                        Contraseña
-                      </label>
-                      <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus1===true}">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><ion-icon class="ion-icon-login"name="unlock"></ion-icon></span>
+                        <label>
+                            Contraseña
+                        </label>
+                        <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus1===true}">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><ion-icon class="ion-icon-login"name="unlock"></ion-icon></span>
+                            </div>
+                            <input #clave clave.value="" id="campo-clave" type="password" placeholder="contraseña..." class="form-control" onkeypress="if (event.keyCode == 13) {document.getElementById('boton').click(); return false; }">
                         </div>
-                          <input #clave clave.value="" id="campo-clave" type="password" placeholder="contraseña..." class="form-control" onkeypress="if (event.keyCode == 13) {document.getElementById('boton').click(); return false; }">
-                      </div>
                     </div>
 
                 </form>
                 <button class="btn btn-danger btn-block btn-round" id ="boton" (click)="login(correo.value, clave.value)" 
                 type="submit" >Iniciar sesión</button>
-                          <div class="forgot">
-                            {{mensajeError}}
-                              <a href="/es/login#" (click)="recuperarClave(correo.value)" class="btn btn-link btn-danger">Recuperar contraseña?</a>
-                          </div>
+                <div class="forgot">
+                    {{mensajeError}}
+                    <a href="/es/login#" (click)="AbrirModalRecuperarClave(correo.value)" class="btn btn-link btn-danger">Recuperar contraseña?</a>
+                </div> <!--recuperarClave(correo.value) -->
             </div>
-                    </div>
-                </div>
-              
-            </div>
+        </div>
     </div>
+
 </div>
+</div>
+</div>
+
+
+<ng-template #modalRecuperarClave let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Recuperación de contraseña</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label><b>Correo electronico</b></label>
+          <input #correoRecuperar correoRecuperar.value="" [(ngModel)]="correoRecuperarModel"  type="email" class="form-control input-lg" placeholder="Correo electronico..." >
+      </div>
+  </div>
+  <div class="modal-footer padding-foter">
+    <button class="btn btn-danger" type="submit" (click)="recuperarClave(correoRecuperar.value)">Recuperar</button>    
+    <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
+</div>
+</ng-template> 
+
+<ng-template #modalExito let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Exito en la transacción</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body modal-centered">
+        <div align="center">
+            La transacción se ha realizado con exito
+            <br>
+            <img  src="assets/gif/check_animado_correcto.gif"  style="max-height: 200px">
+        </div>
+    </div>
+    <div class="modal-footer padding-foter">
+        <button class="btn btn-outline-success" type="submit" (click)="modal.dismiss('Cross click')"> Aceptar</button>    
+        <button type="button" class="btn btn-outline-warning" (click)="modal.dismiss('Cross click')">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #modalFracaso let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Ups ocurrieron algunos errores</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body modal-centered">
+        <div align="center">
+            <div *ngFor="let item of errores; let indice=index"  class="alert alert-danger">
+                <strong>Oh!</strong> {{item}}
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer padding-foter">  
+        <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
+    </div>
+</ng-template>
+
 </ion-content>

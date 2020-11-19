@@ -108,7 +108,7 @@ app.get("/evento", urlencodedParser, (req, res) => {
     ssl: true,
   });
   client.connect();
-  client.query('SELECT * FROM EVENTO;'
+  client.query('SELECT * FROM eventos_all();'
     , (err, response) => {
       if (err) throw err;
       res.json(response.rows)
@@ -423,7 +423,7 @@ app.get('/usuario', urlencodedParser, (req, res) => {
   client.connect();
   client.query(query
     , (err, response) => {
-      console.log("EEEEEEEEEERRORR"+err)
+      console.log("ERROR"+err)
       res.status(200).send(response.rows);
       client.end();
     });

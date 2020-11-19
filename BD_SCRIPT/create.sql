@@ -41,6 +41,14 @@ CREATE TABLE USU_EVE(
   CONSTRAINT FOREIGN_USU_EVE_EVE FOREIGN KEY (USU_EVE_FK_EVE_ID) REFERENCES EVENTO(EVE_ID)
 );
 
+--obtener todos los eventos
+CREATE or replace FUNCTION eventos_all() RETURNS table(id int, nombre VARCHAR(100), fecha_inicio date, fecha_fin date, descripcion varchar(300), direccion varchar(200)) AS $$
+ set lc_time='es_ES.UTF-8';
+  SELECT * FROM evento
+
+$$ LANGUAGE SQL; 
+ 
+ 
 CREATE TABLE notificaciones(
 NOT_ID serial,
 endpoint VARCHAR(400) UNIQUE,

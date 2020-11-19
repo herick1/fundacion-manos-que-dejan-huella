@@ -87,15 +87,6 @@ path: '',
      ], canActivate: [LoginGuard]
    },
    {
-     path: 'login2',
-     children: [
-     {
-       path: '',
-       loadChildren:  '../auth/login/login.module#LoginPageModule' 
-     }
-     ]
-   },
-   {
      path: 'layout',
      children: [
      {
@@ -130,6 +121,15 @@ path: '',
        loadChildren: '../usuario/usuario.module#UsuarioPageModule'
      }
      ],canActivate: [AuthGuard]
+   },
+   {
+     path: 'eventos',
+     children: [
+     {
+       path: '',
+       loadChildren: '../eventos/eventos.module#EventosPageModule'
+     }
+     ]
    },
    {
      path: 'dashboardEstadisticas',

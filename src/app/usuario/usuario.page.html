@@ -294,27 +294,27 @@
 
 
 
-
-    <div class="modal fade" id="exito" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Se a  exitosamente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body" style="font-weight: normal;">
-                La transaccion a exitosamente
-                <br>
-                <!--img  src="{{asset('check_animado_correcto.gif')}}" style="max-height: 200px"-->
-              </div>
-              <div class="modal-footer padding-foter">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">ok</button>
-              </div>
-            </div>
+  
+<ng-template #modalExito let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Exito en la transacción</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body modal-centered">
+        <div align="center">
+            La transacción se ha realizado con exito
+            <br>
+            <img  src="assets/gif/check_animado_correcto.gif"  style="max-height: 200px">
         </div>
     </div>
+    <div class="modal-footer padding-foter">
+        <button class="btn btn-outline-success" type="submit" (click)="modal.dismiss('Cross click')"> Aceptar</button>    
+        <button type="button" class="btn btn-outline-warning" (click)="modal.dismiss('Cross click')">Cerrar</button>
+    </div>
+</ng-template>
+
 
     <div class="modal fade" id="errores" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

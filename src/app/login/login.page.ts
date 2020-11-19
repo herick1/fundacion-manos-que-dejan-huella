@@ -1,9 +1,10 @@
-import { Component, OnInit, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, AfterViewInit,ViewChild, ElementRef } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Router } from  "@angular/router";
 import { AuthService } from '../auth/auth.service';
 import {HttpClient} from '@angular/common/http';
 import { TranzabilidadService } from '../services/tranzabilidad.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -17,12 +18,18 @@ export class LoginPage implements OnInit {
   focus1:any;
   prueba:any;
   mensajeError:any;
+  errores=[]
+
+  @ViewChild("modalRecuperarClave", {static:true}) modalRecuperarClave: ElementRef;
+  @ViewChild("modalExito", {static:true}) modalExito: ElementRef;
+  @ViewChild("modalFracaso", {static:true}) modalFracaso: ElementRef;
+
   constructor( public menuCtrl: MenuController, private http:HttpClient, private  authService:  AuthService,
-   private  router:  Router, private tranzabilidadService:TranzabilidadService) { 
+    private  router:  Router, private tranzabilidadService:TranzabilidadService, private modalService: NgbModal) { 
   }
   
   ngOnInit() {
-    
+
 
   }
 
@@ -61,10 +68,25 @@ export class LoginPage implements OnInit {
     );
   }
 
+  AbrirModalRecuperarClave(email){
+    console.log(email)
+    this.correoRecuperarModel=email;
+    this.modalService.open(this.modalRecuperarClave,{centered:true});
+  }
+  correoRecuperarModel=""
   recuperarClave(correo){
     this.authService.recuperarClave(correo).toPromise().then((res)=>{
+      this.modalService.dismissAll();  
+      this.modalService.open(this.modalExito,{centered:true});
+    }).catch(
+    (error)=>{
+      this.errores=[];
+      this.modalService.dismissAll();
+      this.errores.push("ocurrio un error en el servidor")
+      this.modalService.open(this.modalFracaso,{centered:true});
+    }
 
-    });
+    );
 
   }
 
