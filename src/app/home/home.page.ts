@@ -79,7 +79,7 @@ export class HomePage implements OnInit {
         href: "/es/home#",
         label: '¿Cuales son nuestras areas de Intervención?',
         text:
-        'siempre tratando de ayudar y crecer a nuestra Venezuela'
+        'Siempre tratando de ayudar y crecer a nuestra Venezuela'
       },
       {
         imagePath: 'assets/gif/gif-phone.gif',
