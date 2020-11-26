@@ -113,7 +113,7 @@ app.get('/download', function(req, res){
 //GET
 app.get("/evento", urlencodedParser, (req, res) => {
   var client = new Client({
-    connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   client.connect();
@@ -140,7 +140,7 @@ app.post("/evento/crear", (req, res) => {
 
 let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
 var client = new Client({
-  connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+  connectionString: process.env.DATABASE_URL+'?ssl=true',
   ssl: true,
 });
 client.connect();
@@ -160,7 +160,7 @@ app.put("/evento/actualizar", urlencodedParser, (req, res) => {
   let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
   
   var client = new Client({
-    connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
 
@@ -179,7 +179,7 @@ app.delete("/evento/eliminar/:id", urlencodedParser, (req, res) => {
   let id = req.params.id;
 console.log(id)
   var client = new Client({
-    connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
 
@@ -296,7 +296,7 @@ app.post("/notificacion", urlencodedParser, (req, res) => {
 //autenticacion
 const  findUserByEmail  = (email, cb) => {
   var client = new Client({
-    connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   let query= "SELECT * FROM usuario WHERE usu_email ='"+email+"'"
@@ -409,7 +409,7 @@ app.post('/recuperarContraseña', (req, res) => {
 
 app.get('/usuario', urlencodedParser, (req, res) => {
   var client = new Client({
-    connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   let query= "Select usu_nombre as nombre, usu_apellido as apellido, usu_email as email, usu_username username, usu_id as id from usuario; "
@@ -428,7 +428,7 @@ app.get('/usuario', urlencodedParser, (req, res) => {
 
 const  createUser  = (user, cb) => {
   var client = new Client({
-    connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   let query= `INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password, usu_username) values('${user[0]}','${user[1]}','${user[2]}','${user[3]}','${user[4]}');`
@@ -472,7 +472,7 @@ app.put('/usuario/:id', (req, res) => {
   const apellido = req.body.apellido
   const username= req.body.username;
   var client = new Client({
-    connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   client.connect();
@@ -491,7 +491,7 @@ app.put('/usuario/:id', (req, res) => {
 
 app.delete('/usuario/:id', (req, res) => {
   var client = new Client({
-    connectionString: 'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   client.connect();
