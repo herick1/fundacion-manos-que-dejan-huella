@@ -39,16 +39,17 @@ export class UsuarioPage implements OnInit {
   prueba:any;
   //variable con todas las partidas en el front 
   usuarios = []
+  errores=[];
 
   idSeleccionada = 0;
   nombreSelecionado="";
   apellidoSeleccionado ="";
   emailSelecionado="";
-  usernameSeleccioando="";
+  usernameSeleccionado="";
   passwordSeleccioando="";
 
-  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
-  
+  //SERVER_ADDRESS:  string  =  'http://localhost:5000';
+  SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   ngOnInit() {
     
   }
@@ -80,11 +81,12 @@ export class UsuarioPage implements OnInit {
   
   //funcion para obtener los usuarios
   getUsuario() {
-    this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/usuario`).subscribe( 
+    this.httpClient.get(`${this.SERVER_ADDRESS}/usuario`).subscribe( 
       //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
       (response: any)=>{    
         console.log(response)
         if(response)
+          this.tablaOriginal=response;
           this.usuarios = response;
       }
       );
@@ -98,7 +100,7 @@ export class UsuarioPage implements OnInit {
         this.nombreSelecionado= this.usuarios[i].nombre;
         this.apellidoSeleccionado = this.usuarios[i].apellido;
         this.emailSelecionado= this.usuarios[i].email;
-        this.usernameSeleccioando=this.usuarios[i].username;
+        this.usernameSeleccionado=this.usuarios[i].username;
         this.passwordSeleccioando= this.usuarios[i].password; 			
       }
     }
@@ -110,7 +112,7 @@ export class UsuarioPage implements OnInit {
     this.nombreSelecionado= nombre;
     this.apellidoSeleccionado = apellido;
     this.emailSelecionado= email;
-    this.usernameSeleccioando= username;
+    this.usernameSeleccionado= username;
     this.passwordSeleccioando= password;
     this.modalService.open(this.modalConfirmarActualizar,{centered:true});
   }
@@ -122,20 +124,27 @@ export class UsuarioPage implements OnInit {
       this.nombreSelecionado+ " " +
       this.apellidoSeleccionado+ " " +
       this.emailSelecionado+ " " +
-      this.usernameSeleccioando+ " " +
+      this.usernameSeleccionado+ " " +
       this.passwordSeleccioando+ " " 
       );
     let user={
       "nombre": this.nombreSelecionado,
       "apellido":this.apellidoSeleccionado,
       "email":this.emailSelecionado,
-      "username":this.usernameSeleccioando,
+      "username":this.usernameSeleccionado,
       "password":this.passwordSeleccioando
     }
-    this.httpClient.put(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,user,options).subscribe(res=>{
+    this.httpClient.put(`${this.SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,user,options).toPromise().then(res=>{
       this.getUsuario()
       this.modalService.dismissAll();	
-    })
+      this.modalService.open(this.modalExito,{centered:true});
+    }).catch(
+    (err)=>{
+      this.errores=[]
+      this.errores.push("Ups ocurrio un error")
+      this.modalService.open(this.modalFracaso,{centered:true});
+    }
+    );
 
 
   }
@@ -147,11 +156,17 @@ export class UsuarioPage implements OnInit {
   }
 
   eliminar(){
-    console.log("EEEEEEEEEEEEEEEEEEEEEEEELIMINNNN> "+this.idSeleccionada)
-    this.httpClient.delete(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,options).subscribe(res=>{
+    this.httpClient.delete(`${this.SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,options).toPromise().then(res=>{
       this.getUsuario()
-      this.modalService.dismissAll();   
-    })
+      this.modalService.dismissAll(); 
+      this.modalService.open(this.modalExito,{centered:true});  
+    }).catch(
+    (err)=>{
+      this.errores=[]
+      this.errores.push("Ups ocurrio un error")
+      this.modalService.open(this.modalFracaso,{centered:true});
+    }
+    );
 
   }
 
@@ -162,7 +177,7 @@ export class UsuarioPage implements OnInit {
         this.nombreSelecionado= this.usuarios[i].nombre;
         this.apellidoSeleccionado = this.usuarios[i].apellido;
         this.emailSelecionado= this.usuarios[i].email;
-        this.usernameSeleccioando=this.usuarios[i].username;
+        this.usernameSeleccionado=this.usuarios[i].username;
         this.passwordSeleccioando= this.usuarios[i].password; 			
       }
     }
@@ -180,29 +195,26 @@ export class UsuarioPage implements OnInit {
     this.nombreSelecionado= nombre;
     this.apellidoSeleccionado = apellido;
     this.emailSelecionado= email;
-    this.usernameSeleccioando= username;
+    this.usernameSeleccionado= username;
     this.passwordSeleccioando= password;
     this.modalService.open(this.modalConfirmarCrear,{centered:true});
   }
 
   //funcion para que haga el actualizar bien y haga la peticion al backend para actualizar
   Crear(){
-  	console.log(
-  		" AJA" +
-      this.nombreSelecionado+ " " +
-      this.apellidoSeleccionado+ " " +
-      this.emailSelecionado+ " " +
-      this.usernameSeleccioando+ " " +
-      this.passwordSeleccioando+ " " 
-      );
-    let userss={"email":this.emailSelecionado , "password":this.passwordSeleccioando, id:0, name:this.nombreSelecionado, apellido:this.apellidoSeleccionado}
+    let userss={"email":this.emailSelecionado , "password":this.passwordSeleccioando, id:0, 
+    name:this.nombreSelecionado, apellido:this.apellidoSeleccionado, username:this.usernameSeleccionado}
+    console.log(userss)
     this.authService.register(userss).toPromise().then((res)=>{
       this.modalService.dismissAll();	
       this.getUsuario()
+      this.modalService.open(this.modalExito,{centered:true});
     }
     ).catch(
     (err)=>{
-      console.log("ERR"+ err.status)
+      this.errores=[]
+      this.errores.push("Ups ocurrio un error")
+      this.modalService.open(this.modalFracaso,{centered:true});
     }
     );
 
@@ -215,14 +227,28 @@ export class UsuarioPage implements OnInit {
   * @param {any} event
   * @return {void}
   */
+  tablaOriginal=[]
   public showSearchResults(event: any): void {
     if (event.target.value.length > 0) {
-      console.log(event.target.value);
+      this.usuarios=[]
+      for(var i=0; i< this.tablaOriginal.length; i++){
+        if(this.eliminarDiacriticos(this.tablaOriginal[i].nombre).toLowerCase().indexOf(this.eliminarDiacriticos(event.target.value).toLowerCase())>=0 || 
+          this.eliminarDiacriticos(this.tablaOriginal[i].apellido).toLowerCase().indexOf(this.eliminarDiacriticos(event.target.value).toLowerCase())>=0 || 
+          this.eliminarDiacriticos(this.tablaOriginal[i].email).toLowerCase().indexOf(this.eliminarDiacriticos(event.target.value).toLowerCase())>=0 ||
+          this.eliminarDiacriticos(this.tablaOriginal[i].username).toLowerCase().indexOf(this.eliminarDiacriticos(event.target.value).toLowerCase())>=0)
+          this.usuarios.push(this.tablaOriginal[i])
+      }
     }
     if (event.target.value.length == 0) {
-      console.log("se borro todo en el input es decir que hay que traer toda la tabla");
+      this.usuarios=this.tablaOriginal;
     }
   }
 
+  eliminarDiacriticos(texto) {
+    if(texto!=null)
+      return texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+    else
+      return "";
+  }
 
 }

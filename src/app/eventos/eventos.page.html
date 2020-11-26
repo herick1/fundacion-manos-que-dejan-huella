@@ -40,7 +40,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <div >
+            <div *ngIf="prueba==true">
               <a class="nav-link" [routerLinkActive]="['router-link-active']" [routerLink]="['/es/eventos']" >Eventos</a>
             </div>
           </li>
@@ -114,19 +114,24 @@
                           {{item }}
                         </span>
                       </th>
+                      <th>
+                        <span>
+                          Acciones
+                        </span>
+                      </th>
                     </tr>
                   </thead>
                   <tbody style="  text-align: center;">
                    <tr *ngFor="let evento of eventos; let indice=index">
                     <td *ngFor="let itemsito of evento; let indice2=index" >
-                      <a (click)="verUsuario(usuario.id)" >
+                      <a (click)="verUsuario(evento[0])" >
                         {{itemsito }}
                       </a>
                     </td>
                     <td>
-                     <button class="btn btn-outline-warning" type="button" (click)="actualizarUsuario(usuario.id)">Actualizar
+                     <button class="btn btn-outline-warning" type="button" (click)="actualizarEvento(evento[0])">Actualizar
                      </button>
-                     <button class="btn btn-outline-danger"  type="button" (click)="eliminarUsuario(usuario.id)" data-toggle="modal" data-target="#eliminarModal">Eliminar
+                     <button class="btn btn-outline-danger"  type="button" (click)="eliminarEvento(evento[0])" data-toggle="modal" data-target="#eliminarModal">Eliminar
                      </button>
                    </td>
                  </tr>
@@ -177,24 +182,28 @@
       <input #nombre value="{{nombreSelecionado}}" type="text" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">
-      <label><b>Apellido(s)</b></label>
-      <input #apellido value="{{apellidoSeleccionado}}" type="text" class="form-control input-lg" placeholder="" >
+      <label><b>Fecha inicio</b></label>
+      <input #fechaIni value="{{fechainicioSeleccionado}}" type="date" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">  
-      <label><b>Email</b></label>
-      <input #email value="{{emailSelecionado}}"  type="email" class="form-control input-lg" placeholder="" >
+      <label><b>Fecha fin</b></label>
+      <input #fechaFin value="{{fechaFinSeleccionado}}"  type="date" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">  
-      <label><b>Username</b></label>
-      <input #username value="{{usernameSeleccioando}}"  type="text" class="form-control input-lg" placeholder="" >
+      <label><b>Dirección</b></label>
+      <input #direccion value="{{direccionSeleccionado}}"  type="text" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">  
-      <label><b>Nueva contraseña</b></label>
-      <input #password value=""  type="password" class="form-control input-lg" placeholder="" >
+      <label><b>Descripción</b></label>
+      <input #descripcion value="{{descripcionSeleccionado}}"  type="text" class="form-control input-lg" placeholder="" >
+    </div>
+    <div class="form-group">  
+      <label><b>Imagen</b></label>
+      <input #imagen type="button" name="foo" type="file"  (change)="onFileChange($event)">
     </div>
   </div>
   <div class="modal-footer padding-foter">
-   <button class="btn btn-danger" type="submit" (click)="confirmarActualizar(nombre.value, apellido.value, email.value, username.value, password.value)">Actualizar</button>    
+   <button class="btn btn-danger" type="submit" (click)="confirmarActualizar(nombre.value, fechaIni.value, fechaFin.value, direccion.value, descripcion.value)">Actualizar</button>    
    <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
  </div>
 </ng-template> 
@@ -225,9 +234,11 @@
   </div>
   <div class="modal-body">
     <strong>Nombre(s):&nbsp;</strong> <i>{{nombreSelecionado}}</i><br>
-    <strong>Apellido(s): &nbsp;</strong> <i>{{apellidoSeleccionado}}</i><br>
-    <strong>Username:&nbsp;</strong> <i>{{usernameSeleccioando}}</i><br>
-    <strong>Email: &nbsp;</strong> <i>{{emailSelecionado }}</i><br>
+    <strong>Fecha inicio: &nbsp;</strong> <i>{{fechainicioSeleccionado}}</i><br>
+    <strong>Fecha fin:&nbsp;</strong> <i>{{fechaFinSeleccionado}}</i><br>
+    <strong>Dirección: &nbsp;</strong> <i>{{direccionSeleccionado }}</i><br>
+    <strong>Descripción: &nbsp;</strong> <i>{{descripcionSeleccionado }}</i><br>
+    
     <br>
     <br>
   </div>
@@ -246,28 +257,33 @@
   </div>
   <div class="modal-body">
     <div class="form-group">
-      <label><b>Nombre</b></label>
-      <input #nombre  type="text" class="form-control input-lg" placeholder="Ingrese su nombres" >
+      <label><b>Nombre</b></label>     
+      <input #nombre  type="text" class="form-control input-lg" placeholder="Ingrese el nombre del evento..." >
     </div>
     <div class="form-group">
-      <label><b>Apellido(s)</b></label>
-      <input #apellido value="" type="text" class="form-control input-lg" placeholder="Ingrese su apellidos" >
+      <label><b>Fecha inicio</b></label>
+      <input #fecha_inicio value="" type="date" class="form-control input-lg" placeholder="Ingrese la fecha de inicio..." >
     </div>
     <div class="form-group">  
-      <label><b>Email</b></label>
-      <input #email value=""  type="email" class="form-control input-lg" placeholder=" Ingrese su email" >
+      <label><b>Fecha fin</b></label>
+      <input #fecha_fin value=""  type="date" class="form-control input-lg" placeholder=" Ingrese la fecha fin..." >
     </div>
     <div class="form-group">  
-      <label><b>Username</b></label>
-      <input #username value="{{usernameSeleccioando}}"  type="text" class="form-control input-lg" placeholder="Ingrese su usuario" >
+      <label><b>Dirección</b></label>
+      <input #direccion value=""  type="text" class="form-control input-lg" placeholder="Ingrese la dirección..." >
     </div>
     <div class="form-group">  
-      <label><b>Contraseña</b></label>
-      <input #password value=""  type="password" class="form-control input-lg" placeholder=" Ingrese su contraseña" >
+      <label><b>Descripción</b></label>
+      <input #descripcion value=""  type="text" class="form-control input-lg" placeholder=" Ingrese la descripción..." >
     </div>
+    <div class="form-group">  
+      <label><b>Imagen</b></label>
+      <input #imagen type="button" name="foo" type="file"  (change)="onFileChange($event)">
+    </div>
+
   </div>
   <div class="modal-footer padding-foter">
-   <button class="btn btn-danger" type="submit" (click)="confirmarCrear(nombre.value, apellido.value, email.value, username.value, password.value)">Crear</button>    
+   <button class="btn btn-danger" type="submit" (click)="confirmarCrear(nombre.value, fecha_inicio.value, fecha_fin.value, direccion.value, descripcion.value)">Crear</button>    
    <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
  </div>
 </ng-template> 
@@ -288,7 +304,44 @@
  </div>
 </ng-template> 
 
+<ng-template #modalFracaso let-modal >
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Ups ocurrieron algunos errores</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modal-centered">
+    <div align="center">
+      <div *ngFor="let item of errores; let indice=index"  class="alert alert-danger">
+        <strong>Oh!</strong> {{item}}
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer padding-foter">  
+    <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
+  </div>
+</ng-template>
 
+<ng-template #modalExito let-modal >
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Exito en la transacción</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modal-centered">
+    <div align="center">
+      La transacción se ha realizado con exito
+      <br>
+      <img  src="assets/gif/check_animado_correcto.gif"  style="max-height: 200px">
+    </div>
+  </div>
+  <div class="modal-footer padding-foter">
+    <button class="btn btn-outline-success" type="submit" (click)="modal.dismiss('Cross click')"> Aceptar</button>    
+    <button type="button" class="btn btn-outline-warning" (click)="modal.dismiss('Cross click')">Cerrar</button>
+  </div>
+</ng-template>
 
 
 <div class="modal fade" id="exito" tabindex="-1" role="dialog" aria-hidden="true">

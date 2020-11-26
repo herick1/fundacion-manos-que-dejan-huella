@@ -42,15 +42,16 @@ export class EventosPage implements OnInit {
 
   idSeleccionada = 0;
   nombreSelecionado="";
-  apellidoSeleccionado ="";
-  emailSelecionado="";
-  usernameSeleccioando="";
-  passwordSeleccioando="";
+  fechainicioSeleccionado ="";
+  fechaFinSeleccionado="";
+  descripcionSeleccionado="";
+  direccionSeleccionado="";
 
-  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
-  
+  //SERVER_ADDRESS:  string  =  'http://localhost:5000';
+   SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   ngOnInit() {
-
+    // this.errores.push("jajajja")
+    //this.modalService.open(this.modalFracaso,{centered:true});
   }
   ngAfterViewInit(){
     this.tranzabilidadService.EnviarTranzabilidad("Usuario")
@@ -83,7 +84,7 @@ export class EventosPage implements OnInit {
   getEvento() {
     this.eventos=[]
     this.headerEventos=[]
-    this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/evento`).subscribe( 
+    this.httpClient.get(`${this.SERVER_ADDRESS}/evento`).subscribe( 
       //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
       (response: any)=>{    
         this.headerEventos= Object.keys(response[0]);
@@ -95,73 +96,79 @@ export class EventosPage implements OnInit {
         {
           this.eventos.push(Object.values(response[i]));
         }
+        this.tablaOriginal=this.eventos
       }
       );
   }
 
   //funcion para llenar el formulario de actualizar
-  actualizarUsuario(id){
+  actualizarEvento(id){
+    console.log(id)
     this.idSeleccionada= id;
+    console.log( this.eventos)
     for(var i=0;i < this.eventos.length; i++){
-      if(id == this.eventos[i].id){
-        this.nombreSelecionado= this.eventos[i].nombre;
-        this.apellidoSeleccionado = this.eventos[i].apellido;
-        this.emailSelecionado= this.eventos[i].email;
-        this.usernameSeleccioando=this.eventos[i].username;
-        this.passwordSeleccioando= this.eventos[i].password; 			
+      if(id == this.eventos[i][0]){
+        this.nombreSelecionado= this.eventos[i][1];
+        this.fechainicioSeleccionado = this.eventos[i][2];
+        this.fechaFinSeleccionado= this.eventos[i][3];
+        this.descripcionSeleccionado=this.eventos[i][4];
+        this.direccionSeleccionado= this.eventos[i][5]; 			
       }
     }
     this.modalService.open(this.modalActualizar,{centered:true});
   }
 
   //funcion para que abra el modal de confirmar
-  confirmarActualizar(nombre,apellido, email, username, password){
+  confirmarActualizar(nombre,fecha_inicio, fecha_fin, direccion, descripcion){
     this.nombreSelecionado= nombre;
-    this.apellidoSeleccionado = apellido;
-    this.emailSelecionado= email;
-    this.usernameSeleccioando= username;
-    this.passwordSeleccioando= password;
+    this.fechainicioSeleccionado = fecha_inicio;
+    this.fechaFinSeleccionado= fecha_fin;
+    this.descripcionSeleccionado= direccion;
+    this.direccionSeleccionado= descripcion;
     this.modalService.open(this.modalConfirmarActualizar,{centered:true});
   }
 
   //funcion para que haga el actualizar bien y haga la peticion al backend para actualizar
   Actualizar(){
-  	console.log(
-  		this.idSeleccionada+ " " +
-      this.nombreSelecionado+ " " +
-      this.apellidoSeleccionado+ " " +
-      this.emailSelecionado+ " " +
-      this.usernameSeleccioando+ " " +
-      this.passwordSeleccioando+ " " 
-      );
-    let user={
+    let evento={
       "nombre": this.nombreSelecionado,
-      "apellido":this.apellidoSeleccionado,
-      "email":this.emailSelecionado,
-      "username":this.usernameSeleccioando,
-      "password":this.passwordSeleccioando
+      "fechaini":this.fechainicioSeleccionado,
+      "fechafin":this.fechaFinSeleccionado,
+      "descripcion":this.descripcionSeleccionado,
+      "direccion":this.direccionSeleccionado
     }
-    this.httpClient.put(`${this.AUTH_SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,user,options).subscribe(res=>{
+    this.httpClient.put(`${this.SERVER_ADDRESS}/evento/actualizar/${this.idSeleccionada}`,evento,options).subscribe(res=>{
       this.getEvento()
       this.modalService.dismissAll();	
+      this.modalService.open(this.modalExito,{centered:true});
+    },
+    error => {
+      this.errores=[]
+      this.errores.push(error)
+      this.modalService.open(this.modalFracaso,{centered:true});
     })
 
 
   }
 
   //funcion para abrr el modal de Eventos
-  eliminarEventos(id){
+  eliminarEvento(id){
+    console.log(id)
     this.idSeleccionada= id;
     this.modalService.open(this.modalEliminar,{centered:true});
   }
 
   eliminar(){
-    console.log("EEEEEEEEEEEEEEEEEEEEEEEELIMINNNN> "+this.idSeleccionada)
-    this.httpClient.delete(`${this.AUTH_SERVER_ADDRESS}/eventos/${this.idSeleccionada}`,options).subscribe(res=>{
+    this.httpClient.delete(`${this.SERVER_ADDRESS}/evento/eliminar/${this.idSeleccionada}`,options).subscribe(res=>{
       this.getEvento()
-      this.modalService.dismissAll();   
+      this.modalService.dismissAll();  
+      this.modalService.open(this.modalExito,{centered:true});
+    },
+    error => {
+      this.errores=[]
+      this.errores.push(error)
+      this.modalService.open(this.modalFracaso,{centered:true});
     })
-
   }
 
   verEventos(id){
@@ -169,10 +176,10 @@ export class EventosPage implements OnInit {
     for(var i=0;i < this.eventos.length; i++){
       if(id == this.eventos[i].id){
         this.nombreSelecionado= this.eventos[i].nombre;
-        this.apellidoSeleccionado = this.eventos[i].apellido;
-        this.emailSelecionado= this.eventos[i].email;
-        this.usernameSeleccioando=this.eventos[i].username;
-        this.passwordSeleccioando= this.eventos[i].password; 			
+        this.fechainicioSeleccionado = this.eventos[i].apellido;
+        this.fechaFinSeleccionado= this.eventos[i].email;
+        this.descripcionSeleccionado=this.eventos[i].username;
+        this.direccionSeleccionado= this.eventos[i].password; 			
       }
     }
     this.modalService.open(this.modalVer,{centered:true});
@@ -185,52 +192,106 @@ export class EventosPage implements OnInit {
   }
 
   //funcion para que abra el modal de confirmar
-  confirmarCrear(nombre,apellido, email, username, password){
+  confirmarCrear(nombre,fecha_inicio, fecha_fin, descripcion, direccion){
     this.nombreSelecionado= nombre;
-    this.apellidoSeleccionado = apellido;
-    this.emailSelecionado= email;
-    this.usernameSeleccioando= username;
-    this.passwordSeleccioando= password;
+    this.fechainicioSeleccionado = fecha_inicio;
+    this.fechaFinSeleccionado= fecha_fin;
+    this.descripcionSeleccionado= descripcion;
+    this.direccionSeleccionado= direccion;
     this.modalService.open(this.modalConfirmarCrear,{centered:true});
   }
 
   //funcion para que haga el actualizar bien y haga la peticion al backend para actualizar
-  Crear(){
-  	console.log(
-  		" AJA" +
-      this.nombreSelecionado+ " " +
-      this.apellidoSeleccionado+ " " +
-      this.emailSelecionado+ " " +
-      this.usernameSeleccioando+ " " +
-      this.passwordSeleccioando+ " " 
-      );
-    let userss={"email":this.emailSelecionado , "password":this.passwordSeleccioando, id:0, name:this.nombreSelecionado, apellido:this.apellidoSeleccionado}
-    this.authService.register(userss).toPromise().then((res)=>{
-      this.modalService.dismissAll();	
-      this.getEvento()
-    }
-    ).catch(
-    (err)=>{
-      console.log("ERR"+ err.status)
-    }
-    );
 
+  formularioCrear: FormData;
+  Crear(){
+    this.formularioCrear.append('nombre', this.nombreSelecionado);
+    this.formularioCrear.append('fechaini', this.fechainicioSeleccionado);
+    this.formularioCrear.append('fechafin', this.fechaFinSeleccionado);
+    this.formularioCrear.append('descripcion', this.descripcionSeleccionado);
+    this.formularioCrear.append('direccion', this.direccionSeleccionado);
+
+    this.httpClient.post(`${this.SERVER_ADDRESS}/evento/crear`, this.formularioCrear).subscribe(
+      (res:any )=> {
+        this.modalService.dismissAll();
+        this.modalService.open(this.modalExito,{centered:true})
+        this.getEvento();
+        this.formularioCrear.delete('nombre');
+        this.formularioCrear.delete('fechaini');
+        this.formularioCrear.delete('fechafin');
+        this.formularioCrear.delete('descripcion');
+        this.formularioCrear.delete('direccion');
+      },
+      error => {
+        this.errores=[]
+        this.errores.push(error)
+        this.modalService.open(this.modalFracaso,{centered:true});
+        this.formularioCrear.delete('nombre');
+        this.formularioCrear.delete('fechaini');
+        this.formularioCrear.delete('fechafin');
+        this.formularioCrear.delete('descripcion');
+        this.formularioCrear.delete('direccion');
+        
+      })
 
   }
+  errores=[]
+  onFileChange(evt: any) {
+    var target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length !== 1) throw new Error('Cannot use multiple files')
 
+      let fileList: FileList = target.files;
+    let file = fileList[fileList.length-1]
+    
+    this.formularioCrear = new FormData();
+    this.formularioCrear.append('foo', file, file.name);
+    console.log("llegueeee"+ file.name)
+/*    
+   // this.httpClient.post(`${this.SERVER_ADDRESS}/back/cliente/import`, this.formularioCrear).subscribe(
+   this.httpClient.post(`http://localhost:5000/evento/crear`, this.formularioCrear).subscribe(
+      
+      (res:any )=> {
+        location.reload(true);
+      },
+      error => {
+        this.errores=[]
+        this.errores.push(error.error.message)
+        this.modalService.open(this.modalFracaso,{centered:true});
+        
+      })
+      */    
+    }
 /**
   * Show the search results based in the faqs
   * @function showSearchResults
   * @param {any} event
   * @return {void}
   */
+  tablaOriginal=[]
   public showSearchResults(event: any): void {
     if (event.target.value.length > 0) {
-      console.log(event.target.value);
+      this.eventos=[]
+
+      for(var i=0; i< this.tablaOriginal.length; i++){
+        if(this.tablaOriginal[i][0]==event.target.value ||
+          this.eliminarDiacriticos(this.tablaOriginal[i][1]).toLowerCase().indexOf(this.eliminarDiacriticos(event.target.value).toLowerCase())>=0 || 
+          this.eliminarDiacriticos(this.tablaOriginal[i][2]).toLowerCase().indexOf(this.eliminarDiacriticos(event.target.value).toLowerCase())>=0 || 
+          this.eliminarDiacriticos(this.tablaOriginal[i][3]).toLowerCase().indexOf(this.eliminarDiacriticos(event.target.value).toLowerCase())>=0 ||
+          this.eliminarDiacriticos(this.tablaOriginal[i][4]).toLowerCase().indexOf(this.eliminarDiacriticos(event.target.value).toLowerCase())>=0||
+          this.eliminarDiacriticos(this.tablaOriginal[i][5]).toLowerCase().indexOf(this.eliminarDiacriticos(event.target.value).toLowerCase())>=0)
+          this.eventos.push(this.tablaOriginal[i])
+      }
     }
     if (event.target.value.length == 0) {
-      console.log("se borro todo en el input es decir que hay que traer toda la tabla");
+      this.eventos=this.tablaOriginal;
     }
+  }
+
+  eliminarDiacriticos(texto) {
+    if(texto!=null)
+      return texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+    else
+      return "";
   }
 
 

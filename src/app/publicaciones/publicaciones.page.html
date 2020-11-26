@@ -39,6 +39,11 @@
                             <a class="nav-link" [routerLinkActive]="['router-link-active']" [routerLink]="['/es/dashboardEstadisticas']" >Estadisticas</a>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <div *ngIf="prueba==true">
+                          <a class="nav-link" [routerLinkActive]="['router-link-active']" [routerLink]="['/es/eventos']" >Eventos</a>
+                        </div>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">

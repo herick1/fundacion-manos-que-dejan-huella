@@ -129,7 +129,7 @@ path: '',
        path: '',
        loadChildren: '../eventos/eventos.module#EventosPageModule'
      }
-     ]
+     ],canActivate: [AuthGuard]
    },
    {
      path: 'dashboardEstadisticas',

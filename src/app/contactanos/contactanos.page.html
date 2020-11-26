@@ -39,33 +39,38 @@
                             <a class="nav-link" [routerLinkActive]="['router-link-active']" [routerLink]="['/es/dashboardEstadisticas']" >Estadisticas</a>
                         </div>
                     </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.facebook.com/Dejatuhuella777">
-                            <ion-icon name="logo-facebook" aria-hidden="true"></ion-icon>
-                        </a>
+                        <div *ngIf="prueba==true">
+                          <a class="nav-link" [routerLinkActive]="['router-link-active']" [routerLink]="['/es/eventos']" >Eventos</a>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://twitter.com/dejatushuellas">
-                            <ion-icon name="logo-twitter" aria-hidden="true"></ion-icon>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://www.instagram.com/dejatushuellas">
-                            <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
-                        </a>
-                    </li>
-                    <li class="nav-item" >
-                        <a class="navbar-brand"  [routerLinkActive]="['router-link-active']" [routerLink]="['/es/login']" *ngIf="prueba==false">Entrar</a>
-                        <a class="navbar-brand" (click)="logout()" *ngIf="prueba==true">Salir</a>
-                        
-                    </li>
-                </ul>
-            </div>
+              </ul>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.facebook.com/Dejatuhuella777">
+                        <ion-icon name="logo-facebook" aria-hidden="true"></ion-icon>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://twitter.com/dejatushuellas">
+                        <ion-icon name="logo-twitter" aria-hidden="true"></ion-icon>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.instagram.com/dejatushuellas">
+                        <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
+                    </a>
+                </li>
+                <li class="nav-item" >
+                    <a class="navbar-brand"  [routerLinkActive]="['router-link-active']" [routerLink]="['/es/login']" *ngIf="prueba==false">Entrar</a>
+                    <a class="navbar-brand" (click)="logout()" *ngIf="prueba==true">Salir</a>
 
+                </li>
+            </ul>
         </div>
-    </nav>
+
+    </div>
+</nav>
 </ion-header>
 
 <!-- ********************** Modal de Exito al hacer cliente   ***************************************-->
@@ -93,73 +98,73 @@
 
 
 <ion-content>
-       <div class="section">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto text-center">
-                        <h2 class="title">Contactanos</h2>
-                        <p class="description">Siguenos en nuestras redes sociales o envíanos un correo electronico. De esta forma nos pondremos en contacto contigo.<br/>Recuerda que por estos medios tambien podemos recibir tus donativos o cualquier tipo de colaboración de tu parte</p>
-                    </div>
-                </div>
-                <div class="row justify-content-md-center sharing-area text-center">
-                	<div class="text-center col-md-12 col-lg-8">
-                        <h3 class="title" >Correo electronico</h3>
-                        <h4>manosquedejanhuellas@gmail.com</h4>
-                    </div>
-                </div>
-                <div class="section">
-             	<div class="row">
-                <div class="col-md-8 mr-auto ml-auto">
-                    <h2 class="text-center">Envianos un correo</h2>
-                    <form class="contact-form" #f="ngForm" (ngSubmit)="contactar(f)" >
-                        <div class="row">
-                            <div class="col-md-6">
-                                <ion-label> Nombre </ion-label>
-                                <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text"><i class="nc-icon nc-single-02 icon-cotac"></i></span>
-                                    </div>
-                                    <ion-input #nombre nombre.value="" id="campo-nombre" name="Nombre" type="text" class="form-control" placeholder="nombre"  required ngModel> </ion-input>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <ion-label> Email </ion-label>
-                                <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">  <i class="nc-icon nc-email-85 icon-cotac"></i></span>
-                                    </div>
-                                    <ion-input type="email" #correo  correo.value=""  id="campo-correo" name="Correo"  class="form-control" placeholder="Email" email required ngModel minlength="5"> </ion-input>
-                                </div>
-                            </div>
-                        </div>
-                        <ion-label> Mensaje </ion-label>
-                        <textarea #mensaje mensaje.value=""  name="Mensaje" id="campo-mensaje" class="form-control" rows="4" placeholder="escribe tus pensamientos..." required ngModel></textarea>
-                        <div class="row">
-                            <div class="col-md-4 mr-auto ml-auto">
-                                <button class="btn btn-danger btn-lg btn-fill"
-                                type="submit" [disabled]="!f.form.valid">Enviar Mensaje</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            	</div>
-            	                <div class="row justify-content-md-center sharing-area text-center">
-                    <div class="text-center col-md-12 col-lg-8">
-                        <h3>Gracias por apoyarnos!</h3>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="https://twitter.com/dejatushuellas" class="btn btn-twitter-bg twitter-sharrre btn-round" rel="tooltip" title="Tweet!">
-                             <ion-icon name="logo-twitter"></ion-icon>Twitter
-                        </a>
-                        <a href="https://www.instagram.com/dejatushuellas" class="btn btn-instagram-bg instagram-sharrre btn-round" rel="tooltip" title="Share!">
-                           <ion-icon name="logo-instagram"></ion-icon>Instagram
-                        </a>
-                        <a href="https://www.facebook.com/Dejatuhuella777" class="btn btn-facebook-bg facebook-sharrre btn-round" rel="tooltip" title="Share!">
-                            <ion-icon name="logo-facebook"></ion-icon> Facebook
-                        </a>
-                    </div>
-                </div>
-            	</div>
+ <div class="section">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto text-center">
+                <h2 class="title">Contactanos</h2>
+                <p class="description">Siguenos en nuestras redes sociales o envíanos un correo electronico. De esta forma nos pondremos en contacto contigo.<br/>Recuerda que por estos medios tambien podemos recibir tus donativos o cualquier tipo de colaboración de tu parte</p>
+            </div>
+        </div>
+        <div class="row justify-content-md-center sharing-area text-center">
+           <div class="text-center col-md-12 col-lg-8">
+            <h3 class="title" >Correo electronico</h3>
+            <h4>manosquedejanhuellas@gmail.com</h4>
         </div>
     </div>
+    <div class="section">
+      <div class="row">
+        <div class="col-md-8 mr-auto ml-auto">
+            <h2 class="text-center">Envianos un correo</h2>
+            <form class="contact-form" #f="ngForm" (ngSubmit)="contactar(f)" >
+                <div class="row">
+                    <div class="col-md-6">
+                        <ion-label> Nombre </ion-label>
+                        <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="nc-icon nc-single-02 icon-cotac"></i></span>
+                          </div>
+                          <ion-input #nombre nombre.value="" id="campo-nombre" name="Nombre" type="text" class="form-control" placeholder="nombre"  required ngModel> </ion-input>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <ion-label> Email </ion-label>
+                    <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">  <i class="nc-icon nc-email-85 icon-cotac"></i></span>
+                      </div>
+                      <ion-input type="email" #correo  correo.value=""  id="campo-correo" name="Correo"  class="form-control" placeholder="Email" email required ngModel minlength="5"> </ion-input>
+                  </div>
+              </div>
+          </div>
+          <ion-label> Mensaje </ion-label>
+          <textarea #mensaje mensaje.value=""  name="Mensaje" id="campo-mensaje" class="form-control" rows="4" placeholder="escribe tus pensamientos..." required ngModel></textarea>
+          <div class="row">
+            <div class="col-md-4 mr-auto ml-auto">
+                <button class="btn btn-danger btn-lg btn-fill"
+                type="submit" [disabled]="!f.form.valid">Enviar Mensaje</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<div class="row justify-content-md-center sharing-area text-center">
+    <div class="text-center col-md-12 col-lg-8">
+        <h3>Gracias por apoyarnos!</h3>
+    </div>
+    <div class="text-center col-md-12 col-lg-8">
+        <a href="https://twitter.com/dejatushuellas" class="btn btn-twitter-bg twitter-sharrre btn-round" rel="tooltip" title="Tweet!">
+           <ion-icon name="logo-twitter"></ion-icon>Twitter
+       </a>
+       <a href="https://www.instagram.com/dejatushuellas" class="btn btn-instagram-bg instagram-sharrre btn-round" rel="tooltip" title="Share!">
+         <ion-icon name="logo-instagram"></ion-icon>Instagram
+     </a>
+     <a href="https://www.facebook.com/Dejatuhuella777" class="btn btn-facebook-bg facebook-sharrre btn-round" rel="tooltip" title="Share!">
+        <ion-icon name="logo-facebook"></ion-icon> Facebook
+    </a>
+</div>
+</div>
+</div>
+</div>
+</div>
 </ion-content>

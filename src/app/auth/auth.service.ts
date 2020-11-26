@@ -22,7 +22,7 @@ const  options = { headers: new HttpHeaders({'Content-Type':'application/json', 
 
 export class AuthService {
 
- // AUTH_SERVER_ADDRESS:  string  =  'http://localhost:5000';
+  //AUTH_SERVER_ADDRESS:  string  =  'http://localhost:5000';
   AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   
   authSubject  =  new  BehaviorSubject(false);

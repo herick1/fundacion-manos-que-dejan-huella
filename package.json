@@ -70,6 +70,7 @@
     "core-js": "^3.3.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
     "firebase": "^7.23.0",
     "get-emails": "^3.0.0",
     "got": "11.7.0",
