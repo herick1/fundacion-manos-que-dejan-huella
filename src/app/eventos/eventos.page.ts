@@ -47,8 +47,8 @@ export class EventosPage implements OnInit {
   descripcionSeleccionado="";
   direccionSeleccionado="";
 
-  //SERVER_ADDRESS:  string  =  'http://localhost:5000';
-   SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  SERVER_ADDRESS:  string  =  'http://localhost:5000';
+  //SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   ngOnInit() {
     // this.errores.push("jajajja")
     //this.modalService.open(this.modalFracaso,{centered:true});
@@ -109,8 +109,10 @@ export class EventosPage implements OnInit {
     for(var i=0;i < this.eventos.length; i++){
       if(id == this.eventos[i][0]){
         this.nombreSelecionado= this.eventos[i][1];
-        this.fechainicioSeleccionado = this.eventos[i][2];
-        this.fechaFinSeleccionado= this.eventos[i][3];
+        let Arraydate = this.eventos[i][2].split("-")
+        this.fechainicioSeleccionado = Arraydate[2]+ "-"+Arraydate[1]+"-"+Arraydate[0]
+        Arraydate = this.eventos[i][3].split("-")
+        this.fechaFinSeleccionado= Arraydate[2]+ "-"+Arraydate[1]+"-"+Arraydate[0]
         this.descripcionSeleccionado=this.eventos[i][4];
         this.direccionSeleccionado= this.eventos[i][5]; 			
       }
@@ -144,7 +146,7 @@ export class EventosPage implements OnInit {
     },
     error => {
       this.errores=[]
-      this.errores.push(error)
+      this.errores.push(error.error)
       this.modalService.open(this.modalFracaso,{centered:true});
     })
 
@@ -171,15 +173,15 @@ export class EventosPage implements OnInit {
     })
   }
 
-  verEventos(id){
+  verEvento(id){
     this.idSeleccionada= id;
     for(var i=0;i < this.eventos.length; i++){
-      if(id == this.eventos[i].id){
-        this.nombreSelecionado= this.eventos[i].nombre;
-        this.fechainicioSeleccionado = this.eventos[i].apellido;
-        this.fechaFinSeleccionado= this.eventos[i].email;
-        this.descripcionSeleccionado=this.eventos[i].username;
-        this.direccionSeleccionado= this.eventos[i].password; 			
+      if(id == this.eventos[i][0]){
+        this.nombreSelecionado= this.eventos[i][1];
+        this.fechainicioSeleccionado = this.eventos[i][2];
+        this.fechaFinSeleccionado= this.eventos[i][3];
+        this.descripcionSeleccionado=this.eventos[i][4];
+        this.direccionSeleccionado= this.eventos[i][5]; 			
       }
     }
     this.modalService.open(this.modalVer,{centered:true});
@@ -193,6 +195,7 @@ export class EventosPage implements OnInit {
 
   //funcion para que abra el modal de confirmar
   confirmarCrear(nombre,fecha_inicio, fecha_fin, descripcion, direccion){
+    console.log(fecha_inicio, fecha_fin)
     this.nombreSelecionado= nombre;
     this.fechainicioSeleccionado = fecha_inicio;
     this.fechaFinSeleccionado= fecha_fin;

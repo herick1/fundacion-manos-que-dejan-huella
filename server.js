@@ -97,9 +97,9 @@ app.use(
     exposedHeaders: "x-access-token"
   })
   );
-*/
+  */
 
-app.use(bodyParser.json());
+  app.use(bodyParser.json());
 
 
 //descargar APK
@@ -113,7 +113,7 @@ app.get('/download', function(req, res){
 //GET
 app.get("/evento", urlencodedParser, (req, res) => {
   var client = new Client({
-    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    connectionString:  process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   client.connect();
@@ -134,40 +134,42 @@ app.post("/evento/crear", (req, res) => {
   let EDFile = req.files.foo
   let nombreArchivo=req.files.foo.name
     //funcion encargado de mover el archivo recoibido en el servidor a una ruta dentro del aplicativo
-    EDFile.mv(`./eventoImagenes/${nombreArchivo}`,err => {
+    EDFile.mv(`./src/assets/eventoImagenes/${nombreArchivo}`,err => {
       if(err) return res.status(500).send({ message : err })
-  //codigo manejando el excell
 
-let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
-var client = new Client({
-  connectionString: process.env.DATABASE_URL+'?ssl=true',
-  ssl: true,
-});
-client.connect();
-let query= `INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('${body.nombre}','${body.fechaini}','${body.fechafin}','${body.descripcion}','${body.direccion}')`;
-client.query(query
-  , (err, response) => {
-    res.json(response)
-    client.end();
-  });
+        let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
+      var client = new Client({
+        connectionString:  process.env.DATABASE_URL+'?ssl=true',
+        ssl: true,
+      });
+      client.connect();
+      let query= `INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('${body.nombre}','${body.fechaini}','${body.fechafin}','${body.descripcion}','${body.direccion}')`;
+      client.query(query
+        , (err, response) => {
+          if (err) throw err;
+          res.json(response)
+          client.end();
+        });
 
-});
+    });
   })
 
 
 //ACTUALIZAR
-app.put("/evento/actualizar", urlencodedParser, (req, res) => {
+app.put("/evento/actualizar/:id", urlencodedParser, (req, res) => {
+  const id=req.params.id
   let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
-  
   var client = new Client({
-    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    connectionString:  process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
 
   client.connect();
-  let query= `INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('${body.nombre}','${body.fechaini}','${body.fechafin}','${body.descripcion}','${body.direccion}')`;
+  let query= `UPDATE EVENTO SET EVE_NOMBRE='${body.nombre}' ,EVE_FECHA_INI='${body.fechaini}' ,EVE_FECHA_FIN=
+  '${body.fechafin}', EVE_DESCRIPCION= '${body.descripcion}', EVE_DIRECCION='${body.direccion}' WHERE eve_id=${id}`
   client.query(query
     , (err, response) => {
+      if (err) throw err;
       res.json(response)
       client.end();
     });
@@ -177,16 +179,17 @@ app.put("/evento/actualizar", urlencodedParser, (req, res) => {
 //ELIMINAR
 app.delete("/evento/eliminar/:id", urlencodedParser, (req, res) => {
   let id = req.params.id;
-console.log(id)
+  console.log(id)
   var client = new Client({
-    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    connectionString:  process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
 
   client.connect();
-  let query= `DELETE FROM EVENTO where ID=${id}`
+  let query= `DELETE FROM EVENTO where eve_id= ${id}`
   client.query(query
     , (err, response) => {
+      if (err) throw err;
       res.json(response)
       client.end();
     });
@@ -207,6 +210,7 @@ app.post("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
   let query= "insert into USO_APP (Dispositivo,Modulo) values('"+dispositivo+"','"+modulo+"');"
   client.query(query
     , (err, response) => {
+      if (err) throw err;
       res.status(200).send({ "response": "Exitosa"})
       client.end();
     });

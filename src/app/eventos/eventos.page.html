@@ -124,7 +124,7 @@
                   <tbody style="  text-align: center;">
                    <tr *ngFor="let evento of eventos; let indice=index">
                     <td *ngFor="let itemsito of evento; let indice2=index" >
-                      <a (click)="verUsuario(evento[0])" >
+                      <a (click)="verEvento(evento[0])" >
                         {{itemsito }}
                       </a>
                     </td>
@@ -179,23 +179,23 @@
   <div class="modal-body">
     <div class="form-group">
       <label><b>Nombre</b></label>
-      <input #nombre value="{{nombreSelecionado}}" type="text" class="form-control input-lg" placeholder="" >
+      <input #nombre [(ngModel)]="nombreSelecionado" type="text" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">
       <label><b>Fecha inicio</b></label>
-      <input #fechaIni value="{{fechainicioSeleccionado}}" type="date" class="form-control input-lg" placeholder="" >
+      <input #fechaIni  [(ngModel)]="fechainicioSeleccionado" type="date" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">  
       <label><b>Fecha fin</b></label>
-      <input #fechaFin value="{{fechaFinSeleccionado}}"  type="date" class="form-control input-lg" placeholder="" >
+      <input #fechaFin [(ngModel)]="fechaFinSeleccionado"  type="date" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">  
       <label><b>Dirección</b></label>
-      <input #direccion value="{{direccionSeleccionado}}"  type="text" class="form-control input-lg" placeholder="" >
+      <input #direccion [(ngModel)]="direccionSeleccionado"  type="text" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">  
       <label><b>Descripción</b></label>
-      <input #descripcion value="{{descripcionSeleccionado}}"  type="text" class="form-control input-lg" placeholder="" >
+      <input #descripcion [(ngModel)]="descripcionSeleccionado"  type="text" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">  
       <label><b>Imagen</b></label>
@@ -238,7 +238,9 @@
     <strong>Fecha fin:&nbsp;</strong> <i>{{fechaFinSeleccionado}}</i><br>
     <strong>Dirección: &nbsp;</strong> <i>{{direccionSeleccionado }}</i><br>
     <strong>Descripción: &nbsp;</strong> <i>{{descripcionSeleccionado }}</i><br>
-    
+    <div>
+    <img class="img-responsive" src="assets/eventoImagenes/logoPwc (5).png">
+    </div>
     <br>
     <br>
   </div>

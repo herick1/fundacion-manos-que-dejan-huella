@@ -43,12 +43,14 @@ CREATE TABLE USU_EVE(
 );
 
 --obtener todos los eventos
-CREATE or replace FUNCTION eventos_all() RETURNS table(id int, nombre VARCHAR(100), fecha_inicio date, fecha_fin date, descripcion varchar(300), direccion varchar(200)) AS $$
+CREATE or replace FUNCTION eventos_all() RETURNS table(id int, nombre VARCHAR(100), fecha_inicio VARCHAR(200), fecha_fin VARCHAR(200), descripcion varchar(300), direccion varchar(200)) AS $$
  set lc_time='es_ES.UTF-8';
-  SELECT * FROM evento
+ 
+SELECT eve_id AS Id, eve_nombre AS Nombre, to_char(eve_fecha_ini, 'DD-MM-YYYY') AS Fecha_inicio, 
+to_char(eve_fecha_fin, 'DD-MM-YYYY') AS Fecha_fin, eve_descripcion AS Descripción,
+eve_direccion AS Dirección FROM evento;
 
 $$ LANGUAGE SQL; 
- 
  
 CREATE TABLE notificaciones(
 NOT_ID serial,
