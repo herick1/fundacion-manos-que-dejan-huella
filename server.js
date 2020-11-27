@@ -127,14 +127,15 @@ app.get("/evento", urlencodedParser, (req, res) => {
 });
 //CREAR
 app.post("/evento/crear", (req, res) => {
-  console.log(req)
+  console.log(req.files)
   console.log("---------")
   console.log(req.body)
   //console.log(req.files)
   let EDFile = req.files.foo
   let nombreArchivo=req.files.foo.name
     //funcion encargado de mover el archivo recoibido en el servidor a una ruta dentro del aplicativo
-    EDFile.mv(`./src/assets/eventoImagenes/${nombreArchivo}`,err => {
+    var ruta=path.join(__dirname,'src','assets','eventoImagenes',nombreArchivo)
+    EDFile.mv(`ruta`,err => {
       if(err) return res.status(500).send({ message : err })
 
         let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
