@@ -135,6 +135,8 @@ app.post("/evento/crear", (req, res) => {
   let nombreArchivo=req.files.foo.name
     //funcion encargado de mover el archivo recoibido en el servidor a una ruta dentro del aplicativo
     var ruta=path.join(__dirname,'src','assets','eventoImagenes',nombreArchivo)
+    console.log("rutaaa")
+    console.log(ruta)
     EDFile.mv(`ruta`,err => {
       if(err) return res.status(500).send({ message : err })
 
