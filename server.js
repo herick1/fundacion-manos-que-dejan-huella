@@ -126,6 +126,14 @@ app.get("/evento", urlencodedParser, (req, res) => {
 
 });
 //CREAR
+//var cloudinary = require('cloudinary');
+var cloudinary = require('cloudinary').v2;
+cloudinary.config({ 
+  cloud_name: 'hcqbhskhv', 
+  api_key: '895373232163775', 
+  api_secret: 'c2lXMZUwCWomzpbwl7RTEue2RVQ' 
+});
+
 app.post("/evento/crear", (req, res) => {
   console.log(req.files)
   console.log("---------")
@@ -134,12 +142,18 @@ app.post("/evento/crear", (req, res) => {
   let EDFile = req.files.foo
   let nombreArchivo=req.files.foo.name
     //funcion encargado de mover el archivo recoibido en el servidor a una ruta dentro del aplicativo
+  
     var ruta=path.join(__dirname,'src','assets','eventoImagenes',nombreArchivo)
     console.log("rutaaa")
     console.log(ruta)
-    EDFile.mv(`ruta`,err => {
+    EDFile.mv(`./eventoImagenes/${nombreArchivo}`,err => {
       if(err) return res.status(500).send({ message : err })
-
+      cloudinary.uploader.upload(`./eventoImagenes/${nombreArchivo}`, function(error, result) {console.log(result, error)
+      console.log("entreee")
+      console.log(result) 
+      console.log("________________________________________________aa")
+    });
+/*
         let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
       var client = new Client({
         connectionString:  process.env.DATABASE_URL+'?ssl=true',
@@ -153,8 +167,10 @@ app.post("/evento/crear", (req, res) => {
           res.json(response)
           client.end();
         });
-
+*/res.json("response")
     });
+
+     
   })
 
 

@@ -56,6 +56,7 @@
     "body-parser": "^1.19.0",
     "bootstrap": "4.3.1",
     "chart.js": "^2.9.4",
+    "cloudinary": "^1.23.0",
     "codelyzer": "~5.1.2",
     "cordova-android": "8.1.0",
     "cordova-ios": "5.0.1",
