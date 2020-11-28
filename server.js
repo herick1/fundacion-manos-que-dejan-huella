@@ -127,51 +127,32 @@ app.get("/evento", urlencodedParser, (req, res) => {
 });
 //CREAR
 //var cloudinary = require('cloudinary');
+/*
 var cloudinary = require('cloudinary').v2;
 cloudinary.config({ 
   cloud_name: 'hcqbhskhv', 
   api_key: '895373232163775', 
   api_secret: 'c2lXMZUwCWomzpbwl7RTEue2RVQ' 
 });
-
+*/
 app.post("/evento/crear", (req, res) => {
-  console.log(req.files)
-  console.log("---------")
-  console.log(req.body)
-  //console.log(req.files)
-  let EDFile = req.files.foo
-  let nombreArchivo=req.files.foo.name
-    //funcion encargado de mover el archivo recoibido en el servidor a una ruta dentro del aplicativo
-  
-    var ruta=path.join(__dirname,'src','assets','eventoImagenes',nombreArchivo)
-    console.log("rutaaa")
-    console.log(ruta)
-    EDFile.mv(`./eventoImagenes/${nombreArchivo}`,err => {
-      if(err) return res.status(500).send({ message : err })
-      cloudinary.uploader.upload(`./eventoImagenes/${nombreArchivo}`, function(error, result) {console.log(result, error)
-      console.log("entreee")
-      console.log(result) 
-      console.log("________________________________________________aa")
+  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion","nombre_imagen","url"]);
+  var client = new Client({
+    connectionString:   'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+    ssl: true,
+  });
+  client.connect();
+  let query= `INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION, EVE_NOMBRE_IMAGEN, 
+  EVE_URL) values('${body.nombre}','${body.fechaini}','${body.fechafin}','${body.descripcion}','${body.direccion}',
+  '${body.nombre_imagen}','${body.url}')`;
+  client.query(query
+    , (err, response) => {
+      if (err) throw err;
+      res.json(response)
+      client.end();
     });
-/*
-        let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
-      var client = new Client({
-        connectionString:  process.env.DATABASE_URL+'?ssl=true',
-        ssl: true,
-      });
-      client.connect();
-      let query= `INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION) values('${body.nombre}','${body.fechaini}','${body.fechafin}','${body.descripcion}','${body.direccion}')`;
-      client.query(query
-        , (err, response) => {
-          if (err) throw err;
-          res.json(response)
-          client.end();
-        });
-*/res.json("response")
-    });
+});
 
-     
-  })
 
 
 //ACTUALIZAR
