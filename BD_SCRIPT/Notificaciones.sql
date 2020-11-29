@@ -41,3 +41,11 @@ as $$
 
 delete from notificaciones noti where noti.endpoint=endpointParametro
 $$
+
+ --obtener la cantidad de dispositivos que aceptaron la notificación
+CREATE or replace FUNCTION notificaciones_cantidad_dispositivos() RETURNS table(cantidad bigint) AS $$
+ 
+select count(*) AS Cantidad from notificaciones
+
+$$ LANGUAGE SQL; 
+

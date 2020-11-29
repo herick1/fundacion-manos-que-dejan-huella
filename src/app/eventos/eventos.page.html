@@ -74,20 +74,31 @@
 </ion-header>
 
 <ion-content>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <div>
     <h1 class="h2">&nbsp;Eventos</h1>
+  </div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div class="col-lg" style="text-align: center;">
+      <div class="input-group">
+        <input type="text" class="form-control" id="texto" placeholder="Buscar por..." (keyup)="showSearchResults($event)" >
+        <div class="input-group-append"><span class="btn-warning" style="padding-left: 4px;
+        padding-right: 4px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; padding-top: 3px;">
+    <ion-icon ios="ios-search" md="md-search"></ion-icon></span></div>
+      </div>
+    </div>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group mr-2">
-        <button class="btn btn-outline-warning ml-4" (click)="crearUsuario()">
+        <button class="btn btn-outline-warning ml-4" (click)="crearEvento()">
           Crear un evento
         </button>
       </div>
     </div>
-  </div>
-  <div class="col-lg" style="text-align: center;">
-    <div class="input-group" style="width:400px;">
-      <input type="text" class="form-control" id="texto" placeholder="Buscar por..." (keyup)="showSearchResults($event)" >
-      <div class="input-group-append"><span class="btn-warning"><ion-icon ios="ios-search" md="md-search"></ion-icon></span></div>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <button class="btn btn-outline-warning ml-4" (click)="enviarNotificaciones()">
+          Enviar notificaciones
+        </button>
+      </div>
     </div>
   </div>
 
@@ -348,50 +359,48 @@
   </div>
 </ng-template>
 
-
-<div class="modal fade" id="exito" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Se a  exitosamente</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="font-weight: normal;">
-        La transaccion a exitosamente
-        <br>
-        <!--img  src="{{asset('check_animado_correcto.gif')}}" style="max-height: 200px"-->
-      </div>
-      <div class="modal-footer padding-foter">
-        <button type="button" class="btn btn-success" data-dismiss="modal">ok</button>
-      </div>
+<ng-template #modalNotificaciones let-modal >
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Enviar notificaciones push</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modal-centered">
+    <div align="center">
+      La notificación se enviará a {{cantidadDispositivos}} dispositivos 
+    </div>
+    <br>
+    <div class="form-group">  
+      <label><b>Titulo</b></label>
+      <input #titulo value=""  type="text" class="form-control input-lg" placeholder="Ingrese el titulo" >
+    </div>
+    <div class="form-group">  
+      <label><b>Mensaje</b></label>
+      <input #mensaje value=""  type="text" class="form-control input-lg" placeholder=" Ingrese el mensaje" >
     </div>
   </div>
-</div>
+  <div class="modal-footer padding-foter">
+    <button class="btn btn-outline-success" type="submit" (click)="ConfirmarenviarNotificacion()"> Enviar</button>    
+    <button type="button" class="btn btn-outline-warning" (click)="modal.dismiss('Cross click')">Cerrar</button>
+  </div>
+</ng-template>
 
-<div class="modal fade" id="errores" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Ups the transaction could not be completed</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="font-weight: normal;">
-               <!-- The following errors were found during the transaction
-                    <div class="alert alert-warning" role="alert">
-                       @foreach ($errors->all() as $error)
-                          <div>{{ $error }}</div>
-                       @endforeach
-                     </div-->
-                   </div>
-                   <div class="modal-footer padding-foter">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+<ng-template #modalConfirmarNotificacion let-modal >
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Confirmar envió de notificación</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+   ¿Estas seguro de enviar está notificación?
+ </div>
+ <div class="modal-footer padding-foter">
+   <button class="btn btn-outline-warning" type="submit" (click)="Enviar()">Confirmar</button>    
+   <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Cerrar</button>
+ </div>
+</ng-template> 
 
-          </ion-content>
+
+</ion-content>

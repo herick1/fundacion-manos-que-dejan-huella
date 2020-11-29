@@ -25,6 +25,9 @@ export class EventosPage implements OnInit {
   @ViewChild("modalEliminar", {static:true}) modalEliminar: ElementRef;
   @ViewChild("modalExito", {static:true}) modalExito: ElementRef;
   @ViewChild("modalFracaso", {static:true}) modalFracaso: ElementRef;
+  @ViewChild("modalNotificaciones", {static:true}) modalNotificaciones: ElementRef;
+  @ViewChild("modalConfirmarNotificacion", {static:true}) modalConfirmarNotificacion: ElementRef;
+  
 
 
   constructor(public menuCtrl: MenuController, private activatedRoute: ActivatedRoute, 
@@ -54,7 +57,7 @@ export class EventosPage implements OnInit {
     //this.modalService.open(this.modalFracaso,{centered:true});
   }
   ngAfterViewInit(){
-    this.tranzabilidadService.EnviarTranzabilidad("Usuario")
+    this.tranzabilidadService.EnviarTranzabilidad("Evento")
     this.getEvento()
     this.authService.storage.get("LOGIN_ESTATUS").then(
       (res:any)=>{
@@ -231,7 +234,7 @@ export class EventosPage implements OnInit {
 
 
   //funcion para llenar el formulario de mostrar
-  crearUsuario(){
+  crearEvento(){
     this.modalService.open(this.modalCrear,{centered:true});
   }
 
@@ -253,88 +256,88 @@ export class EventosPage implements OnInit {
   ArchivoImagen:File;
   Crear(){
     if(this.ArchivoAsubir==true){
-    this.formularioImagen = new FormData();
-    this.formularioImagen.append('file', this.ArchivoImagen);
-    this.formularioImagen.append('upload_preset', 'widgetEventos');
-    this.httpClient.post(`https://api.cloudinary.com/v1_1/hcqbhskhv/image/upload`, this.formularioImagen).subscribe(
-      (respuesta:any )=> {
-        console.log(respuesta)
-        console.log(respuesta.secure_url)
-        this.formularioImagen.delete('file');
-        this.formularioImagen.delete('upload_preset');
-        
-        this.formularioCrear = new FormData();
-        this.formularioCrear.append('nombre', this.nombreSelecionado);
-        this.formularioCrear.append('fechaini', this.fechainicioSeleccionado);
-        this.formularioCrear.append('fechafin', this.fechaFinSeleccionado);
-        this.formularioCrear.append('descripcion', this.descripcionSeleccionado);
-        this.formularioCrear.append('direccion', this.direccionSeleccionado);
-        this.formularioCrear.append('nombre_imagen', this.nombreArchivoImagen);
-        this.formularioCrear.append('url', respuesta.secure_url);
+      this.formularioImagen = new FormData();
+      this.formularioImagen.append('file', this.ArchivoImagen);
+      this.formularioImagen.append('upload_preset', 'widgetEventos');
+      this.httpClient.post(`https://api.cloudinary.com/v1_1/hcqbhskhv/image/upload`, this.formularioImagen).subscribe(
+        (respuesta:any )=> {
+          console.log(respuesta)
+          console.log(respuesta.secure_url)
+          this.formularioImagen.delete('file');
+          this.formularioImagen.delete('upload_preset');
 
-        this.httpClient.post(`${this.SERVER_ADDRESS}/evento/crear`, this.formularioCrear).subscribe(
-          (res:any )=> {
-            this.ArchivoAsubir=false
-            this.modalService.dismissAll();
-            this.modalService.open(this.modalExito,{centered:true})
-            this.getEvento();
-            this.formularioCrear.delete('nombre');
-            this.formularioCrear.delete('fechaini');
-            this.formularioCrear.delete('fechafin');
-            this.formularioCrear.delete('descripcion');
-            this.formularioCrear.delete('direccion');
-          },
-          error => {
-            this.errores=[]
-            this.errores.push(error)
-            this.modalService.open(this.modalFracaso,{centered:true});
-            this.formularioCrear.delete('nombre');
-            this.formularioCrear.delete('fechaini');
-            this.formularioCrear.delete('fechafin');
-            this.formularioCrear.delete('descripcion');
-            this.formularioCrear.delete('direccion');
+          this.formularioCrear = new FormData();
+          this.formularioCrear.append('nombre', this.nombreSelecionado);
+          this.formularioCrear.append('fechaini', this.fechainicioSeleccionado);
+          this.formularioCrear.append('fechafin', this.fechaFinSeleccionado);
+          this.formularioCrear.append('descripcion', this.descripcionSeleccionado);
+          this.formularioCrear.append('direccion', this.direccionSeleccionado);
+          this.formularioCrear.append('nombre_imagen', this.nombreArchivoImagen);
+          this.formularioCrear.append('url', respuesta.secure_url);
 
-          })
-      })
-  }
-  else{
-    this.formularioCrear = new FormData();
-        this.formularioCrear.append('nombre', this.nombreSelecionado);
-        this.formularioCrear.append('fechaini', this.fechainicioSeleccionado);
-        this.formularioCrear.append('fechafin', this.fechaFinSeleccionado);
-        this.formularioCrear.append('descripcion', this.descripcionSeleccionado);
-        this.formularioCrear.append('direccion', this.direccionSeleccionado);
-        this.formularioCrear.append('nombre_imagen', null);
-        this.formularioCrear.append('url', null);
+          this.httpClient.post(`${this.SERVER_ADDRESS}/evento/crear`, this.formularioCrear).subscribe(
+            (res:any )=> {
+              this.ArchivoAsubir=false
+              this.modalService.dismissAll();
+              this.modalService.open(this.modalExito,{centered:true})
+              this.getEvento();
+              this.formularioCrear.delete('nombre');
+              this.formularioCrear.delete('fechaini');
+              this.formularioCrear.delete('fechafin');
+              this.formularioCrear.delete('descripcion');
+              this.formularioCrear.delete('direccion');
+            },
+            error => {
+              this.errores=[]
+              this.errores.push(error)
+              this.modalService.open(this.modalFracaso,{centered:true});
+              this.formularioCrear.delete('nombre');
+              this.formularioCrear.delete('fechaini');
+              this.formularioCrear.delete('fechafin');
+              this.formularioCrear.delete('descripcion');
+              this.formularioCrear.delete('direccion');
 
-        this.httpClient.post(`${this.SERVER_ADDRESS}/evento/crear`, this.formularioCrear).subscribe(
-          (res:any )=> {
-            this.modalService.dismissAll();
-            this.modalService.open(this.modalExito,{centered:true})
-            this.getEvento();
-            this.formularioCrear.delete('nombre');
-            this.formularioCrear.delete('fechaini');
-            this.formularioCrear.delete('fechafin');
-            this.formularioCrear.delete('descripcion');
-            this.formularioCrear.delete('direccion');
-            this.formularioCrear.delete('nombre_imagen');
-            this.formularioCrear.delete('url');
-          },
-          error => {
-            this.errores=[]
-            this.errores.push(error)
-            this.modalService.open(this.modalFracaso,{centered:true});
-            this.formularioCrear.delete('nombre');
-            this.formularioCrear.delete('fechaini');
-            this.formularioCrear.delete('fechafin');
-            this.formularioCrear.delete('descripcion');
-            this.formularioCrear.delete('direccion');
-            this.formularioCrear.delete('nombre_imagen');
-            this.formularioCrear.delete('url');
+            })
+        })
+    }
+    else{
+      this.formularioCrear = new FormData();
+      this.formularioCrear.append('nombre', this.nombreSelecionado);
+      this.formularioCrear.append('fechaini', this.fechainicioSeleccionado);
+      this.formularioCrear.append('fechafin', this.fechaFinSeleccionado);
+      this.formularioCrear.append('descripcion', this.descripcionSeleccionado);
+      this.formularioCrear.append('direccion', this.direccionSeleccionado);
+      this.formularioCrear.append('nombre_imagen', null);
+      this.formularioCrear.append('url', null);
 
-          })
+      this.httpClient.post(`${this.SERVER_ADDRESS}/evento/crear`, this.formularioCrear).subscribe(
+        (res:any )=> {
+          this.modalService.dismissAll();
+          this.modalService.open(this.modalExito,{centered:true})
+          this.getEvento();
+          this.formularioCrear.delete('nombre');
+          this.formularioCrear.delete('fechaini');
+          this.formularioCrear.delete('fechafin');
+          this.formularioCrear.delete('descripcion');
+          this.formularioCrear.delete('direccion');
+          this.formularioCrear.delete('nombre_imagen');
+          this.formularioCrear.delete('url');
+        },
+        error => {
+          this.errores=[]
+          this.errores.push(error)
+          this.modalService.open(this.modalFracaso,{centered:true});
+          this.formularioCrear.delete('nombre');
+          this.formularioCrear.delete('fechaini');
+          this.formularioCrear.delete('fechafin');
+          this.formularioCrear.delete('descripcion');
+          this.formularioCrear.delete('direccion');
+          this.formularioCrear.delete('nombre_imagen');
+          this.formularioCrear.delete('url');
 
-  }
+        })
+
+    }
   }
   errores=[]
   nombreArchivoImagen
@@ -382,5 +385,27 @@ export class EventosPage implements OnInit {
       return "";
   }
 
+  cantidadDispositivos
+  getCantidadDispositivos(){
+     this.httpClient.get(`${this.SERVER_ADDRESS}/notificacion/get/cantidad/dispositivo`).subscribe( 
+      //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
+      (response: any)=>{    
+          this.cantidadDispositivos=response[0].cantidad;
+      });
 
+  }
+
+  enviarNotificaciones(){
+    this.getCantidadDispositivos();
+    this.modalService.open(this.modalNotificaciones,{centered:true})
+  }
+
+  ConfirmarenviarNotificacion(){
+    this.modalService.open(this.modalConfirmarNotificacion,{centered:true})
+  }
+
+  Enviar(){
+    this.modalService.dismissAll();
+    this.modalService.open(this.modalExito,{centered:true})
+  }
 }

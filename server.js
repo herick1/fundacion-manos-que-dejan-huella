@@ -579,6 +579,25 @@ app.get('/notificacion/get/evento', (req, res) => {
     })
 })
 
+app.get('/notificacion/get/cantidad/dispositivo', (req, res) => {
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  client.connect();
+
+  var query = `SELECT * FROM notificaciones_cantidad_dispositivos()`;
+  
+  client.query(query
+    , (err, response) => {
+      if(err){
+        res.status(500).send(err);
+      }
+      else{
+        res.status(200).send(response.rows);
+      }
+    })
+})
 
 app.get('/notificacion/enviar/evento', (req, res) => {
   var client = new Client({
