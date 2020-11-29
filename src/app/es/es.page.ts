@@ -61,6 +61,11 @@ export class EsPage implements OnInit {
     icon: 'stats'
   },
   {
+    title: 'Eventos',
+    url: '/es/eventos',
+    icon: 'calendar'
+  },
+  {
     title: 'Salir',
     url: '/es/home',
     icon: 'log-in',

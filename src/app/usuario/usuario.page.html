@@ -119,22 +119,22 @@
                    <tbody style="  text-align: center;">
                      <tr *ngFor="let usuario of usuarios; let indice=index">
                        <td>
-                        <a (click)="verUsuario(usuario.id)" >
+                        <a title="Ver detalles" href="/es/usuario#" style="color:black;" (click)="verUsuario(usuario.id)" >
                           {{usuario.nombre }}
                         </a>
                       </td>
                       <td>
-                        <a (click)="verUsuario(usuario.id)">
+                        <a title="Ver detalles" href="/es/usuario#" style="color:black;" (click)="verUsuario(usuario.id)">
                           {{usuario.apellido}}
                         </a>
                       </td>
                       <td>
-                       <a (click)="verUsuario(usuario.id)">
+                       <a title="Ver detalles" href="/es/usuario#" style="color:black;" (click)="verUsuario(usuario.id)">
                         {{usuario.email}}
                       </a>             	
                     </td>
                     <td>
-                      <a (click)="verUsuario(usuario.id)">
+                      <a title="Ver detalles" href="/es/usuario#" style="color:black;" (click)="verUsuario(usuario.id)">
                         {{usuario.username}}
                       </a>              
                     </td>

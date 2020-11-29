@@ -46,10 +46,10 @@ export class UsuarioPage implements OnInit {
   apellidoSeleccionado ="";
   emailSelecionado="";
   usernameSeleccionado="";
-  passwordSeleccioando="";
+  passwordSeleccionado="";
 
-  //SERVER_ADDRESS:  string  =  'http://localhost:5000';
-  SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  SERVER_ADDRESS:  string  =  'http://localhost:5000';
+  //SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   ngOnInit() {
     
   }
@@ -101,7 +101,7 @@ export class UsuarioPage implements OnInit {
         this.apellidoSeleccionado = this.usuarios[i].apellido;
         this.emailSelecionado= this.usuarios[i].email;
         this.usernameSeleccionado=this.usuarios[i].username;
-        this.passwordSeleccioando= this.usuarios[i].password; 			
+        this.passwordSeleccionado= this.usuarios[i].password; 			
       }
     }
     this.modalService.open(this.modalActualizar,{centered:true});
@@ -113,26 +113,18 @@ export class UsuarioPage implements OnInit {
     this.apellidoSeleccionado = apellido;
     this.emailSelecionado= email;
     this.usernameSeleccionado= username;
-    this.passwordSeleccioando= password;
+    this.passwordSeleccionado= password;
     this.modalService.open(this.modalConfirmarActualizar,{centered:true});
   }
 
   //funcion para que haga el actualizar bien y haga la peticion al backend para actualizar
   Actualizar(){
-  	console.log(
-  		this.idSeleccionada+ " " +
-      this.nombreSelecionado+ " " +
-      this.apellidoSeleccionado+ " " +
-      this.emailSelecionado+ " " +
-      this.usernameSeleccionado+ " " +
-      this.passwordSeleccioando+ " " 
-      );
     let user={
       "nombre": this.nombreSelecionado,
       "apellido":this.apellidoSeleccionado,
       "email":this.emailSelecionado,
       "username":this.usernameSeleccionado,
-      "password":this.passwordSeleccioando
+      "password":this.passwordSeleccionado
     }
     this.httpClient.put(`${this.SERVER_ADDRESS}/usuario/${this.idSeleccionada}`,user,options).toPromise().then(res=>{
       this.getUsuario()
@@ -178,7 +170,7 @@ export class UsuarioPage implements OnInit {
         this.apellidoSeleccionado = this.usuarios[i].apellido;
         this.emailSelecionado= this.usuarios[i].email;
         this.usernameSeleccionado=this.usuarios[i].username;
-        this.passwordSeleccioando= this.usuarios[i].password; 			
+        this.passwordSeleccionado= this.usuarios[i].password; 			
       }
     }
     this.modalService.open(this.modalVer,{centered:true});
@@ -196,13 +188,13 @@ export class UsuarioPage implements OnInit {
     this.apellidoSeleccionado = apellido;
     this.emailSelecionado= email;
     this.usernameSeleccionado= username;
-    this.passwordSeleccioando= password;
+    this.passwordSeleccionado= password;
     this.modalService.open(this.modalConfirmarCrear,{centered:true});
   }
 
   //funcion para que haga el actualizar bien y haga la peticion al backend para actualizar
   Crear(){
-    let userss={"email":this.emailSelecionado , "password":this.passwordSeleccioando, id:0, 
+    let userss={"email":this.emailSelecionado , "password":this.passwordSeleccionado, id:0, 
     name:this.nombreSelecionado, apellido:this.apellidoSeleccionado, username:this.usernameSeleccionado}
     console.log(userss)
     this.authService.register(userss).toPromise().then((res)=>{

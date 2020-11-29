@@ -49,11 +49,11 @@ export class HomePage implements OnInit {
     setTimeout(() => {slides.startAutoplay(), 800});
   }
 
-  public sliders: Array<any> = [];
+  public sliderEvento: Array<any> = [];
   public slidershome: Array<any> = [];
   prueba:any;
-  AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
-  //AUTH_SERVER_ADDRESS:  string  =  'http://localhost:5000';
+  //SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  SERVER_ADDRESS:  string  =  'http://localhost:5000';
 
 
 
@@ -104,7 +104,7 @@ export class HomePage implements OnInit {
         href: "/es/home#",
         label: '¿Cuales son nuestras areas de Intervención?',
         text:
-        'siempre tratando de ayudar y crecer a nuestra Venezuela'
+        'Siempre tratando de ayudar y crecer a nuestra Venezuela'
       },
       {
         imagePath: 'assets/gif/gif-phone.gif',
@@ -123,59 +123,52 @@ export class HomePage implements OnInit {
 
     }
 
-    this.sliders.push(
-    {
-      imagePath: 'assets/img/example-evento2.jpg',
-      label: 'Proximamente evento 1',
-      text:
-      'Proximamente aqui estaran los eventos destacados.'
-    },
-    {
-      imagePath: 'assets/img/example-evento3.jpg',
-      label: 'Proximamente evento 2',
-      text: 'Proximamente aqui estaran los eventos destacados'
-    },
-    {
-      imagePath: 'assets/img/example-evento1.jpg',
-      label: 'Proximamento evento 3',
-      text:
-      'Proximamente aqui estaran los eventos destacados'
-    }
-    );
-    
-  }
+}
 
-  toggleMenu() {
-    this.menuCtrl.toggle(); //Add this method to your button click function
-  }
-  ngOnInit() {
+toggleMenu() {
+  this.menuCtrl.toggle(); //Add this method to your button click function
+}
+ngOnInit() {
 
-  }
-  
-  ngAfterViewInit(){
-    this.tranzabilidadService.EnviarTranzabilidad("Home")
-    this.authService.storage.get("LOGIN_ESTATUS").then(
-      (res:any)=>{
-        if(res==true)
-          this.prueba=true
-        else
-          this.prueba=false
+    this.httpClient.get(`${this.SERVER_ADDRESS}/evento/imagenes`).subscribe( 
+      //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
+      (response: any)=>{    
+        for(var i=0; i< response.length; i++)
+        {
+          this.sliderEvento.push(
+          {
+            imagePath:response[i].url,
+            label:response[i].nombre,
+            text:response[i].descripcion,
+          })
+        }
       })
-  }
+}
+
+ngAfterViewInit(){
+  this.tranzabilidadService.EnviarTranzabilidad("Home")
+  this.authService.storage.get("LOGIN_ESTATUS").then(
+    (res:any)=>{
+      if(res==true)
+        this.prueba=true
+      else
+        this.prueba=false
+    })
+}
 
 
-  logout(){
-    this.authService.logout().then(
-      (res:any)=>{
-        if(res)
-          this.prueba=true
-        else
-          this.prueba=false
-      })  
-  }
+logout(){
+  this.authService.logout().then(
+    (res:any)=>{
+      if(res)
+        this.prueba=true
+      else
+        this.prueba=false
+    })  
+}
 
 
-  
+
 }
 
 

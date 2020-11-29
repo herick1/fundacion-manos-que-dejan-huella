@@ -124,7 +124,7 @@
                   <tbody style="  text-align: center;">
                    <tr *ngFor="let evento of eventos; let indice=index">
                     <td *ngFor="let itemsito of evento; let indice2=index" >
-                      <a (click)="verEvento(evento[0])" >
+                      <a title="Ver detalles" href="/es/eventos#" style="color:black;" (click)="verEvento(evento[0])" >
                         {{itemsito }}
                       </a>
                     </td>
@@ -178,27 +178,29 @@
   </div>
   <div class="modal-body">
     <div class="form-group">
-      <label><b>Nombre</b></label>
+      <label><b>Nombre:&nbsp;</b></label>
       <input #nombre [(ngModel)]="nombreSelecionado" type="text" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">
-      <label><b>Fecha inicio</b></label>
+      <label><b>Fecha inicio:&nbsp;</b></label>
       <input #fechaIni  [(ngModel)]="fechainicioSeleccionado" type="date" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">  
-      <label><b>Fecha fin</b></label>
+      <label><b>Fecha fin:&nbsp;</b></label>
       <input #fechaFin [(ngModel)]="fechaFinSeleccionado"  type="date" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">  
-      <label><b>Dirección</b></label>
+      <label><b>Dirección:&nbsp;</b></label>
       <input #direccion [(ngModel)]="direccionSeleccionado"  type="text" class="form-control input-lg" placeholder="" >
     </div>
     <div class="form-group">  
-      <label><b>Descripción</b></label>
+      <label><b>Descripción:&nbsp;</b></label>
       <input #descripcion [(ngModel)]="descripcionSeleccionado"  type="text" class="form-control input-lg" placeholder="" >
     </div>
-    <div class="form-group">  
-      <label><b>Imagen</b></label>
+    <div class="form-group">
+      <label><b>Imagen:&nbsp;</b> {{nombreImagenSeleccionado}} </label>
+    </div>
+    <div class="form-group">
       <input #imagen type="button" name="foo" type="file"  (change)="onFileChange($event)">
     </div>
   </div>
@@ -238,8 +240,9 @@
     <strong>Fecha fin:&nbsp;</strong> <i>{{fechaFinSeleccionado}}</i><br>
     <strong>Dirección: &nbsp;</strong> <i>{{direccionSeleccionado }}</i><br>
     <strong>Descripción: &nbsp;</strong> <i>{{descripcionSeleccionado }}</i><br>
+    <strong>Imagen: &nbsp;</strong>
     <div>
-   <!-- <img  src="{{imagenSeleccionadaaa}}">-->
+      <img  src="{{urlImagenSeleccionado}}">
     </div>
     <br>
     <br>

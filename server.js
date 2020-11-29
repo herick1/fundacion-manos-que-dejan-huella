@@ -66,18 +66,8 @@ app.use(
     "Content-Type":"application/json" 
   })
   );
-/*
-if(process.env.NODE_ENV === 'production') {
-  app.use((req, res, next) => {
-    if (req.header('x-forwarded-proto') !== 'https'){
-      res.redirect(`https://${req.header('host')}${req.url}`)
-    }
-      
-    else
-    next()
-  })
-}
-*/
+
+
 app.use(express.static('www'));
 
 const fileUpload = require('express-fileupload')
@@ -89,15 +79,6 @@ app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
 });
-
-/*
-app.use(
-  cors({
-    origin: true,
-    exposedHeaders: "x-access-token"
-  })
-  );
-  */
 
   app.use(bodyParser.json());
 
@@ -113,7 +94,7 @@ app.get('/download', function(req, res){
 //GET
 app.get("/evento", urlencodedParser, (req, res) => {
   var client = new Client({
-    connectionString:  process.env.DATABASE_URL+'?ssl=true',
+    connectionString:   process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   client.connect();
@@ -125,26 +106,37 @@ app.get("/evento", urlencodedParser, (req, res) => {
     });
 
 });
-//CREAR
-//var cloudinary = require('cloudinary');
-/*
-var cloudinary = require('cloudinary').v2;
-cloudinary.config({ 
-  cloud_name: 'hcqbhskhv', 
-  api_key: '895373232163775', 
-  api_secret: 'c2lXMZUwCWomzpbwl7RTEue2RVQ' 
-});
-*/
-app.post("/evento/crear", (req, res) => {
-  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion","nombre_imagen","url"]);
+
+app.get("/evento/imagenes", urlencodedParser, (req, res) => {
   var client = new Client({
-    connectionString:   'postgres://lxoklovwpxialh:276452497ce87fdd64aa83c127ebb5bf72deccb9ddb22ee1f96a9d0f823760fb@ec2-107-21-111-24.compute-1.amazonaws.com:5432/dd78om1hgjbqa5?ssl=true',
+    connectionString:   process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   client.connect();
-  let query= `INSERT INTO EVENTO (EVE_NOMBRE,EVE_FECHA_INI,EVE_FECHA_FIN,EVE_DESCRIPCION,EVE_DIRECCION, EVE_NOMBRE_IMAGEN, 
-  EVE_URL) values('${body.nombre}','${body.fechaini}','${body.fechafin}','${body.descripcion}','${body.direccion}',
-  '${body.nombre_imagen}','${body.url}')`;
+  client.query('SELECT * FROM top3_eventos_imagenes();'
+    , (err, response) => {
+      if (err) throw err;
+      res.json(response.rows)
+      client.end();
+    });
+
+});
+
+app.post("/evento/crear", (req, res) => {
+  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion","nombre_imagen","url"]);
+  var client = new Client({
+    connectionString:    process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  client.connect();
+  let query
+  if(body.nombre_imagen=='null'|| body.url=='null'){
+    query= `CALL Eve_crear('${body.nombre}','${body.fechaini}','${body.fechafin}','${body.descripcion}',
+    '${body.direccion}', null, null)`;
+  }
+  else
+    query= `CALL Eve_crear('${body.nombre}','${body.fechaini}','${body.fechafin}','${body.descripcion}',
+  '${body.direccion}','${body.nombre_imagen}','${body.url}')`;
   client.query(query
     , (err, response) => {
       if (err) throw err;
@@ -158,21 +150,30 @@ app.post("/evento/crear", (req, res) => {
 //ACTUALIZAR
 app.put("/evento/actualizar/:id", urlencodedParser, (req, res) => {
   const id=req.params.id
-  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion"]);
+  let body = _.pick(req.body, ["nombre","fechaini","fechafin","descripcion","direccion","nombre_imagen","url"]);
   var client = new Client({
-    connectionString:  process.env.DATABASE_URL+'?ssl=true',
+    connectionString:   process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
 
   client.connect();
-  let query= `UPDATE EVENTO SET EVE_NOMBRE='${body.nombre}' ,EVE_FECHA_INI='${body.fechaini}' ,EVE_FECHA_FIN=
-  '${body.fechafin}', EVE_DESCRIPCION= '${body.descripcion}', EVE_DIRECCION='${body.direccion}' WHERE eve_id=${id}`
-  client.query(query
-    , (err, response) => {
-      if (err) throw err;
-      res.json(response)
-      client.end();
-    });
+  let query
+
+  if(body.nombre_imagen==null|| body.url==null){
+    query= `CALL Eve_actualizar(${id},'${body.nombre}', '${body.fechaini}', '${body.fechafin}', '${body.descripcion}', 
+    '${body.direccion}', null, null)`
+  }
+  else{
+    query= `CALL Eve_actualizar(${id},'${body.nombre}', '${body.fechaini}', '${body.fechafin}', '${body.descripcion}', 
+    '${body.direccion}', '${body.nombre_imagen}', '${body.url}' );`
+  }
+
+client.query(query
+  , (err, response) => {
+    if (err) throw err;
+    res.json(response)
+    client.end();
+  });
 
 });
 
@@ -186,7 +187,7 @@ app.delete("/evento/eliminar/:id", urlencodedParser, (req, res) => {
   });
 
   client.connect();
-  let query= `DELETE FROM EVENTO where eve_id= ${id}`
+  let query= `CALL Eve_eliminar(${id})`
   client.query(query
     , (err, response) => {
       if (err) throw err;
@@ -207,7 +208,7 @@ app.post("/tranzabilidad/:dispositivo", urlencodedParser, (req, res) => {
   const dispositivo=req.params.dispositivo;
   const modulo=req.body.modulo;
   client.connect();
-  let query= "insert into USO_APP (Dispositivo,Modulo) values('"+dispositivo+"','"+modulo+"');"
+  let query= `CALL Uso_App_Insertar('${dispositivo}','${modulo}');`
   client.query(query
     , (err, response) => {
       if (err) throw err;
@@ -303,7 +304,7 @@ const  findUserByEmail  = (email, cb) => {
     connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= "SELECT * FROM usuario WHERE usu_email ='"+email+"'"
+  let query= `CALL Usu_buscar_por_email('${email}');`
   client.connect();
   client.query(query
     , (err, response) => {
@@ -327,7 +328,6 @@ app.post('/login', (req, res) => {
       if(!result) return  res.status(401).send('Credenciales invalidas!');
         //if(password !=value.usu_password) return  res.status(401).send('Password not valid!');
         const  expiresIn  =  24  *  60  *  60;
-        console.log("Ssssssss"+user)
         const  accessToken  =  jwt.sign({ id:  user.usu_id }, SECRET_KEY, {
           expiresIn:  expiresIn
         });
@@ -390,7 +390,7 @@ app.post('/recuperarClave', (req, res) => {
 
 })
 
-
+/******* PILA ACAAAAAAAAAAAAAAAAAAAAA NO SE PORQUE ESTA 2 VECES CHEQUEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR
 app.post('/recuperarContraseña', (req, res) => {
 
   const  email  =  req.body.email;
@@ -408,15 +408,15 @@ app.post('/recuperarContraseña', (req, res) => {
     });
 
 });
-
+*////////////////////////////////////////////////////
 //CRUD DE USUARIOS -------------------------------------------------------------
 
 app.get('/usuario', urlencodedParser, (req, res) => {
   var client = new Client({
-    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    connectionString:  process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= "Select usu_nombre as nombre, usu_apellido as apellido, usu_email as email, usu_username username, usu_id as id from usuario; "
+  let query= `SELECT * FROM Usu_ALL() `
   client.connect();
   client.query(query
     , (err, response) => {
@@ -432,15 +432,14 @@ app.get('/usuario', urlencodedParser, (req, res) => {
 
 const  createUser  = (user, cb) => {
   var client = new Client({
-    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    connectionString:  process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= `INSERT INTO usuario (usu_nombre,usu_apellido, usu_email, usu_password, usu_username) values('${user[0]}','${user[1]}','${user[2]}','${user[3]}','${user[4]}');`
+  let query= `CALL Usu_crear('${user[0]}','${user[1]}','${user[2]}','${user[3]}','${user[4]}');`
   client.connect();
   client.query(query
     , (err, response) => {
       cb(err)
-      console.log("BIEN> "+response)
       client.end()
     });
 }
@@ -451,7 +450,6 @@ app.post('/register', (req, res) => {
   const  email  =  req.body.email;
   const apellido= req.body.apellido;
   const username= req.body.username;
-  console.log(req.body);
   const  password  =  bcrypt.hashSync(req.body.password,10);
 
 
@@ -476,11 +474,11 @@ app.put('/usuario/:id', (req, res) => {
   const apellido = req.body.apellido
   const username= req.body.username;
   var client = new Client({
-    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    connectionString:  process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   client.connect();
-  let query= "update usuario set usu_nombre='"+nombre+"' , usu_apellido= '"+apellido+"' , usu_email='"+email+"' , usu_username='"+username+"' where usu_id= "+req.params.id+ ";"
+  let query= `CALL Usu_actualizar(${req.params.id}, '${nombre}', '${apellido}', '${email}', '${username}');`
   client.query(query
     , (err, response) => {
       if(err)
@@ -495,11 +493,12 @@ app.put('/usuario/:id', (req, res) => {
 
 app.delete('/usuario/:id', (req, res) => {
   var client = new Client({
-    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    connectionString:  process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   client.connect();
-  let query= "delete from usuario where usu_id= "+req.params.id+ ";"
+  let query= `CALL Usu_eliminar(${req.params.id});`
+
   client.query(query
     , (err, response) => {
       if(err)

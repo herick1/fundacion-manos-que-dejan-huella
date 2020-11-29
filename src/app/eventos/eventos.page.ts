@@ -45,9 +45,10 @@ export class EventosPage implements OnInit {
   fechaFinSeleccionado="";
   descripcionSeleccionado="";
   direccionSeleccionado="";
-
-  //SERVER_ADDRESS:  string  =  'http://localhost:5000';
-  SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  urlImagenSeleccionado=""
+  nombreImagenSeleccionado=""
+  SERVER_ADDRESS:  string  =  'http://localhost:5000';
+  //SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   ngOnInit() {
     // this.errores.push("jajajja")
     //this.modalService.open(this.modalFracaso,{centered:true});
@@ -80,21 +81,25 @@ export class EventosPage implements OnInit {
   
   //funcion para obtener los Eventos
   headerEventos=[]
+  tablaConImagen=[]
   getEvento() {
     this.eventos=[]
     this.headerEventos=[]
+    this.tablaConImagen=[]
     this.httpClient.get(`${this.SERVER_ADDRESS}/evento`).subscribe( 
       //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
       (response: any)=>{    
-        this.headerEventos= Object.keys(response[0]);
+        this.headerEventos= Object.keys(response[0]).splice(0,6);
         for(var i=0; i<this.headerEventos.length; i++){
           this.headerEventos[i]=this.headerEventos[i].replace(/_/g, " ")
         }
 
         for(var i=0; i< response.length; i++)
         {
-          this.eventos.push(Object.values(response[i]));
+          this.eventos.push(Object.values(response[i]).splice(0,6));
+          this.tablaConImagen.push(Object.values(response[i]).splice(0,1).concat(Object.values(response[i]).splice(6,2)))
         }
+        console.log(this.tablaConImagen)
         this.tablaOriginal=this.eventos
       }
       );
@@ -113,8 +118,13 @@ export class EventosPage implements OnInit {
         Arraydate = this.eventos[i][3].split("-")
         this.fechaFinSeleccionado= Arraydate[2]+ "-"+Arraydate[1]+"-"+Arraydate[0]
         this.descripcionSeleccionado=this.eventos[i][4];
-        this.direccionSeleccionado= this.eventos[i][5]; 			
+        this.direccionSeleccionado= this.eventos[i][5];
+        this.nombreImagenSeleccionado=this.tablaConImagen[i][1]; 			
+        this.urlImagenSeleccionado=this.tablaConImagen[i][2];
       }
+      console.log("seleccionado")
+      console.log(this.nombreImagenSeleccionado)
+      console.log(this.urlImagenSeleccionado)
     }
     this.modalService.open(this.modalActualizar,{centered:true});
   }
@@ -124,8 +134,8 @@ export class EventosPage implements OnInit {
     this.nombreSelecionado= nombre;
     this.fechainicioSeleccionado = fecha_inicio;
     this.fechaFinSeleccionado= fecha_fin;
-    this.descripcionSeleccionado= direccion;
-    this.direccionSeleccionado= descripcion;
+    this.descripcionSeleccionado= descripcion;
+    this.direccionSeleccionado= direccion;
     this.modalService.open(this.modalConfirmarActualizar,{centered:true});
   }
 
@@ -136,20 +146,52 @@ export class EventosPage implements OnInit {
       "fechaini":this.fechainicioSeleccionado,
       "fechafin":this.fechaFinSeleccionado,
       "descripcion":this.descripcionSeleccionado,
-      "direccion":this.direccionSeleccionado
+      "direccion":this.direccionSeleccionado,
+      "nombre_imagen":this.nombreImagenSeleccionado,
+      "url":this.urlImagenSeleccionado
     }
-    this.httpClient.put(`${this.SERVER_ADDRESS}/evento/actualizar/${this.idSeleccionada}`,evento,options).subscribe(res=>{
-      this.getEvento()
-      this.modalService.dismissAll();	
-      this.modalService.open(this.modalExito,{centered:true});
-    },
-    error => {
-      this.errores=[]
-      this.errores.push(error.error)
-      this.modalService.open(this.modalFracaso,{centered:true});
-    })
+    if(this.ArchivoAsubir==true){
+      this.formularioImagen = new FormData();
+      this.formularioImagen.append('file', this.ArchivoImagen);
+      this.formularioImagen.append('upload_preset', 'widgetEventos');
+      this.ArchivoAsubir=false
+      this.httpClient.post(`https://api.cloudinary.com/v1_1/hcqbhskhv/image/upload`, this.formularioImagen).subscribe(
+        (respuesta:any )=> {
+          console.log(respuesta)
+          console.log(respuesta.secure_url)
+          this.formularioImagen.delete('file');
+          this.formularioImagen.delete('upload_preset');
 
+          evento.nombre_imagen=this.nombreArchivoImagen;
+          evento.url=respuesta.secure_url;
 
+          this.httpClient.put(`${this.SERVER_ADDRESS}/evento/actualizar/${this.idSeleccionada}`,evento,options).subscribe(res=>{
+            this.getEvento()
+            this.modalService.dismissAll();  
+            this.modalService.open(this.modalExito,{centered:true});
+          },
+          error => {
+            this.errores=[]
+            this.errores.push(error.error)
+            this.modalService.open(this.modalFracaso,{centered:true});
+          })
+
+        })
+    }
+    else{
+
+      this.httpClient.put(`${this.SERVER_ADDRESS}/evento/actualizar/${this.idSeleccionada}`,evento,options).subscribe(res=>{
+        this.getEvento()
+        this.modalService.dismissAll();  
+        this.modalService.open(this.modalExito,{centered:true});
+      },
+      error => {
+        this.errores=[]
+        this.errores.push(error.error)
+        this.modalService.open(this.modalFracaso,{centered:true});
+      })
+    }
+    
   }
 
   //funcion para abrr el modal de Eventos
@@ -180,7 +222,8 @@ export class EventosPage implements OnInit {
         this.fechainicioSeleccionado = this.eventos[i][2];
         this.fechaFinSeleccionado= this.eventos[i][3];
         this.descripcionSeleccionado=this.eventos[i][4];
-        this.direccionSeleccionado= this.eventos[i][5]; 			
+        this.direccionSeleccionado= this.eventos[i][5]; 	
+        this.urlImagenSeleccionado= this.tablaConImagen[i][2];   		
       }
     }
     this.modalService.open(this.modalVer,{centered:true});
@@ -209,10 +252,10 @@ export class EventosPage implements OnInit {
   formularioImagen: FormData;
   ArchivoImagen:File;
   Crear(){
+    if(this.ArchivoAsubir==true){
     this.formularioImagen = new FormData();
     this.formularioImagen.append('file', this.ArchivoImagen);
     this.formularioImagen.append('upload_preset', 'widgetEventos');
-
     this.httpClient.post(`https://api.cloudinary.com/v1_1/hcqbhskhv/image/upload`, this.formularioImagen).subscribe(
       (respuesta:any )=> {
         console.log(respuesta)
@@ -226,11 +269,12 @@ export class EventosPage implements OnInit {
         this.formularioCrear.append('fechafin', this.fechaFinSeleccionado);
         this.formularioCrear.append('descripcion', this.descripcionSeleccionado);
         this.formularioCrear.append('direccion', this.direccionSeleccionado);
-        this.formularioCrear.append('nombre_imagen', respuesta.original_filename);
+        this.formularioCrear.append('nombre_imagen', this.nombreArchivoImagen);
         this.formularioCrear.append('url', respuesta.secure_url);
 
         this.httpClient.post(`${this.SERVER_ADDRESS}/evento/crear`, this.formularioCrear).subscribe(
           (res:any )=> {
+            this.ArchivoAsubir=false
             this.modalService.dismissAll();
             this.modalService.open(this.modalExito,{centered:true})
             this.getEvento();
@@ -253,7 +297,48 @@ export class EventosPage implements OnInit {
           })
       })
   }
+  else{
+    this.formularioCrear = new FormData();
+        this.formularioCrear.append('nombre', this.nombreSelecionado);
+        this.formularioCrear.append('fechaini', this.fechainicioSeleccionado);
+        this.formularioCrear.append('fechafin', this.fechaFinSeleccionado);
+        this.formularioCrear.append('descripcion', this.descripcionSeleccionado);
+        this.formularioCrear.append('direccion', this.direccionSeleccionado);
+        this.formularioCrear.append('nombre_imagen', null);
+        this.formularioCrear.append('url', null);
+
+        this.httpClient.post(`${this.SERVER_ADDRESS}/evento/crear`, this.formularioCrear).subscribe(
+          (res:any )=> {
+            this.modalService.dismissAll();
+            this.modalService.open(this.modalExito,{centered:true})
+            this.getEvento();
+            this.formularioCrear.delete('nombre');
+            this.formularioCrear.delete('fechaini');
+            this.formularioCrear.delete('fechafin');
+            this.formularioCrear.delete('descripcion');
+            this.formularioCrear.delete('direccion');
+            this.formularioCrear.delete('nombre_imagen');
+            this.formularioCrear.delete('url');
+          },
+          error => {
+            this.errores=[]
+            this.errores.push(error)
+            this.modalService.open(this.modalFracaso,{centered:true});
+            this.formularioCrear.delete('nombre');
+            this.formularioCrear.delete('fechaini');
+            this.formularioCrear.delete('fechafin');
+            this.formularioCrear.delete('descripcion');
+            this.formularioCrear.delete('direccion');
+            this.formularioCrear.delete('nombre_imagen');
+            this.formularioCrear.delete('url');
+
+          })
+
+  }
+  }
   errores=[]
+  nombreArchivoImagen
+  ArchivoAsubir=false;
   onFileChange(evt: any) {
     var target: DataTransfer = <DataTransfer>(evt.target);
     if (target.files.length !== 1) throw new Error('Cannot use multiple files')
@@ -261,6 +346,8 @@ export class EventosPage implements OnInit {
       let fileList: FileList = target.files;
     let file = fileList[fileList.length-1]
     this.ArchivoImagen=file;
+    this.nombreArchivoImagen=file.name;
+    this.ArchivoAsubir=true;
   }
 /**
   * Show the search results based in the faqs
