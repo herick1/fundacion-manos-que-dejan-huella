@@ -52,8 +52,8 @@ export class HomePage implements OnInit {
   public sliderEvento: Array<any> = [];
   public slidershome: Array<any> = [];
   prueba:any;
-  //SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
-  SERVER_ADDRESS:  string  =  'http://localhost:5000';
+  SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  //SERVER_ADDRESS:  string  =  'http://localhost:5000';
 
 
 

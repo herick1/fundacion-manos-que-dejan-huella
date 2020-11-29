@@ -48,8 +48,8 @@ export class UsuarioPage implements OnInit {
   usernameSeleccionado="";
   passwordSeleccionado="";
 
-  SERVER_ADDRESS:  string  =  'http://localhost:5000';
-  //SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  //SERVER_ADDRESS:  string  =  'http://localhost:5000';
+  SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   ngOnInit() {
     
   }

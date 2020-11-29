@@ -47,8 +47,8 @@ export class EventosPage implements OnInit {
   direccionSeleccionado="";
   urlImagenSeleccionado=""
   nombreImagenSeleccionado=""
-  SERVER_ADDRESS:  string  =  'http://localhost:5000';
-  //SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  //SERVER_ADDRESS:  string  =  'http://localhost:5000';
+  SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
   ngOnInit() {
     // this.errores.push("jajajja")
     //this.modalService.open(this.modalFracaso,{centered:true});
