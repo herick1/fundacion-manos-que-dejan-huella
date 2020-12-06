@@ -304,7 +304,7 @@ const  findUserByEmail  = (email, cb) => {
     connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= `CALL Usu_buscar_por_email('${email}');`
+  let query= `SELECT * FROM Usu_buscar_por_email('${email}');`
   client.connect();
   client.query(query
     , (err, response) => {
