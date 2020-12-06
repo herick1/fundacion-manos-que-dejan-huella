@@ -368,16 +368,16 @@
   </div>
   <div class="modal-body modal-centered">
     <div align="center">
-      La notificación se enviará a {{cantidadDispositivos}} dispositivos 
+      La notificación se enviará a {{cantidadDispositivos}} dispositivos. 
     </div>
     <br>
     <div class="form-group">  
       <label><b>Titulo</b></label>
-      <input #titulo value=""  type="text" class="form-control input-lg" placeholder="Ingrese el titulo" >
+      <input #titulo [(ngModel)]="tituloSeleccionado"  type="text" class="form-control input-lg" placeholder="Ingrese el titulo" >
     </div>
     <div class="form-group">  
       <label><b>Mensaje</b></label>
-      <input #mensaje value=""  type="text" class="form-control input-lg" placeholder=" Ingrese el mensaje" >
+      <input #mensaje [(ngModel)]="mensajeSeleccionado"  type="text" class="form-control input-lg" placeholder=" Ingrese el mensaje" >
     </div>
   </div>
   <div class="modal-footer padding-foter">

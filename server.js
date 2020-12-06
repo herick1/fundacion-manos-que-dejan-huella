@@ -558,15 +558,33 @@ const notificationNuevoEvento = {
   }
 };
 
-app.get('/notificacion/get/evento', (req, res) => {
-  var client = new Client({
-    connectionString: process.env.DATABASE_URL+'?ssl=true',
+app.post('/notificacion/enviarNotificacionPersonalizada', (req, res) => {
+  let titulo=req.body.titulo;
+  let mensaje=req.body.mensaje;
+ var client = new Client({
+   connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   client.connect();
 
+  const notificationPersonalizada = {
+  "notification": {
+    "title": titulo,
+    "body": mensaje,
+    "icon": "assets/icon/icono72x72.png",
+    "vibrate": [100, 50, 100],
+    "data": {
+      "dateOfArrival": Date.now(),
+      "primaryKey": 1
+    },
+    "actions": [{
+      "action": "explore",
+      "title": "Go to the site",
+    }]
+  }
+};
+
   var query = `SELECT * FROM Not_ALL()`;
-  
   client.query(query
     , (err, response) => {
       if(err){
@@ -574,8 +592,56 @@ app.get('/notificacion/get/evento', (req, res) => {
         res.status(500).send(err);
       }
       else{
-        res.status(200).send(response.rows);
-      }
+        allSubscriptions=response.rows;
+        for(i=0; i<allSubscriptions.length; i++){
+          allSubscriptions[i].keys={
+            auth:allSubscriptions[i].auth, 
+            p256dh:allSubscriptions[i].p256dh
+          }
+          delete allSubscriptions[i].auth;
+          delete allSubscriptions[i].p256dh;
+        }
+
+        var cantidadSubsrcipciones=allSubscriptions.length;
+        Promise.all(allSubscriptions.map(sub => webpush.sendNotification(sub, 
+          JSON.stringify(notificationPersonalizada) )))
+        .then(() => res.status(200).json({message: `Newsletter sent successfully. ${cantidadSubsrcipciones}`}))
+        .catch(err => {
+          if(cantidadSubsrcipciones>1 && err.body=='push subscription has unsubscribed or expired.\n'){
+
+
+            var query = `CALL Not_delete_especifico('${err.endpoint}')`;
+
+            client.query(query, (err, response) => {
+              if(err){
+                console.log("err"+err)
+                res.status(500).send(err);
+              }
+              else{
+                res.status(200).json({message: 'Newsletter sent successfully.'})
+              }
+            })
+
+          }
+          else{
+
+             var query = `CALL Not_delete_especifico('${err.endpoint}')`;
+
+             client.query(query, (err, response) => {
+               if(err){
+                 console.log("err"+err)
+                 res.status(500).send("error:  "+err);
+               }
+               else{
+                 res.status(200).json({message: 'Las subscripciones expiraron.'})
+               }
+             })
+
+           }
+
+         });
+      };
+      client.end();
     })
 })
 

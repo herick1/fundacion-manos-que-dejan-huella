@@ -404,8 +404,20 @@ export class EventosPage implements OnInit {
     this.modalService.open(this.modalConfirmarNotificacion,{centered:true})
   }
 
+  tituloSeleccionado=""
+  mensajeSeleccionado=""
   Enviar(){
-    this.modalService.dismissAll();
-    this.modalService.open(this.modalExito,{centered:true})
+    let body={
+      titulo:this.tituloSeleccionado,
+      mensaje:this.mensajeSeleccionado
+    }
+    this.httpClient.post(`${this.SERVER_ADDRESS}/notificacion/enviarNotificacionPersonalizada`, body).subscribe( 
+      //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
+      (response: any)=>{    
+          console.log(response)
+          this.modalService.dismissAll();
+          this.modalService.open(this.modalExito,{centered:true})
+      });
+    
   }
 }
