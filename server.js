@@ -80,7 +80,7 @@ app.all('*', function(req, res, next) {
   next();
 });
 
-  app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 
 //descargar APK
@@ -168,12 +168,12 @@ app.put("/evento/actualizar/:id", urlencodedParser, (req, res) => {
     '${body.direccion}', '${body.nombre_imagen}', '${body.url}' );`
   }
 
-client.query(query
-  , (err, response) => {
-    if (err) throw err;
-    res.json(response)
-    client.end();
-  });
+  client.query(query
+    , (err, response) => {
+      if (err) throw err;
+      res.json(response)
+      client.end();
+    });
 
 });
 
@@ -561,28 +561,28 @@ const notificationNuevoEvento = {
 app.post('/notificacion/enviarNotificacionPersonalizada', (req, res) => {
   let titulo=req.body.titulo;
   let mensaje=req.body.mensaje;
- var client = new Client({
-   connectionString: process.env.DATABASE_URL+'?ssl=true',
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
   client.connect();
 
   const notificationPersonalizada = {
-  "notification": {
-    "title": titulo,
-    "body": mensaje,
-    "icon": "assets/icon/icono72x72.png",
-    "vibrate": [100, 50, 100],
-    "data": {
-      "dateOfArrival": Date.now(),
-      "primaryKey": 1
-    },
-    "actions": [{
-      "action": "explore",
-      "title": "Go to the site",
-    }]
-  }
-};
+    "notification": {
+      "title": titulo,
+      "body": mensaje,
+      "icon": "assets/icon/icono72x72.png",
+      "vibrate": [100, 50, 100],
+      "data": {
+        "dateOfArrival": Date.now(),
+        "primaryKey": 1
+      },
+      "actions": [{
+        "action": "explore",
+        "title": "Go to the site",
+      }]
+    }
+  };
 
   var query = `SELECT * FROM Not_ALL()`;
   client.query(query
@@ -625,21 +625,21 @@ app.post('/notificacion/enviarNotificacionPersonalizada', (req, res) => {
           }
           else{
 
-             var query = `CALL Not_delete_especifico('${err.endpoint}')`;
+            var query = `CALL Not_delete_especifico('${err.endpoint}')`;
 
-             client.query(query, (err, response) => {
-               if(err){
-                 console.log("err"+err)
-                 res.status(500).send("error:  "+err);
-               }
-               else{
-                 res.status(200).json({message: 'Las subscripciones expiraron.'})
-               }
-             })
+            client.query(query, (err, response) => {
+              if(err){
+                console.log("err"+err)
+                res.status(500).send("error:  "+err);
+              }
+              else{
+                res.status(200).json({message: 'Las subscripciones expiraron.'})
+              }
+            })
 
-           }
+          }
 
-         });
+        });
       };
       client.end();
     })
@@ -739,48 +739,84 @@ app.post('/contactanos/enviar', (req, res) => {
   const  name  =  req.body.name;
   const  email  =  req.body.email;
   const body= req.body.body;
+  const ip= req.body.ip;
+  const tiempo_actual= new Date()
 
-  let emailCorreo ={ 
-    from:{ 
-      name: 'Soporte dejatushuellas',
-      address: 'soporte.dejatushuellas@gmail.com'
-    },  //remitente
-    to:  `javiloria100@gmail.com, herick200@gmail.com`,  //destinatario
-    subject:`Contactanos`,  //asunto del correo
-    html:`
-    <div>
-    Buen día. Este es un mensaje enviado por el formulario de contactanos.
-    </div>
-    <br> 
+  var client = new Client({
+    connectionString: process.env.DATABASE_URL+'?ssl=true',
+    ssl: true,
+  });
+  let query= `SELECT click_time FROM CONTACTANOS WHERE IP = '${ip}' Order by DESC LIMIT 1;`
+  client.connect();
+  client.query(query
+    , (err, response) => {
+      var f1
+      if(response!=undefined)
+        f1= response.rows[0].click_time
+      else 
+        f1=null
+      console.log(f1)
+      f2=new Date(f1)
+      console.log(f2)
+      f2.setMinutes(f2.getMinutes() + 5);
+      if(tiempo_actual.getTime() >= f2.getTime() || f1==null){
 
-    <div>
-    <label> <strong> Nombre: </strong> </label>
-    <p>
-    ${name}
-    </p>
-    
-    <label> <strong> Correo: </strong> </label>
-    <p>
-    ${email}
-    </p>
-    
-    <label> <strong> Mensaje: </strong> </label>
-    <p>
-    ${body}
-    </p>
-    </div>`
-  }
+        let emailCorreo ={ 
+          from:{ 
+            name: 'Soporte dejatushuellas',
+            address: 'soporte.dejatushuellas@gmail.com'
+          },  //remitente
+          to:  `javiloria100@gmail.com, herick200@gmail.com`,  //destinatario
+          subject:`Contactanos`,  //asunto del correo
+          html:`
+          <div>
+          Buen día. Este es un mensaje enviado por el formulario de contactanos.
+          </div>
+          <br> 
 
-  createTransport.sendMail(emailCorreo, function (error, info) { 
-    if(error){ 
-      console.log("Error al enviar email: "+error); 
-      res.status(500).send(error);
-    } else{ 
-      console.log("Correo enviado correctamente"); 
-      res.status(200).json({message: 'Correo enviado exitosamente.'})
-    } 
-    createTransport.close(); 
-  }); 
+          <div>
+          <label> <strong> Nombre: </strong> </label>
+          <p>
+          ${name}
+          </p>
+          
+          <label> <strong> Correo: </strong> </label>
+          <p>
+          ${email}
+          </p>
+          
+          <label> <strong> Mensaje: </strong> </label>
+          <p>
+          ${body}
+          </p>
+          </div>`
+        }
+
+        createTransport.sendMail(emailCorreo, function (error, info) { 
+          if(error){ 
+            console.log("Error al enviar email: "+error); 
+            res.status(500).send(error);
+          } else{ 
+            console.log("Correo enviado correctamente"); 
+            client.query(`INSERT INTO CONTACTANOS (mensaje, nombre, email, ip, click_time) 
+              VALUES ('${body}','${name}','${email}', '${ip}', '${tiempo_actual}');`
+            , (err, response) => {
+            })
+            res.status(200).json({message: 'Correo enviado exitosamente.'})
+          } 
+          createTransport.close(); 
+        }); 
+      }
+      else{
+        res.status(403).json({message: 'Correo no enviado... Debe esperar 5 minutos desde el ultimo correo.'})
+      }
+
+      //res.status(200).send(response.rows);
+      client.end();
+    });
+
+
+  
 })
 
 

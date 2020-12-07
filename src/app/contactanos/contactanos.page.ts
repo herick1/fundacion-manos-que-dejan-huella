@@ -28,19 +28,25 @@ export class ContactanosPage implements OnInit {
   }
 
   AUTH_SERVER_ADDRESS:  string  =  'https://manos-que-dejan-huella.herokuapp.com';
+  //AUTH_SERVER_ADDRESS:  string  =  'http://localhost:5000';
 
   error="";
   contactar(f){
-    console.log(f.value)
+    this.httpClient.get("http://api.ipify.org/?format=json").subscribe( 
+        //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
+        (response: any)=>{    
+           console.log(response)
+           console.log(f.value)
     var body={
       name:f.value.Nombre,
       email:f.value.Correo,
-      body:f.value.Mensaje
+      body:f.value.Mensaje,
+      ip:response.ip
     }
     //if(nombre!="" && correo!=""&&mensaje!=""){
       this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/contactanos/enviar`,body).subscribe( 
         //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
-        (response: any)=>{    
+        (response2: any)=>{    
           this.modalService.open(this.modalExito,{centered:true});
 
           var campo = <HTMLInputElement> document.getElementById("campo-nombre");
@@ -50,22 +56,24 @@ export class ContactanosPage implements OnInit {
           campo2.value="";
           campo3.value="";
         },
-        (err:any)=>{
-          this.error=err.message
-        }
-
-        );
-      //}
-      //else{
-        //  this.error="Los campos Nombre, correo y mensaje son requeridos"
-        //}
-        
-        
+        (err2:any)=>{
+          this.error=err2.message
+        });
+        })  
+                
       }
 
       ngOnInit() {
-        
+        this.getIPAddress();
       }
+public getIPAddress()  
+  {  
+   this.httpClient.get("http://api.ipify.org/?format=json").subscribe( 
+        //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
+        (response: any)=>{    
+           console.log(response)
+        })  
+  }
 
       ngAfterViewInit(){
         this.tranzabilidadService.EnviarTranzabilidad("Contactanos")
