@@ -809,10 +809,11 @@ app.post('/contactanos/enviar', (req, res) => {
               console.log(errCorreo)
               console.log(responseCorreo)
                res.status(200).json({message: 'Correo enviado exitosamente.'})
+               clientsito.end();
             })
            
           } 
-          clientsito.end();
+
           createTransport.close(); 
         }); 
       }
