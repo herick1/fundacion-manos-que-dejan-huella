@@ -804,7 +804,8 @@ app.post('/contactanos/enviar', (req, res) => {
           });
           clientsito.connect();
             clientsito.query(`INSERT INTO CONTACTANOS (mensaje, nombre, email, ip, click_time) 
-              VALUES ('${body}','${name}','${email}', '${ip}', '${tiempo_actual}');`
+              VALUES ('${body}','${name}','${email}', '${ip}', to_timestamp(
+${tiempo_actual}/ 1000.0));`
             , (errCorreo, responseCorreo) => {
               console.log(errCorreo)
               console.log(responseCorreo)
