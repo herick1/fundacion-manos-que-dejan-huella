@@ -798,7 +798,12 @@ app.post('/contactanos/enviar', (req, res) => {
             res.status(500).send(error);
           } else{ 
             console.log("Correo enviado correctamente"); 
-            client.query(`INSERT INTO CONTACTANOS (mensaje, nombre, email, ip, click_time) 
+            var clientsito = new Client({
+            connectionString: process.env.DATABASE_URL+'?ssl=true',
+            ssl: true,
+          });
+          clientsito.connect();
+            clientsito.query(`INSERT INTO CONTACTANOS (mensaje, nombre, email, ip, click_time) 
               VALUES ('${body}','${name}','${email}', '${ip}', '${tiempo_actual}');`
             , (errCorreo, responseCorreo) => {
               console.log(errCorreo)
@@ -807,6 +812,7 @@ app.post('/contactanos/enviar', (req, res) => {
             })
            
           } 
+          clientsito.end();
           createTransport.close(); 
         }); 
       }
@@ -815,6 +821,7 @@ app.post('/contactanos/enviar', (req, res) => {
       }
 
       //res.status(200).send(response.rows);
+
       client.end();
     });
 
