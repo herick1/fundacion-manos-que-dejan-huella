@@ -800,9 +800,12 @@ app.post('/contactanos/enviar', (req, res) => {
             console.log("Correo enviado correctamente"); 
             client.query(`INSERT INTO CONTACTANOS (mensaje, nombre, email, ip, click_time) 
               VALUES ('${body}','${name}','${email}', '${ip}', '${tiempo_actual}');`
-            , (err, response) => {
+            , (errCorreo, responseCorreo) => {
+              console.log(errCorreo)
+              console.log(responseCorreo)
+               res.status(200).json({message: 'Correo enviado exitosamente.'})
             })
-            res.status(200).json({message: 'Correo enviado exitosamente.'})
+           
           } 
           createTransport.close(); 
         }); 

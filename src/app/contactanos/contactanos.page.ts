@@ -32,7 +32,7 @@ export class ContactanosPage implements OnInit {
 
   error="";
   contactar(f){
-    this.httpClient.get("http://api.ipify.org/?format=json").subscribe( 
+    this.httpClient.get("https://api.ipify.org/?format=json").subscribe( 
         //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
         (response: any)=>{    
            console.log(response)
