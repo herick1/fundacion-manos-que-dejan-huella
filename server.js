@@ -746,7 +746,7 @@ app.post('/contactanos/enviar', (req, res) => {
     connectionString: process.env.DATABASE_URL+'?ssl=true',
     ssl: true,
   });
-  let query= `SELECT click_time FROM CONTACTANOS WHERE IP = '${ip}' Order by DESC LIMIT 1;`
+  let query= `CALL stored ('${ip}')`
   client.connect();
   client.query(query
     , (err, response) => {
