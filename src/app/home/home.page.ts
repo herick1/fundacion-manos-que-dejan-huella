@@ -77,7 +77,7 @@ export class HomePage implements OnInit {
       {
         imagePath: 'assets/img/fundacion-areasIntervencion.png',
         href: "/es/home#",
-        label: '¿Cuales son nuestras areas de Intervención?',
+        label: '¿Cuales son nuestras áreas de Intervención?',
         text:
         'Siempre tratando de ayudar y crecer a nuestra Venezuela'
       },
@@ -131,7 +131,6 @@ toggleMenu() {
 ngOnInit() {
 
     this.httpClient.get(`${this.SERVER_ADDRESS}/evento/imagenes`).subscribe( 
-      //TODO esto te devulve todos los jugadores hacer uno que te duvuelva solo un jugador /jugador
       (response: any)=>{    
         for(var i=0; i< response.length; i++)
         {

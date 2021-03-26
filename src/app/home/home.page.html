@@ -78,10 +78,34 @@
             <!-- PAGE CONTENT -->
             <div class="work_area" >
                 <!-- PAGE CONTENT WRAPPER -->
-                <div class="container" >                   
+                <div style="margin-left: 5%; margin-right: 5%; margin-top:20px;">                   
                     <div class="row">
-  
-                        <div class="col-md-8">
+  <div class="col-xl-8">
+<div class="panel panel-default">
+                                <div class="panel-heading" style="margin-bottom: 30px;">
+                                        <h3>Evento(s)</h3>                                 
+                                </div>
+                                    
+         <ngb-carousel class="carousel slide" data-ride="carousel" style="margin-bottom: 40px;">
+                <ng-template ngbSlide *ngFor="let slider of sliderEvento">
+                    <div  class="carousel-inner containerImagen">
+                    <img class="img-fluid mx-auto d-block" style="max-height: 550px" [src]="slider.imagePath" alt="Random first slide" width="100%" >
+<!--
+                    <div class="carousel-caption" style="background-color: rgba(0,0,0,0.3);        -moz-border-radius: 9px;
+ -webkit-border-radius:9px;">
+
+                        <h3 style="color: white">{{slider.label}}</h3>
+                        <p>{{slider.text}}</p> 
+                    </div>-->
+                </div>
+                </ng-template>
+        </ngb-carousel>
+</div>
+
+                            <!-- END PROJECTS BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-4">
                             
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
@@ -120,65 +144,36 @@
                             </div>
                             <!-- END SALES BLOCK -->
                         </div>
-                        <div class="col-md-4">
-                            
-                            <!-- START PROJECTS BLOCK -->
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                        <h3>Evento(s)</h3>                                 
-                                </div>
-                                <div class="panel-body panel-body-table">
-                                    
-         <ngb-carousel class="carousel slide" data-ride="carousel">
-                <ng-template ngbSlide *ngFor="let slider of sliderEvento">
-                    <div  class="carousel-inner">
-                    <img class="img-fluid mx-auto d-block" style="max-height: 400px" [src]="slider.imagePath" alt="Random first slide" width="100%" >
-
-                    <div class="carousel-caption" style="background-color: rgba(0,0,0,0.3);        -moz-border-radius: 9px;
- -webkit-border-radius:9px;">
-
-                        <h3 style="color: white">{{slider.label}}</h3>
-                        <p>{{slider.text}}</p>
-                    </div>
-                </div>
-                </ng-template>
-        </ngb-carousel>
-
- 
-                   
-                                </div>
-                            </div>
-                            <!-- END PROJECTS BLOCK -->
-                            
-                        </div>
-                    </div>
-                    
-                    <div class="row">
+                        
                       <div class="col-md-4">
                             
                             <!-- START USERS ACTIVITY BLOCK -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <div class="panel-title-box">
-                           <a href="es/quienes-somos">
+                                    <div  align=center>
+                           <a href="es/quienes-somos" style="color: black;">
                                         <h3>¿Quienes somos?</h3>
                                         <span>¿Te gustaria saber más sobre nosotros?</span>
                                     </a>
                                     </div>                                      
                                 </div>                                
                                 <div class="panel-body padding-0">
-                                    <div class="row stacked" style="background: white">
-                <div class="col-lg-5">
+                                    <div  class="row stacked" style="background: white">
+                                        <div class="col-md-2">
+                                        </div>
+                <div class="col-md-5">
                     <div class="banner_content">
                                                    <a href="es/quienes-somos">
                         <p class="color-azul"><br/>Somos una fundación que desarrolla programas y proyectos que mejoren la calidad de vida y el bienestar en nuestra sociedad venezolana...</p>
                     </a>
                     </div>
                 </div>      
-                <div class="col-lg-6">
+                <div class="col-md-4">
                     <a class="home_left_img" href="es/quienes-somos">
                         <img class="img-fluid" src="assets/img/fundacion.png" alt="">
                     </a>
+                </div>
+                <div class="col-md-1">
                 </div>
                                     </div>
 
@@ -188,19 +183,19 @@
                             <!-- END USERS ACTIVITY BLOCK -->
                             
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-md-4">
                             
                             <!-- START VISITORS BLOCK -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <div class="panel-title-box">
+                                    <div align=center>
                                         <h3>Redes Sociales</h3>
                                         <span>Siguenos en todas nuestras redes sociales</span>
                                     </div>
                                 </div>
-                                <div class="panel-body padding-0">
+                                <div class="panel-body" align=center style="padding: 22px;">
                                     <div class="row stacked" >
-                                        <div class="col-md-5">
+                                        <div class="col-md-12">
                                             <a href="https://www.facebook.com/Dejatuhuella777">
   <button class="social-button-circle-facebook"><ion-icon class="ion-icon-social" name="logo-facebook"></ion-icon> </button>
 </a>
@@ -208,14 +203,14 @@
   <button  class="social-button-outline-facebook"> @dejatuhuella</button>
 </a>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-12">
                                             <a href="https://twitter.com/dejatushuellas" >
                                               <button class="social-button-circle-twitter"><ion-icon class="ion-icon-social" name="logo-twitter"></ion-icon> </button>
                                               </a>
                                               <a href="https://twitter.com/dejatushuellas">
                                                <button  class="social-button-outline-twitter"> @dejatushuellas</button></a>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-12">
   <a href="https://www.instagram.com/dejatushuellas"><button class="social-button-circle-instagram"><ion-icon class="ion-icon-social" name="logo-instagram"></ion-icon> </button></a>
   <a href="https://www.instagram.com/dejatushuellas"><button class="social-button-outline-instagram"> @dejatushuellas</button></a>
                                         </div>
@@ -231,14 +226,15 @@
                             <!-- CONTACT ITEM -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <div class="panel-title-box">
+                                    <div align=center>
 
-                           <a href="es/contactanos"> 
+                           <a href="es/contactanos" style="color:black;"> 
                                         <h3>Contactanos</h3>
+                                        <span>Escribenos en todas nuestras redes</span>
                                     </a>
                                     </div>
                                 </div>                                
-                                <div class="panel-body img-bg">
+                                <div class="panel-body img-bg" style="padding: 28px;">
 
                            <a href="es/contactanos">                                     
                                     <div class="contact-info">
