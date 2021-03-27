@@ -42,217 +42,226 @@
                     <li class="nav-item">
                         <div *ngIf="prueba==true">
                           <a class="nav-link" [routerLinkActive]="['router-link-active']" [routerLink]="['/es/eventos']" >Eventos</a>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://www.facebook.com/Dejatuhuella777">
-                            <ion-icon name="logo-facebook" aria-hidden="true"></ion-icon>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://twitter.com/dejatushuellas">
-                            <ion-icon name="logo-twitter" aria-hidden="true"></ion-icon>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://www.instagram.com/dejatushuellas">
-                            <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
-                        </a>
-                    </li>
-                    <li class="nav-item" >
-                        <a class="navbar-brand"  [routerLinkActive]="['router-link-active']" [routerLink]="['/es/login']" *ngIf="prueba==false">Entrar</a>
-                        <a class="navbar-brand" (click)="logout()" *ngIf="prueba==true">Salir</a>
-                        
-                    </li>
-                </ul>
-            </div>
+                      </div>
+                  </li>
+              </ul>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.facebook.com/Dejatuhuella777">
+                        <ion-icon name="logo-facebook" aria-hidden="true"></ion-icon>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://twitter.com/dejatushuellas">
+                        <ion-icon name="logo-twitter" aria-hidden="true"></ion-icon>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.instagram.com/dejatushuellas">
+                        <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
+                    </a>
+                </li>
+                <li class="nav-item" >
+                    <a class="navbar-brand"  [routerLinkActive]="['router-link-active']" [routerLink]="['/es/login']" *ngIf="prueba==false">Entrar</a>
+                    <a class="navbar-brand" (click)="logout()" *ngIf="prueba==true">Salir</a>
 
+                </li>
+            </ul>
         </div>
-    </nav>
+
+    </div>
+</nav>
 </ion-header>
 
 <ion-content>
-            
-            <!-- PAGE CONTENT -->
-            <div class="work_area" >
-                <!-- PAGE CONTENT WRAPPER -->
-                <div style="margin-left: 5%; margin-right: 5%; margin-top:20px;">                   
-                    <div class="row">
-  <div class="col-xl-8">
-<div class="panel panel-default">
-                                <div class="panel-heading" style="margin-bottom: 30px;">
-                                        <h3>Evento(s)</h3>                                 
-                                </div>
-                                    
-         <ngb-carousel class="carousel slide" data-ride="carousel" style="margin-bottom: 40px;">
-                <ng-template ngbSlide *ngFor="let slider of sliderEvento">
-                    <div  class="carousel-inner containerImagen">
-                    <img class="img-fluid mx-auto d-block" style="max-height: 550px" [src]="slider.imagePath" alt="Random first slide" width="100%" >
-<!--
-                    <div class="carousel-caption" style="background-color: rgba(0,0,0,0.3);        -moz-border-radius: 9px;
- -webkit-border-radius:9px;">
 
-                        <h3 style="color: white">{{slider.label}}</h3>
-                        <p>{{slider.text}}</p> 
-                    </div>-->
+    <!-- PAGE CONTENT -->
+    <div class="work_area" >
+        <!-- PAGE CONTENT WRAPPER -->
+        <div style="margin-left: 5%; margin-right: 5%; margin-top:20px;">                   
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="margin-bottom: 30px;">
+                            <h3>Evento(s)</h3>                                 
+                        </div>
+
+                        <ngb-carousel class="carousel slide" data-ride="carousel" style="margin-bottom: 40px;">
+                            <ng-template ngbSlide *ngFor="let slider of sliderEvento">
+                                <div  class="carousel-inner containerImagen">
+                                    <img class="img-fluid mx-auto d-block" style="max-height: 550px" [src]="slider.imagePath" alt="Random first slide" width="100%" >
+                <!--
+                                    <div class="carousel-caption" style="background-color: rgba(0,0,0,0.3);        -moz-border-radius: 9px;
+                 -webkit-border-radius:9px;">
+
+                                        <h3 style="color: white">{{slider.label}}</h3>
+                                        <p>{{slider.text}}</p> 
+                                    </div>-->
+                                </div>
+                            </ng-template>
+                        </ngb-carousel>
+                    </div>
+
+                    <!-- END PROJECTS BLOCK -->
+
                 </div>
-                </ng-template>
-        </ngb-carousel>
-</div>
-
-                            <!-- END PROJECTS BLOCK -->
-                            
-                        </div>
-                        <div class="col-md-4">
-                            
-                            <!-- START SALES BLOCK -->
-                            <div class="panel panel-default">
-                                <div class="panel-body carousel slide tamano-home" data-ride="carousel">
-                                     <ion-grid>
-    <ion-row>
-      <ion-col class="col-md-1" size="1">
-  <div style="position: absolute;top: 50%;left: 16px;font-size: 25px;z-index: 2;" (click)="prevSlide(slider)">
-    <ion-icon class="icon-slider-forma" name="arrow-dropleft-circle"></ion-icon>
-  </div>
-      </ion-col>
-      <ion-col class="col-md-6" size="10">
- 
-    <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
-        <ion-slide padding ngbSlide *ngFor="let slider of slidershome">
-            <div class="carousel-inner">
-                <a [href]="slider.href"> <img class="img-fluid mx-auto d-block" style="min-height: 200px ;" [src]="slider.imagePath" alt="Random first slide" width="100%"></a>
-                    <div>
-                        <h3>{{slider.label}}</h3>
-                        <p>{{slider.text}}</p>
-                        <br/>
-                    </div>
-            </div>
-        </ion-slide>
-    
-      </ion-slides>
-      </ion-col>
-      <ion-col  class="col-md-1" size="1">
-   <div style="position: absolute;top: 50%;right: 16px;font-size: 25px;z-index: 2;" (click)="nextSlide(slider)">
-    <ion-icon class="icon-slider-forma" name="arrow-dropright-circle"></ion-icon>
-  </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>                                  
-                                </div>
-                            </div>
-                            <!-- END SALES BLOCK -->
-                        </div>
-                        
-                      <div class="col-md-4">
-                            
-                            <!-- START USERS ACTIVITY BLOCK -->
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div  align=center>
-                           <a href="es/quienes-somos" style="color: black;">
-                                        <h3>¿Quienes somos?</h3>
-                                        <span>¿Te gustaria saber más sobre nosotros?</span>
-                                    </a>
-                                    </div>                                      
-                                </div>                                
-                                <div class="panel-body padding-0">
-                                    <div  class="row stacked" style="background: white">
-                                        <div class="col-md-2">
-                                        </div>
-                <div class="col-md-5">
-                    <div class="banner_content">
-                                                   <a href="es/quienes-somos">
-                        <p class="color-azul"><br/>Somos una fundación que desarrolla programas y proyectos que mejoren la calidad de vida y el bienestar en nuestra sociedad venezolana...</p>
-                    </a>
-                    </div>
-                </div>      
                 <div class="col-md-4">
-                    <a class="home_left_img" href="es/quienes-somos">
-                        <img class="img-fluid" src="assets/img/fundacion.png" alt="">
+
+                    <!-- START SALES BLOCK -->
+                    <div class="panel panel-default">
+                        <div class="panel-body carousel slide tamano-home" data-ride="carousel">
+                         <ion-grid>
+                            <ion-row>
+                              <ion-col class="col-md-1" size="1">
+                                  <div style="position: absolute;top: 50%;left: 16px;font-size: 25px;z-index: 2;" (click)="prevSlide(slider)">
+                                    <ion-icon class="icon-slider-forma" name="arrow-dropleft-circle"></ion-icon>
+                                </div>
+                            </ion-col>
+                            <ion-col class="col-md-6" size="10">
+
+                                <ion-slides [options]="slideOptions" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">
+                                    <ion-slide padding ngbSlide *ngFor="let slider of slidershome">
+                                        <div class="carousel-inner">
+                                            <a [href]="slider.href"> <img class="img-fluid mx-auto d-block" style="min-height: 200px ;" [src]="slider.imagePath" alt="Random first slide" width="100%"></a>
+                                            <div>
+                                                <h3>{{slider.label}}</h3>
+                                                <p>{{slider.text}}</p>
+                                                <br/>
+                                            </div>
+                                        </div>
+                                    </ion-slide>
+
+                                </ion-slides>
+                            </ion-col>
+                            <ion-col  class="col-md-1" size="1">
+                               <div style="position: absolute;top: 50%;right: 16px;font-size: 25px;z-index: 2;" (click)="nextSlide(slider)">
+                                <ion-icon class="icon-slider-forma" name="arrow-dropright-circle"></ion-icon>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>                                  
+            </div>
+        </div>
+        <!-- END SALES BLOCK -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- START USERS ACTIVITY BLOCK -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div  align=center>
+                    <a href="es/quienes-somos" style="color: black;">
+                        <h3>¿Quienes somos?</h3>
+                        <span>¿Te gustaría saber más sobre nosotros?</span>
                     </a>
+                </div>                                      
+            </div>                                
+            <div class="panel-body padding-0">
+                <div  class="row stacked" style="background: white">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-5">
+                        <div class="banner_content">
+                           <a href="es/quienes-somos">
+                                <p class="color-azul"><br/>Somos una fundación que desarrolla programas y proyectos que mejoren la calidad de vida y el bienestar en nuestra sociedad venezolana...</p>
+                            </a>
+                        </div>
+                    </div>      
+                    <div class="col-md-4">
+                        <a class="home_left_img" href="es/quienes-somos">
+                            <img class="img-fluid" src="assets/img/fundacion.png" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-1"></div>
                 </div>
-                <div class="col-md-1">
+            </div>                                    
+        </div>
+    <!-- END USERS ACTIVITY BLOCK -->
+    </div>
+    <div class="col-md-4">
+
+        <!-- START VISITORS BLOCK -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div align=center>
+                    <h3>Redes Sociales</h3>
+                    <span>Siguenos en todas nuestras redes sociales</span>
                 </div>
-                                    </div>
-
-            
-                                </div>                                    
-                            </div>
-                            <!-- END USERS ACTIVITY BLOCK -->
-                            
-                        </div>
-                        <div class="col-md-4">
-                            
-                            <!-- START VISITORS BLOCK -->
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div align=center>
-                                        <h3>Redes Sociales</h3>
-                                        <span>Siguenos en todas nuestras redes sociales</span>
-                                    </div>
-                                </div>
-                                <div class="panel-body" align=center style="padding: 22px;">
-                                    <div class="row stacked" >
-                                        <div class="col-md-12">
-                                            <a href="https://www.facebook.com/Dejatuhuella777">
-  <button class="social-button-circle-facebook"><ion-icon class="ion-icon-social" name="logo-facebook"></ion-icon> </button>
-</a>
-<a href="https://www.facebook.com/Dejatuhuella777">
-  <button  class="social-button-outline-facebook"> @dejatuhuella</button>
-</a>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <a href="https://twitter.com/dejatushuellas" >
-                                              <button class="social-button-circle-twitter"><ion-icon class="ion-icon-social" name="logo-twitter"></ion-icon> </button>
-                                              </a>
-                                              <a href="https://twitter.com/dejatushuellas">
-                                               <button  class="social-button-outline-twitter"> @dejatushuellas</button></a>
-                                        </div>
-                                        <div class="col-md-12">
-  <a href="https://www.instagram.com/dejatushuellas"><button class="social-button-circle-instagram"><ion-icon class="ion-icon-social" name="logo-instagram"></ion-icon> </button></a>
-  <a href="https://www.instagram.com/dejatushuellas"><button class="social-button-outline-instagram"> @dejatushuellas</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END VISITORS BLOCK -->
-                            
-                        </div>
-                        
-                        <div class="col-md-4">
-                           
-                            <!-- CONTACT ITEM -->
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div align=center>
-
-                           <a href="es/contactanos" style="color:black;"> 
-                                        <h3>Contactanos</h3>
-                                        <span>Escribenos en todas nuestras redes</span>
-                                    </a>
-                                    </div>
-                                </div>                                
-                                <div class="panel-body img-bg" style="padding: 28px;">
-
-                           <a href="es/contactanos">                                     
-                                    <div class="contact-info">
-                                        <p><small></small><br/></p>  
-                                        <p><small></small><br/></p>  
-                                        <p><small>Correo Electronico</small><br/>manosquedejanhuellas@gmail.com</p>
-                                        <p><small></small><br/></p>                                   
-                                    </div>
-                                </a>
-                                </div>                                
-                            </div>
-                            <!-- END CONTACT ITEM --> 
-                        </div>
+            </div>
+            <div class="panel-body" align=center style="padding: 25px;">
+                <div class="row stacked" >
+                    <div class="row" style="margin-bottom: 7px;">
+                        <div class="col-3"></div>
+                        <div class="col-3">
+                            <a href="https://www.facebook.com/Dejatuhuella777">
+                              <button class="social-button-circle-facebook"><ion-icon class="ion-icon-social" name="logo-facebook"></ion-icon> </button>
+                          </a>
+                      </div>
+                      <div class="col-6">
+                        <a href="https://www.facebook.com/Dejatuhuella777">
+                            <button  class="social-button-outline-facebook" style="padding-right: 26px;"> @dejatuhuella</button>
+                        </a>
                     </div>
                 </div>
-                <!-- END PAGE CONTENT WRAPPER -->                                
-            </div>            
-            <!-- END PAGE CONTENT -->
+                <div class="row" style="margin-bottom: 7px;">
+                    <div class="col-3"></div>
+                    <div class="col-3">
+                        <a href="https://twitter.com/dejatushuellas" >
+                          <button class="social-button-circle-twitter"><ion-icon class="ion-icon-social" name="logo-twitter"></ion-icon> </button>
+                      </a>
+                  </div>
+                  <div class="col-6">
+                   <a href="https://twitter.com/dejatushuellas">
+                       <button  class="social-button-outline-twitter"> @dejatushuellas</button></a>
+                   </div>
+
+               </div>
+               <div class="row">
+                <div class="col-3"></div>
+                <div class="col-3">
+                    <a href="https://www.instagram.com/dejatushuellas"><button class="social-button-circle-instagram"><ion-icon class="ion-icon-social" name="logo-instagram"></ion-icon> </button></a>
+
+                </div>
+                <div class="col-6">
+                 <a href="https://www.instagram.com/dejatushuellas"><button class="social-button-outline-instagram"> @dejatushuellas</button></a> 
+             </div>
+         </div>
+
+     </div>
+    </div>
+    </div>
+    <!-- END VISITORS BLOCK -->
+
+    </div>
+
+    <div class="col-md-4">
+
+        <!-- CONTACT ITEM -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div align=center>
+
+                    <a href="es/contactanos" style="color:black;"> 
+                        <h3>Contactanos</h3>
+                        <span>Escribenos en todas nuestras redes</span>
+                    </a>
+                </div>
+            </div>                                
+            <div class="panel-body img-bg" style="padding: 65px;">
+                <a href="es/contactanos">                                     
+                    <div class="contact-info"> 
+                        <p style="font-size: large; background-color: white;"><small>Correo Electronico</small><br/>manosquedejanhuellas@gmail.com</p>                                
+                    </div>
+                </a>
+            </div>                                
+        </div>
+    <!-- END CONTACT ITEM --> 
+    </div>
+</div>
+</div>
+<!-- END PAGE CONTENT WRAPPER -->                                
+</div>            
+<!-- END PAGE CONTENT -->
 
 
 </ion-content>
