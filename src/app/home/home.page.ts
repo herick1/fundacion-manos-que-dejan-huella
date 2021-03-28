@@ -84,7 +84,7 @@ export class HomePage implements OnInit {
       {
         imagePath: 'assets/gif/gif-phone.gif',
         href:"/es/home#",
-        label: '¿Sabias de nuestra app Movil?',
+        label: '¿Sabias de nuestra App Móvil?',
         text: 'Utilizala para estar conectado a nosotros en todo momento.'
       },
       {
@@ -109,8 +109,8 @@ export class HomePage implements OnInit {
       {
         imagePath: 'assets/gif/gif-phone.gif',
         href:"/download?ngsw-bypass=true",
-        label: '¿Sabias de nuestra app Movil?',
-        text: 'Utilizala para estar conectado a nosotros en todo momento.'
+        label: '¿Sabias de nuestra App Móvil?',
+        text: 'Haz clic para descargar la App Móvil y mantente conectado con nosotros en todo momento.'
       },
       {
         imagePath: 'assets/img/fundacion-mundo.png',
