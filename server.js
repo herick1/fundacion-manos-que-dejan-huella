@@ -766,7 +766,7 @@ app.post('/contactanos/enviar', (req, res) => {
             name: 'Soporte dejatushuellas',
             address: 'soporte.dejatushuellas@gmail.com'
           },  //remitente
-          to:  `javiloria100@gmail.com, herick200@gmail.com`,  //destinatario
+          to:  `javiloria100@gmail.com, herick200@gmail.com, manosquedejanhuellas@gmail.com`,  //destinatario
           subject:`Contactanos`,  //asunto del correo
           html:`
           <div>
