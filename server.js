@@ -113,7 +113,7 @@ app.get("/evento/imagenes", urlencodedParser, (req, res) => {
     ssl: true,
   });
   client.connect();
-  client.query('SELECT * FROM top3_eventos_imagenes();'
+  client.query('SELECT * FROM top_eventos_imagenes();'
     , (err, response) => {
       if (err) throw err;
       res.json(response.rows)

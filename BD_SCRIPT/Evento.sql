@@ -72,8 +72,8 @@ order by id desc;
 
 $$ LANGUAGE SQL; 
  
- --obtener los ultimos 3 eventos
-CREATE or replace FUNCTION top3_eventos_imagenes() RETURNS table(id int, Nombre VARCHAR(100), 
+ --obtener los ultimos 6 eventos
+CREATE or replace FUNCTION top_eventos_imagenes() RETURNS table(id int, Nombre VARCHAR(100), 
 Descripcion VARCHAR(300), Url varchar(400)) AS $$
  set lc_time='es_ES.UTF-8';
  
