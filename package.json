@@ -75,7 +75,7 @@
     "express-fileupload": "^1.2.0",
     "firebase": "^7.23.0",
     "get-emails": "^3.0.0",
-    "got": "11.7.0",
+    "got": "11.8.5",
     "heroku-ssl-redirect": "^0.1.1",
     "ip": "^1.1.5",
     "jasmine-core": "~3.5.0",
